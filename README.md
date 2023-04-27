@@ -15,9 +15,7 @@ User Should Be Able to:
 
 ### Technologies
 
-- (Meta)Framework?
-  - Sveltekit
-  - React/Solid/Svelte,Express
+- SvelteKit
 - Auth?
   - Passport
   - Github OAuth
