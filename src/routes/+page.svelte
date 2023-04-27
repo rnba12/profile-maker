@@ -1,2 +1,8 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+    
+</script>
+
+<h1>Profile Maker</h1>
+<p>Showcase your skills (tagline pending)</p>
+
+<a href="/login">Login</a>
