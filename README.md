@@ -46,4 +46,3 @@ TODO: Schema
 - [ ] Wireframes
 - [ ] Schema
 - [ ] Come up with a better name
-- [ ] Put this on github so I know im serious about this 
