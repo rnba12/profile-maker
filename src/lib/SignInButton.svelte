@@ -5,7 +5,7 @@
     export let icon;
 </script>
 
-<button on:click={() => signIn(provider)}>
+<button on:click={() => signIn(provider, {callbackUrl: '/user/edit'})}>
     <img src={icon} alt="icon">
     Sign In With {displayText}
 </button>
