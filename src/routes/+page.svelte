@@ -1,29 +1,30 @@
 <script>
-    import { signIn, signOut } from '@auth/sveltekit/client';
+    import { signOut } from '@auth/sveltekit/client';
 	import { page } from '$app/stores';
+    import SignInButton from '../lib/SignInButton.svelte';
+    import githubLogo from '../lib/assets/mark-github.svg'
 </script>
 
-<h1>Profile Maker</h1>
-<p>Showcase your skills (tagline pending)</p>
 
-<a href="/login">Login</a>
+<main>
+    <h1>Profile Maker</h1>
+    <p>Showcase Your Skills</p>
+    <div class="sign-in">
+        <h2>Sign In</h2>
+        <SignInButton provider="github" displayText="GitHub" icon={githubLogo}/>
+    </div>
+</main>
 
-<h1>SvelteKit Auth Example</h1>
-<p>
-  {#if $page.data.session}
-    {#if $page.data.session.user?.image}
-      <span
-        style="background-image: url('{$page.data.session.user.image}')"
-        class="avatar"
-      />
-    {/if}
-    <span class="signedInText">
-      <small>Signed in as</small><br />
-      <strong>{$page.data.session.user?.name ?? "User"}</strong>
-    </span>
-    <button on:click={() => signOut()} class="button">Sign out</button>
-  {:else}
-    <span class="notSignedInText">You are not signed in</span>
-    <button on:click={() => signIn("github")}>Sign In with GitHub</button>
-  {/if}
-</p>
+<style>
+    main {
+        padding: 30px;
+    }
+    .sign-in {
+        padding: 20px;
+        border: 1px solid grey;
+        border-radius: 10px;
+        width: 300px;
+        height: 300px;
+    }
+
+</style>
