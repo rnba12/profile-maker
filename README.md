@@ -5,7 +5,7 @@ Linktree-inspired simple portfolio page
 ## User Stories
 
 User Should Be Able to:
-  - [ ] Login
+  - [x] Login
   - [ ] Add their name
   - [ ] Upload Image
   - [ ] Add a description
@@ -16,10 +16,9 @@ User Should Be Able to:
 ### Technologies
 
 - SvelteKit
-- Auth?
-  - Passport
-  - Github OAuth
-  - Do it myself (Probably not)
+- Auth.js
+  - Github
+  - ...
 - Styling
   - Pico CSS
   - Tailwind?
