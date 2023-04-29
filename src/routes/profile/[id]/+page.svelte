@@ -1,6 +1,22 @@
 <script>
     import { page } from '$app/stores';
-    console.log($page)
+    import Hero from '$lib/compnents/Hero.svelte';
+    import Module from '$lib/compnents/Module.svelte';
+    import mockData from '$lib/assets/mockData.json'
+    import ProjectItem from '../../../lib/compnents/ProjectItem.svelte';
+
+    console.log(mockData)
 </script>
 
-<h1>Profile {$page.params.id}</h1>
+<Hero name={mockData.name} about={mockData.about}/>
+<Module header="Languages">
+    {#each mockData.languages as lang}
+        <div>{lang}</div>
+    {/each}
+</Module>
+
+<Module header="Projects">
+    {#each mockData.projects as {title, description, technologies}}
+        <ProjectItem title={title} description={description} technologies={technologies}/>
+    {/each}
+</Module>

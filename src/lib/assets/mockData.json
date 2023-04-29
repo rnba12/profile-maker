@@ -1,0 +1,25 @@
+{
+    "name": "Russell Ampomah",
+    "profilePicture": "difeioncwopwcopcweopmwopmpwocmopcw",
+    "about": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
+    "links": {
+        "github": "",
+        "twitter": "",
+        "linkedin": ""
+    },
+    "languages" : ["Python","JavaScript","C","Java"],
+    "projects": [
+        {
+            "title": "Habitual",
+            "url": "http://habitual.com",
+            "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
+            "technologies": ["HTML", "CSS", "JavaScript"]
+        },
+        {
+            "title": "Early Bird",
+            "url": "http://earlybird.com",
+            "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
+            "technologies": ["React", "CSS"]
+        }
+    ]
+}
