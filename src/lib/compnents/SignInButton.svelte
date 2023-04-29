@@ -7,5 +7,19 @@
 
 <button on:click={() => signIn(provider, {callbackUrl: '/user/edit'})}>
     <img src={icon} alt="icon">
-    Sign In With {displayText}
+    Continue With {displayText}
 </button>
+
+<style>
+    button {
+        @apply
+            flex justify-center items-center
+            gap-2
+            border-none
+            bg-black text-white
+            rounded-md
+            px-4 py-2
+            text-lg
+            cursor-pointer;  
+    }
+</style>
