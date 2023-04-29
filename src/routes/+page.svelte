@@ -35,10 +35,10 @@
     .login-box {
         @apply
             bg-white 
-            rounded-md
+            rounded-2xl
             border-solid
-            border-gray-100
-            shadow-lg
+            border-gray-200
+            
             px-5 pb-8
             mt-6
             ;
