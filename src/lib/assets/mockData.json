@@ -5,10 +5,14 @@
     "tagline": "Lorem ipsum dolor sit amet",
     "links": {
         "github": "",
-        "twitter": "",
         "linkedin": ""
     },
-    "languages" : ["Python","JavaScript","C","Java"],
+    "languages" : {
+        "python" : "Python",
+        "javascript": "JavaScript",
+        "csharp": "C#",
+        "react": "Reactjs"
+    },
     "projects": [
         {
             "title": "Habitual",
@@ -23,7 +27,7 @@
             "technologies": ["React", "CSS"]
         },
         {
-            "title": "Early Bird",
+            "title": "See It Say It",
             "url": "http://earlybird.com",
             "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
             "technologies": ["React", "CSS"]
