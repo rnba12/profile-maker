@@ -1,20 +1,21 @@
 <script>
-    import { page } from '$app/stores';
     import Hero from '$lib/compnents/Hero.svelte';
     import Module from '$lib/compnents/Module.svelte';
     import mockData from '$lib/assets/mockData.json'
     import ProjectItem from '../../../lib/compnents/ProjectItem.svelte';
-
-    console.log(mockData)
+    import iconLookup from '$lib/icons.js'
+   
 </script>
 
 <main>
-    <Hero name={mockData.name} tagline={mockData.tagline}/>
+    <Hero name={mockData.name} tagline={mockData.tagline} links={mockData.links}/>
     <div class="content">
         <div class="content-top">
-            <Module header="Languages">
-                {#each mockData.languages as lang}
-                    <div>{lang}</div>
+            <Module header="Languages/Technologies">
+                {#each Object.entries(mockData.languages) as [icon, name]}
+                    <img width="20px" height="20px" src={iconLookup[icon] || iconLookup['code']} alt="">
+                    <span>{name}</span>
+                    <br>
                 {/each}
             </Module>
             <Module header="About Me">
