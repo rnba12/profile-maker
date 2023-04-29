@@ -1,7 +1,8 @@
 {
-    "name": "Russell Ampomah",
+    "name": "Lorem Ipsum",
     "profilePicture": "difeioncwopwcopcweopmwopmpwocmopcw",
-    "about": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
+    "about": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
+    "tagline": "Lorem ipsum dolor sit amet",
     "links": {
         "github": "",
         "twitter": "",
@@ -14,6 +15,12 @@
             "url": "http://habitual.com",
             "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
             "technologies": ["HTML", "CSS", "JavaScript"]
+        },
+        {
+            "title": "Early Bird",
+            "url": "http://earlybird.com",
+            "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
+            "technologies": ["React", "CSS"]
         },
         {
             "title": "Early Bird",

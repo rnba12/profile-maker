@@ -8,15 +8,45 @@
     console.log(mockData)
 </script>
 
-<Hero name={mockData.name} about={mockData.about}/>
-<Module header="Languages">
-    {#each mockData.languages as lang}
-        <div>{lang}</div>
-    {/each}
-</Module>
+<main>
+    <Hero name={mockData.name} tagline={mockData.tagline}/>
+    <div class="content">
+        <div class="content-top">
+            <Module header="Languages">
+                {#each mockData.languages as lang}
+                    <div>{lang}</div>
+                {/each}
+            </Module>
+            <Module header="About Me">
+                {mockData.about}
+            </Module>
+        </div>
+        
+        <Module header="Projects">
+            {#each mockData.projects as {title, description, technologies}}
+                <ProjectItem title={title} description={description} technologies={technologies}/>
+            {/each}
+        </Module>
+    </div>
+</main>
 
-<Module header="Projects">
-    {#each mockData.projects as {title, description, technologies}}
-        <ProjectItem title={title} description={description} technologies={technologies}/>
-    {/each}
-</Module>
+<style>
+    main {
+        @apply 
+            h-full
+            bg-gray-100
+            ;
+        
+    }     
+    .content {
+        @apply    
+            p-4
+           ; 
+    }
+    .content-top {
+        @apply 
+            flex flex-row
+            h-72 
+            ;
+    }
+</style>
