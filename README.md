@@ -2,6 +2,13 @@
 
 Linktree-inspired simple portfolio page
 
+### Technologies
+
+  <img src="https://img.shields.io/badge/-JavaScript-black?logo=javascript&logoColor=%F7DF1E&style=for-the-badge" alt="JavaScript"/>
+  <img src="https://img.shields.io/badge/-SvelteKit-FF3E00?logo=svelte&logoColor=white&style=for-the-badge" alt="JavaScript"/>
+  <img src="https://img.shields.io/badge/-MongoDB-47A248?logo=mongodb&logoColor=white&style=for-the-badge" alt="JavaScript"/>
+  <img src="https://img.shields.io/badge/-Tailwind-06B6D4?logo=tailwindcss&logoColor=white&style=for-the-badge" alt="JavaScript"/>
+
 ## User Stories
 
 User Should Be Able to:
@@ -13,33 +20,7 @@ User Should Be Able to:
   - [ ] Add links (Github, LinkedIn, Twitter, etc.)
   - [ ] Add Projects
 
-### Technologies
-
-- SvelteKit
-- Auth.js
-  - Github
-  - ...
-- Styling
-  - Pico CSS
-  - Tailwind?
-  - Do it myself (again probably not)
-- Database
-  - Supabase looks good
-  - Probably supabase
-  - MongoDB? (no)
-
-## Wireframes
-
-TODO: Wireframes
-
-## Database Schema
-
-TODO: Schema
 
 
 ## Todo
-
-- [ ] Pick tech stack
-- [ ] Wireframes
-- [ ] Schema
 - [ ] Come up with a better name
