@@ -8,39 +8,20 @@
 </script>
 
 
-<main>
-    <img class="grid-left" src={stock} alt="code">
-    <div class="grid-right">
-        <h1>Profile Maker</h1>
-        <p>Showcase Your Skills</p>
-        <div class="login-box">
-            <h2>Sign In</h2>
+<main class="grid grid-cols-2">
+    <img class="grid-left object-cover h-screen" src={stock} alt="code">
+    <div class="grid-right p-8">
+        <h1 class="text-5xl font-bold">Profile Maker</h1>
+        <p class="text-xl">Showcase Your Skills</p>
+        <div class="login-box px-5 pb-8 mt-6 bg-white border-solid border border-gray-200 rounded-2xl">
+            <h2 class="text-3xl/loose font-bold">Sign In</h2>
             <SignInButton provider="github" displayText="GitHub" icon={githubLogo}/>
         </div>
     </div>
 </main>
 
 <style>
-    main {
-        @apply grid grid-cols-2;
-    }
     .grid-left {
-        object-fit: cover;
         width: 50vw;
-        height: 100vh;
-    }
-    .grid-right {
-        @apply px-8;
-    }
-    .login-box {
-        @apply
-            bg-white 
-            rounded-2xl
-            border-solid
-            border-gray-200
-            
-            px-5 pb-8
-            mt-6
-            ;
     }
 </style>

@@ -7,13 +7,13 @@
    
 </script>
 
-<main>
+<main class="h-full bg-gray-50">
     <Hero name={mockData.name} tagline={mockData.tagline} links={mockData.links}/>
-    <div class="content">
-        <div class="content-top">
+    <div class="content p-4">
+        <div class="content-top flex flex-row h-72">
             <Module header="Languages/Technologies">
                 {#each Object.entries(mockData.languages) as [icon, name]}
-                    <img width="20px" height="20px" src={iconLookup[icon] || iconLookup['code']} alt="">
+                    <img class="inline" width="20px" height="20px" src={iconLookup[icon] || iconLookup['code']} alt="">
                     <span>{name}</span>
                     <br>
                 {/each}
@@ -30,24 +30,3 @@
         </Module>
     </div>
 </main>
-
-<style>
-    main {
-        @apply 
-            h-full
-            bg-gray-100
-            ;
-        
-    }     
-    .content {
-        @apply    
-            p-4
-           ; 
-    }
-    .content-top {
-        @apply 
-            flex flex-row
-            h-72 
-            ;
-    }
-</style>
