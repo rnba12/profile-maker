@@ -9,12 +9,15 @@
 </script>
 
 <div class="hero flex p-4">
-    <div class="hero-profile-image w-40 h-auto border border-slate-400 ">
-        <img class="hero-image w-full h-auto" src={profileImage} alt="profile pic">
+    <div class="hero-profile-image w-40 h-auto border border-slate-400 rounded-full ">
+        <img class="hero-image w-full h-auto rounded-full " src={profileImage} alt="profile pic">
     </div>
     <div class="hero-content px-3">
         <div class="hero-name text-6xl font-extrabold">{name}</div>
         <p class="hero-about font-semibold">{tagline}</p>
-        <Links {links}/>
+        {#if links}
+            <Links {links}/>
+        {/if}
+
     </div>
 </div>

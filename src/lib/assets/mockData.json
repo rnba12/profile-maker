@@ -7,11 +7,12 @@
         "github": "",
         "linkedin": ""
     },
-    "languages" : {
+    "stack" : {
         "python" : "Python",
         "javascript": "JavaScript",
-        "csharp": "C#",
-        "react": "Reactjs"
+        "react": "Reactjs",
+        "github": "GitHub",
+        "mongodb": "MongoDb"
     },
     "projects": [
         {
