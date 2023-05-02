@@ -1,8 +1,8 @@
 <script>
-    import Hero from '$lib/compnents/Hero.svelte';
-    import Module from '$lib/compnents/Module.svelte';
+    import Hero from '$lib/components/Hero.svelte';
+    import Module from '$lib/components/Module.svelte';
     import mockData from '$lib/assets/mockData.json'
-    import ProjectItem from '$lib/compnents/ProjectItem.svelte';
+    import ProjectItem from '$lib/components/ProjectItem.svelte';
     import code from '$lib/assets/icons/code.svg'
 
     const handleError = e => {

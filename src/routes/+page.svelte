@@ -1,7 +1,7 @@
 <script>
     import { signOut } from '@auth/sveltekit/client';
 	import { page } from '$app/stores';
-    import SignInButton from '../lib/compnents/SignInButton.svelte';
+    import SignInButton from '../lib/components/SignInButton.svelte';
     import githubLogo from '../lib/assets/mark-github.svg'
     import stock from '$lib/assets/stock.jpg';
 
