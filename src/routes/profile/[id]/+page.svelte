@@ -2,8 +2,12 @@
     import Hero from '$lib/compnents/Hero.svelte';
     import Module from '$lib/compnents/Module.svelte';
     import mockData from '$lib/assets/mockData.json'
-    import ProjectItem from '../../../lib/compnents/ProjectItem.svelte';
-    import iconLookup from '$lib/icons.js'
+    import ProjectItem from '$lib/compnents/ProjectItem.svelte';
+    import code from '$lib/assets/icons/code.svg'
+
+    const handleError = e => {
+        e.target.src = code
+    }
    
 </script>
 
@@ -12,8 +16,8 @@
     <div class="content p-4">
         <div class="content-top flex flex-row h-72">
             <Module header="Languages/Technologies">
-                {#each Object.entries(mockData.languages) as [icon, name]}
-                    <img class="inline" width="20px" height="20px" src={iconLookup[icon] || iconLookup['code']} alt="">
+                {#each Object.entries(mockData.stack) as [icon, name]}
+                    <img on:error={() => handleError()} class="inline" width="20px" height="20px" src={`https://cdn.simpleicons.org/${icon}/black`} alt="">
                     <span>{name}</span>
                     <br>
                 {/each}

@@ -4,8 +4,8 @@
     "about": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
     "tagline": "Lorem ipsum dolor sit amet",
     "links": {
-        "github": "",
-        "linkedin": ""
+        "github": "www.github.com",
+        "linkedin": "www.linkedin.com"
     },
     "stack" : {
         "python" : "Python",
