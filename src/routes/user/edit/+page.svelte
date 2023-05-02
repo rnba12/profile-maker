@@ -1,7 +1,7 @@
 <script>
     import mockData from '$lib/assets/mockData.json'
     import Module from '$lib/components/Module.svelte'
-    const profileData = {...mockData}
+    $: profileData = {...mockData}
     
 
 
@@ -12,8 +12,15 @@
 
     const updateStack = () => {
         // TODO validation
-        profileData.stack[stackItem] = stackItem
+        profileData.stack.push(stackItem)
         stackItem = ""
+    }
+
+    const deleteStack = (name) => {
+        profileData.stack = profileData.stack.filter(t => t !== name)
+        profileData.projects.forEach(project => {
+            project.stack = project.stack.filter(t => t !== name)
+        });
     }
 
     const setProject = (project) => {
@@ -47,7 +54,12 @@
         // TODO validation
         profileData.projects.push(selectedProject)
         selectedProject = null
-    } 
+    }
+
+    const deleteProject = () => {
+        profileData.projects = profileData.projects.filter(p => p !== selectedProject)
+        selectedProject = null
+    }
 
 </script>
 
@@ -83,9 +95,9 @@
         
         <Module header="Tech Stack">
             <div class="stack-form">
-                {#each Object.entries(profileData.stack) as [icon, name]}
-                <img class="inline" width="20px" height="20px" src={`https://cdn.simpleicons.org/${icon}/black`} alt="">
-                <span>{name}</span><br>
+                {#each profileData.stack as name}
+                <img class="inline" width="20px" height="20px" src={`https://cdn.simpleicons.org/${name}/black`} alt="">
+                <button on:click={() => deleteStack(name)}>{name}</button><br>
                 {/each}
                 <input class="border-2" type="text" placeholder="e.g. Python" bind:value={stackItem}>
                 <button on:click|preventDefault={updateStack}>Add</button>
@@ -100,6 +112,7 @@
             {/each}
             {#if selectedProject}
                 <div class="project-form">
+                    <button class="text-red-600" on:click={deleteProject}>Delete</button>
                     <label for="title">Title</label>
                     <input type="text" placeholder="title" bind:value={selectedProject.title}>
 
