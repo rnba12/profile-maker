@@ -16,8 +16,8 @@
     <div class="content p-4">
         <div class="content-top flex flex-row h-72">
             <Module header="Languages/Technologies">
-                {#each Object.entries(mockData.stack) as [icon, name]}
-                    <img on:error={() => handleError()} class="inline" width="20px" height="20px" src={`https://cdn.simpleicons.org/${icon}/black`} alt="">
+                {#each mockData.stack as name}
+                    <img on:error={() => handleError()} class="inline" width="20px" height="20px" src={`https://cdn.simpleicons.org/${name}/black`} alt="">
                     <span>{name}</span>
                     <br>
                 {/each}

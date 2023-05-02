@@ -7,13 +7,9 @@
         "github": "www.github.com",
         "linkedin": "www.linkedin.com"
     },
-    "stack" : {
-        "python" : "Python",
-        "javascript": "JavaScript",
-        "react": "Reactjs",
-        "github": "GitHub",
-        "mongodb": "MongoDb"
-    },
+    "stack" : [
+        "Python", "JavaScript", "React", "GitHub", "MongoDb"
+    ],
     "projects": [
         {
             "title": "Habitual",
