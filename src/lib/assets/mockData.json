@@ -19,19 +19,19 @@
             "title": "Habitual",
             "url": "http://habitual.com",
             "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
-            "technologies": ["HTML", "CSS", "JavaScript"]
+            "stack": ["HTML", "CSS", "JavaScript"]
         },
         {
             "title": "Early Bird",
             "url": "http://earlybird.com",
             "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
-            "technologies": ["React", "CSS"]
+            "stack": ["React", "CSS"]
         },
         {
             "title": "See It Say It",
             "url": "http://earlybird.com",
             "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
-            "technologies": ["React", "CSS"]
+            "stack": ["React", "CSS"]
         }
     ]
 }
