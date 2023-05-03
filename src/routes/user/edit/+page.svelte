@@ -1,7 +1,7 @@
 <script>
     import mockData from '$lib/assets/mockData.json'
     import Module from '$lib/components/Module.svelte'
-    $: profileData = {...mockData}
+    const profileData = {...mockData}
     
 
 
@@ -12,7 +12,7 @@
 
     const updateStack = () => {
         // TODO validation
-        profileData.stack.push(stackItem)
+        profileData.stack = [...profileData.stack, stackItem]
         stackItem = ""
     }
 
@@ -29,9 +29,11 @@
     }
 
     const updateProjectStack = (name) => {
-        selectedProject.stack.includes(name) 
-            ? selectedProject.stack = selectedProject.stack.filter(t => t !== name)
-            : selectedProject.stack.push(name)
+        if (selectedProject.stack.includes(name) ) {
+            selectedProject.stack = selectedProject.stack.filter(t => t !== name)
+       } else {
+            selectedProject.stack = [...selectedProject.stack, name]
+       }
     }
 
     const updateProject = () => {
@@ -52,7 +54,7 @@
 
     const addProject = () => {
         // TODO validation
-        profileData.projects.push(selectedProject)
+        profileData.projects = [...profileData.projects, selectedProject]
         selectedProject = null
     }
 
