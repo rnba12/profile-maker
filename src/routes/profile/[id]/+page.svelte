@@ -11,6 +11,10 @@
    
 </script>
 
+<svelte:head>
+    <title>{mockData.name} | Profile-Maker</title>
+</svelte:head>
+
 <main class="h-full bg-gray-50">
     <Hero name={mockData.name} tagline={mockData.tagline} links={mockData.links}/>
     <div class="content p-4">

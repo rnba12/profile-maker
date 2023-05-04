@@ -7,6 +7,9 @@
 
 </script>
 
+<svelte:head>
+    <title>Login | Profile-Maker</title>
+</svelte:head>
 
 <main class="grid grid-cols-2">
     <img class="grid-left object-cover h-screen" src={stock} alt="code">

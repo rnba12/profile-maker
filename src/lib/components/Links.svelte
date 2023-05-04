@@ -2,7 +2,6 @@
     import iconLookup from '$lib/icons.js'
 
     export let links;
-    console.log(links)
 </script>
 
 <div class="links flex items-center justify-center gap-2 

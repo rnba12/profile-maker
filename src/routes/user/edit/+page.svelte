@@ -65,6 +65,10 @@
 
 </script>
 
+<svelte:head>
+    <title>Edit | Profile-Maker</title>
+</svelte:head>
+
 
 <main class="h-full p-4 bg-gray-100">
     <div class="flex flex-col gap-2 text-2xl">
@@ -99,7 +103,7 @@
             <div class="stack-form">
                 {#each profileData.stack as name}
                 <img class="inline" width="20px" height="20px" src={`https://cdn.simpleicons.org/${name}/black`} alt="">
-                <button on:click={() => deleteStack(name)}>{name}</button><br>
+                <span>{name}</span> <button on:click={() => deleteStack(name)}>x</button><br>
                 {/each}
                 <input class="border-2" type="text" placeholder="e.g. Python" bind:value={stackItem}>
                 <button on:click|preventDefault={updateStack}>Add</button>
