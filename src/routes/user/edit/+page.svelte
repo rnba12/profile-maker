@@ -1,6 +1,7 @@
 <script>
     import mockData from '$lib/assets/mockData.json'
     import Module from '$lib/components/Module.svelte'
+    import Typeahead from "svelte-typeahead"
     const profileData = {...mockData}
     
     const isValid = {
@@ -8,8 +9,12 @@
         projectURL: true
     }
 
+    const lang = [
+        "Python", "JavaScript", "Vue.js", "Docker"
+    ]
+    
+
     let option = "github";
-    let stackItem = "";
     let selectedProject = null
     let isNewProject = false;
 
@@ -27,10 +32,9 @@
         
     }
 
-    const updateStack = () => {
+    const updateStack = (name) => {
         // TODO validation
-        profileData.stack = [...profileData.stack, stackItem]
-        stackItem = ""
+        profileData.stack = [...profileData.stack, name]
     }
 
     const deleteStack = (name) => {
@@ -122,8 +126,10 @@
                 <img class="inline" width="20px" height="20px" src={`https://cdn.simpleicons.org/${name}/black`} alt="">
                 <span>{name}</span> <button on:click={() => deleteStack(name)}>x</button><br>
                 {/each}
-                <input class="border-2" type="text" placeholder="e.g. Python" bind:value={stackItem}>
-                <button on:click|preventDefault={updateStack}>Add</button>
+                
+                <Typeahead label="Add To Your Stack" hideLabel inputAfterSelect="clear" filter={(item) => profileData.stack.includes(item)} placeholder="e.g. Python" data={lang} extract={item => item} on:select={({ detail }) => updateStack(detail.selected)} let:result let:index>
+                    <div class="search">{@html result.string}</div>
+                </Typeahead>
             </div>
         </Module>
 
