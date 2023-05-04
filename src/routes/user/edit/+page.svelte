@@ -3,12 +3,29 @@
     import Module from '$lib/components/Module.svelte'
     const profileData = {...mockData}
     
-
+    const isValid = {
+        links: true,
+        projectURL: true
+    }
 
     let option = "github";
     let stackItem = "";
     let selectedProject = null
     let isNewProject = false;
+
+    const checkURL = (e, input) => {
+        isValid[input] = true
+        if (e.target.value) {
+            const urlPattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
+            if (urlPattern.test(e.target.value)) {
+               isValid[input] = true
+            } else {
+                isValid[input] = false
+            }
+        }
+        
+        
+    }
 
     const updateStack = () => {
         // TODO validation
@@ -77,25 +94,25 @@
             <input type="file" name="profilePicture" id="">
             <br>
             <label for="name">Name</label>
-            <input class="w-1/2 border-2" type="text" name="name" placeholder="name" bind:value={profileData.name}>
+            <input class="w-1/2 border-2" type="text" name="name" maxlength="100" bind:value={profileData.name}>
             <br>
             <label for="tagline">Tagline</label>
-            <input class="w-1/2 border-2" type="text" name="tagline" placeholder="tagline" bind:value={profileData.tagline}>
+            <input class="w-1/2 border-2" type="text" name="tagline" maxlength="100" bind:value={profileData.tagline}>
             <br>
             <label for="about">About</label>
-            <textarea class="w-1/2 border-2" name="about" placeholder="about" bind:value={profileData.about}></textarea>
-            <br>     
+            <textarea class="w-1/2 border-2" name="about" placeholder="about" maxlength="500" bind:value={profileData.about}></textarea>
         </Module>
         
         <Module header="Links">
             <div class="link-form">
-                <select name="link" id="" bind:value={option}>
+                <select name="link" id=""  bind:value={option} disabled={!isValid.links}>
                     <option value="github">GitHub</option>
                     <option value="linkedin">LinkedIn</option>
                     <option value="twitter">Twitter</option>
                     <option value="dribbble">Dribbble</option>
                 </select>
-                <input type="text" bind:value={profileData.links[option]}>
+                <input on:keyup={(e) => checkURL(e, 'links')} type="text" bind:value={profileData.links[option]}>
+                <div class="{!isValid.links ? "text-red-600" : "hidden"}">Link must be valid url</div>
             </div>  
         </Module>
         
@@ -114,19 +131,20 @@
         <Module header="Projects">
             <button on:click={newProject}>Add Project</button>
             {#each profileData.projects as project}
-                <button on:click={() => setProject(project)}>{project.title}</button>
+                <button on:click={() => setProject(project)} disabled={!isValid.projectURL}>{project.title}</button>
             {/each}
             {#if selectedProject}
                 <div class="project-form">
                     <button class="text-red-600" on:click={deleteProject}>Delete</button>
                     <label for="title">Title</label>
-                    <input type="text" placeholder="title" bind:value={selectedProject.title}>
+                    <input type="text" placeholder="title"maxlength="100" bind:value={selectedProject.title}>
 
                     <label for="url">Url</label>
-                    <input type="url" name="url" placeholder="url" bind:value={selectedProject.url}>
+                    <input on:keyup={(e) => checkURL(e,'projectURL')} type="url" name="url" bind:value={selectedProject.url}>
+                    <div class="{!isValid.projectURL ? "text-red-600" : "hidden"}">Link must be valid url</div>
 
                     <label for="description">Description</label>
-                    <textarea name="description" placeholder="description" bind:value={selectedProject.description}></textarea>
+                    <textarea name="description" placeholder="description" maxlength="300" bind:value={selectedProject.description}></textarea>
                     <br>
                     <div class="stack-select">
                         {#each Object.entries(profileData.stack) as [icon, name]}
@@ -135,9 +153,9 @@
                         {/each}
                     </div>
                     {#if !isNewProject}
-                        <button on:click={updateProject}>Update</button>
+                        <button on:click={updateProject} disabled={!isValid.projectURL}>Update</button>
                     {:else}
-                        <button on:click={addProject}>Add</button>
+                        <button on:click={addProject} disabled={!isValid.projectURL}>Add</button>
                     {/if}
                 </div>
             {/if}
