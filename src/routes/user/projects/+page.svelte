@@ -7,7 +7,7 @@
     let projects = [...mockData.projects]
     let profileStack = mockData.stack
 
-    let selectedProject = null
+    // let selectedProject = null
     let formStack = []
     let newProject = null
 
@@ -16,9 +16,9 @@
         formStack = []
     }
 
-    const handleEdit = (project) => {
-        selectedProject = project
-    }
+    // const handleEdit = (project) => {
+    //     selectedProject = true
+    // }
 
     const stackAdd = (name) => {
         formStack = [...formStack, name]
@@ -28,10 +28,10 @@
         formStack = formStack.filter(t => t !== e.target.innerHTML)
     }
 
-    const handleUpdate = (e) => {
-        let i = projects.findIndex((p) => p == selectedProject)
+    const handleUpdate = (e, project) => {
+        let i = projects.findIndex((p) => p === project)
         projects[i] = e.detail.updated 
-        selectedProject = null
+        // selectedProject = false
         formStack = []
     }
 
@@ -44,6 +44,11 @@
             }
             projects = [...projects, updated]
             newProject = null;
+    }
+
+    const deleteProject = (project) => {
+        projects = projects.filter(p => p !== project)
+       
     }
 
     const updateProjects = () => {
@@ -77,7 +82,8 @@
     {/if}
 
     {#each projects as p}
-        <ProjectItem title={p.title} description={p.description} stack={p.stack} url={p.url} {profileStack} on:edit={() => handleEdit(p)} on:update={handleUpdate}/>
+        <ProjectItem title={p.title} description={p.description} stack={p.stack} url={p.url} {profileStack} on:update={(e) => handleUpdate(e, p)} on:delete={() => deleteProject(p)}/>
+
     {/each}
 
 </main>

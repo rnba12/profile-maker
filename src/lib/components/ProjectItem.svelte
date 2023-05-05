@@ -17,7 +17,7 @@
     const handleEdit = () => {
         edit = true
         editStack = [...stack]
-        dispatch('edit')
+        
     }
 
     const stackAdd = (name) => {
@@ -35,14 +35,19 @@
             description: e.target.description.value,
             stack: [...editStack]
         }
-        dispatch("update", {project: {title, url, description, stack}, updated})
+        dispatch("update", {prevTitle: title, updated})
         edit = false
+    }
+
+    const handleDelete = () => {
+        dispatch('delete')
     }
 
 </script>
 
 {#if !edit}
     <button class="{!profileStack ? "hidden": ""}" on:click={handleEdit}>Edit</button>
+    <button class="{!profileStack ? "hidden": ""}" on:click={handleDelete}>Delete</button>
     <div class="project border border-solid border-gray-200 rounded-2xl">
          <h2 class="text-xl font-bold">{title}</h2>
         <p>{description}</p>
@@ -67,5 +72,4 @@
         <button>✔</button>
         <button type="button" on:click={() => edit = false}>✖</button>
     </form>
-
 {/if}
