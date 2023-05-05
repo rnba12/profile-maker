@@ -7,14 +7,13 @@
     let projects = [...mockData.projects]
     let profileStack = mockData.stack
 
-    let selectedProject= null
+    let selectedProject = null
     let formStack = []
-    let newProject= false
+    let newProject = null
 
     const handleNew = () => {
-        newProject = true
+        newProject = {title: "", url: "", description: "", stack: [...formStack]}
         formStack = []
-        selectedProject = {title: "", url: "", description: "", stack: [...formStack]}
     }
 
     const handleEdit = (project) => {
@@ -31,22 +30,23 @@
     }
 
     const handleUpdate = (e) => {
-        // validation
-        const updated = {
-            title: e.target.title.value,
-            description: e.target.description.value,
-            url: e.target.url.value,
-            stack: [...formStack]
-        }
-        if (!newProject) {
-            let i = projects.findIndex((p) => p === selectedProject)
-            projects[i] = updated
-        } else {
-           projects = [...projects, updated] 
-        }
+        let i = projects.findIndex((p) => p == selectedProject)
+        projects[i] = e.detail.updated 
         selectedProject = null
         formStack = []
     }
+
+    const addProject = (e) => {
+            const updated = {
+                title: e.target.title.value,
+                description: e.target.description.value,
+                url: e.target.url.value,
+                stack: [...formStack]
+            }
+            projects = [...projects, updated]
+            newProject = null;
+    }
+
     const updateProjects = () => {
         //send data
     }
@@ -63,23 +63,22 @@
     <button on:click={updateProjects}>Update</button>
     <button on:click={handleNew}>+ New Project</button>
 
-    {#if selectedProject}
-    <form on:submit|preventDefault={handleUpdate}>
-        <input type="text" name="title" value={selectedProject.title} required maxlength="100">
-        <input type="url" name="url" value={selectedProject.url}>
-        <textarea name="description" value={selectedProject.description} maxlength="300"></textarea>
+    {#if newProject}
+    <form on:submit|preventDefault={addProject}>
+        <input type="text" name="title" value={newProject.title} required maxlength="100">
+        <input type="url" name="url" value={newProject.url}>
+        <textarea name="description" value={newProject.description} maxlength="300"></textarea>
         {#each formStack as name}
             <button type="button" on:click={stackDelete}>{name}</button>
         {/each}
         <Typeahead label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" filter={(t) => formStack.includes(t)} placeholder="Add" data={profileStack} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}/>
         <button>✔</button>
-        <button type="button" on:click={() => selectedProject = null}>✖</button>
+        <button type="button" on:click={() => newProject = null}>✖</button>
     </form>
     {/if}
 
     {#each projects as p}
-        <ProjectItem title={p.title} description={p.description} stack={p.stack}/>
-        <button on:click={() => handleEdit(p)}>Edit</button>
+        <ProjectItem title={p.title} description={p.description} stack={p.stack} url={p.url} {profileStack} on:edit={() => handleEdit(p)} on:update={handleUpdate}/>
     {/each}
 
 </main>
