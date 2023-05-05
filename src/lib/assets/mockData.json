@@ -8,26 +8,26 @@
         "linkedin": "www.linkedin.com"
     },
     "stack" : [
-        "Python", "JavaScript", "React", "GitHub", "MongoDb"
+        "Python", "JavaScript", "React", "GitHub", "MongoDb", "CSS 3", "HTML5"
     ],
     "projects": [
         {
             "title": "Habitual",
             "url": "http://habitual.com",
             "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
-            "stack": ["HTML", "CSS", "JavaScript"]
+            "stack": ["HTML5", "CSS 3", "JavaScript"]
         },
         {
             "title": "Early Bird",
             "url": "http://earlybird.com",
             "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
-            "stack": ["React", "CSS"]
+            "stack": ["React", "CSS 3"]
         },
         {
             "title": "See It Say It",
             "url": "http://earlybird.com",
             "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam soluta consequuntur dicta? Quaerat, tempora neque maxime rem eum hic",
-            "stack": ["React", "CSS"]
+            "stack": ["React", "CSS 3"]
         }
     ]
 }

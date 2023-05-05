@@ -2,129 +2,84 @@
     import mockData from '$lib/assets/mockData.json'
     import ProjectItem from '$lib/components/ProjectItem.svelte';
     import Module from '$lib/components/Module.svelte';
+    import Typeahead from "svelte-typeahead"
+
     let projects = [...mockData.projects]
-    const stack = [...mockData.stack]
+    let profileStack = mockData.stack
 
-    const checkIsEmpty = (e, input) => {
-        isValid[input] = true
-        if (!e.target.value) isValid[input] = false
+    let selectedProject= null
+    let formStack = []
+    let newProject= false
+
+    const handleNew = () => {
+        newProject = true
+        formStack = []
+        selectedProject = {title: "", url: "", description: "", stack: [...formStack]}
     }
 
-    const checkURL = (e, input) => {
-        isValid[input] = true
-        if (e.target.value) {
-            const urlPattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
-            if (urlPattern.test(e.target.value)) {
-               isValid[input] = true
-            } else {
-                isValid[input] = false
-            }
-        }  
-    }
-
-
-    const isValid = {
-        name: true,
-        about: true,
-        links: true,
-        projectTitle: true,
-        projectURL: true
-    }
-    let selectedProject = null
-    let isNewProject = false;
-
-    const setProject = (project) => {
-        // TODO validation
-        if (isNewProject) {
-            isNewProject = false
-            isValid.projectTitle = true
-        }
+    const handleEdit = (project) => {
         selectedProject = project
+        formStack = project.stack
     }
 
-    const updateProjectStack = (name) => {
-        if (selectedProject.stack.includes(name) ) {
-            selectedProject.stack = selectedProject.stack.filter(t => t !== name)
-       } else {
-            selectedProject.stack = [...selectedProject.stack, name]
-       }
+    const stackAdd = (name) => {
+        formStack = [...formStack, name]
     }
 
-    const updateProject = () => {
-        if (isNewProject){ 
-            projects = [...projects, selectedProject]
-            isNewProject = false
+    const stackDelete = (e) => {
+        formStack = formStack.filter(t => t !== e.target.innerHTML)
+    }
+
+    const handleUpdate = (e) => {
+        // validation
+        const updated = {
+            title: e.target.title.value,
+            description: e.target.description.value,
+            url: e.target.url.value,
+            stack: [...formStack]
         }
-        selectedProject = null;
-    }
-
-    const newProject = () => {
-        selectedProject = {
-            title: "",
-            url: "",
-            description: "",
-            stack: []
-        }
-
-        isNewProject = true
-        isValid.projectTitle = false
-    }
-
-    const addProject = () => {
-        // TODO validation
-        
-        selectedProject = null
-    }
-
-    const deleteProject = () => {
-        profileData.projects = profileData.projects.filter(p => p !== selectedProject)
-        if (isNewProject) {
-            isNewProject = false
-            isValid.projectTitle = true
+        if (!newProject) {
+            let i = projects.findIndex((p) => p === selectedProject)
+            projects[i] = updated
+        } else {
+           projects = [...projects, updated] 
         }
         selectedProject = null
+        formStack = []
     }
+    const updateProjects = () => {
+        //send data
+    }
+
 </script>
 
 <svelte:head>
     <title>Projects | Profile-Maker</title>
 </svelte:head>
 
-<main>
-    {#each projects as {title, description, stack}}
-    <ProjectItem title={title} description={description} stack={stack}/>
+<main class="p-8">
+
+    <h1>Projects - {projects.length}</h1>
+    <button on:click={updateProjects}>Update</button>
+    <button on:click={handleNew}>+ New Project</button>
+
+    {#if selectedProject}
+    <form on:submit|preventDefault={handleUpdate}>
+        <input type="text" name="title" value={selectedProject.title} required maxlength="100">
+        <input type="url" name="url" value={selectedProject.url}>
+        <textarea name="description" value={selectedProject.description} maxlength="300"></textarea>
+        {#each formStack as name}
+            <button type="button" on:click={stackDelete}>{name}</button>
+        {/each}
+        <Typeahead label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" filter={(t) => formStack.includes(t)} placeholder="Add" data={profileStack} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}/>
+        <button>✔</button>
+        <button type="button" on:click={() => selectedProject = null}>✖</button>
+    </form>
+    {/if}
+
+    {#each projects as p}
+        <ProjectItem title={p.title} description={p.description} stack={p.stack}/>
+        <button on:click={() => handleEdit(p)}>Edit</button>
     {/each}
 
-    <Module header="Projects">
-        <button on:click={newProject} disabled={!isValid.projectURL || !isValid.projectTitle}>Add Project</button>
-        {#each projects as project}
-            <button on:click={() => setProject(project)} disabled={!isValid.projectURL}>{project.title}</button>
-        {/each}
-        {#if selectedProject}
-            <div class="project-form">
-                <button class="text-red-600" on:click={deleteProject}>Delete</button>
-                <label for="title">Title</label>
-                <input on:keyup={(e) => checkIsEmpty(e, "projectTitle")} type="text" placeholder="title" maxlength="100" bind:value={selectedProject.title}>
-                <div class="{!isValid.projectTitle ? "text-red-600" : "hidden"}">Title cannot be empty</div>
-                <label for="url">Url</label>
-                <input on:keyup={(e) => checkURL(e,'projectURL')} type="url" name="url" bind:value={selectedProject.url}>
-                <div class="{!isValid.projectURL ? "text-red-600" : "hidden"}">Link must be valid url</div>
-
-                <label for="description">Description</label>
-                <textarea name="description" placeholder="description" maxlength="300" bind:value={selectedProject.description}></textarea>
-                <br>
-                <div class="stack-select">
-                    {#each stack as name}
-                        <button
-                            class="{selectedProject.stack.includes(name) ? 'bg-green-500' : "bg-white"} rounded-full" on:click={() => updateProjectStack(name)}>{name}</button>
-                    {/each}
-                </div>
-                {#if !isNewProject}
-                    <button on:click={updateProject} disabled={!isValid.projectURL || !isValid.projectTitle}>Update</button>
-                {:else}
-                    <button on:click={updateProject} disabled={!isValid.projectURL || !isValid.projectTitle}>Add</button>
-                {/if}
-            </div>
-        {/if}
-    </Module>
 </main>
