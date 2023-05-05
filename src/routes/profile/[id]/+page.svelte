@@ -15,13 +15,13 @@
     <title>{mockData.name} | Profile-Maker</title>
 </svelte:head>
 
-<main class="h-full bg-gray-50">
+<main>
     <Hero name={mockData.name} tagline={mockData.tagline} links={mockData.links}/>
-    <div class="content p-4">
-        <div class="content-top flex flex-row h-72">
+    <div class="content">
+        <div class="content-top">
             <Module header="Tech Stack">
                 {#each mockData.stack as name}
-                    <img on:error={() => handleError()} class="inline" width="20px" height="20px" src={`https://cdn.simpleicons.org/${name.replace(" ", "")}/black`} alt="">
+                    <img on:error={() => handleError()} width="20px" height="20px" src={`https://cdn.simpleicons.org/${name.replace(" ", "")}/black`} alt="">
                     <span>{name}</span>
                     <br>
                 {/each}

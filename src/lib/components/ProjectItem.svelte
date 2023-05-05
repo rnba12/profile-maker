@@ -46,13 +46,13 @@
 </script>
 
 {#if !edit}
-<div class="project border border-solid border-gray-200 rounded-2xl">
+<div class="project">
         <button class="{!profileStack ? "hidden": ""}" on:click={handleEdit}>Edit</button>
         <button class="{!profileStack ? "hidden": ""}" on:click={handleDelete}>Delete</button>
-         <h2 class="text-xl font-bold">{title}</h2>
+         <h2>{title}</h2>
         <p>{description}</p>
         {#each stack as tech}
-            <span class="tech border border-slate-200 rounded-full p-1">
+            <span class="tech">
                 {tech}
             </span>
         {/each}
@@ -73,3 +73,9 @@
         <button type="button" on:click={() => edit = false}>✖</button>
     </form>
 {/if}
+
+<style>
+    .hidden {
+        display: none;
+    }
+</style>

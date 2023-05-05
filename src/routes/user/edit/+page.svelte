@@ -65,20 +65,20 @@
 </svelte:head>
 
 
-<main class="h-full p-4 bg-gray-100">
-    <form on:submit|preventDefault={handleSubmit} class="flex flex-col gap-2 text-2xl">
+<main>
+    <form on:submit|preventDefault={handleSubmit}>
 
         <Module header="Bio">
             <input type="file" name="profilePicture" id="">
             <br>
             <label for="name">Name</label>
-            <input class="w-1/2 border-2" type="text" name="name" maxlength="100" required bind:value={profileData.name}>
+            <input type="text" name="name" maxlength="100" required bind:value={profileData.name}>
             <br>
             <label for="tagline">Tagline</label>
-            <input class="w-1/2 border-2" type="text" name="tagline" maxlength="100" bind:value={profileData.tagline}>
+            <input type="text" name="tagline" maxlength="100" bind:value={profileData.tagline}>
             <br>
             <label for="about">About</label>
-            <textarea class="w-1/2 border-2" name="about" placeholder="about" maxlength="500" required bind:value={profileData.about}></textarea>
+            <textarea name="about" placeholder="about" maxlength="500" required bind:value={profileData.about}></textarea>
         </Module>
         
         <Module header="Links">
@@ -90,15 +90,15 @@
                     <option value="dribbble">Dribbble</option>
                 </select>
                 <input type="text" bind:value={profileData.links[selectOption]}>
-                <div class="{valid.links ? "hidden" : "text-red-600"}">Links Must Be Valid URLs</div>
+                <div class="{valid.links ? "hidden" : "warning"}">Links Must Be Valid URLs</div>
             </div>  
         </Module>
         
         <Module header="Tech Stack">
             <div class="stack-form">
-                <div class="{valid.stack ? "hidden" : "text-red-600"}">Stack Cannot Be Empty</div>
+                <div class="{valid.stack ? "hidden" : "warning"}">Stack Cannot Be Empty</div>
                 {#each profileData.stack as name}
-                <img class="inline" width="20px" height="20px" src={`https://cdn.simpleicons.org/${name.replace(" ", "")}/black`} alt="">
+                <img width="20px" height="20px" src={`https://cdn.simpleicons.org/${name.replace(" ", "")}/black`} alt="">
                 <span>{name}</span> <button type="button" on:click={() => deleteStack(name)}>x</button><br>
                 {/each}
                 
@@ -109,3 +109,12 @@
         <button type="submit">Update</button>
     </form>
 </main>
+
+<style>
+    .hidden {
+        display: none;
+    }
+    .warning {
+        color: red;
+    }
+</style>

@@ -10,11 +10,10 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.5.0",
-		"autoprefixer": "^10.4.14",
-		"postcss": "^8.4.23",
+		"sass": "^1.62.1",
 		"svelte": "^3.54.0",
+		"svelte-preprocess": "^5.0.3",
 		"svelte-typeahead": "^4.4.1",
-		"tailwindcss": "^3.3.2",
 		"vite": "^4.3.0"
 	},
 	"type": "module",

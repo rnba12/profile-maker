@@ -61,7 +61,7 @@
     <title>Projects | Profile-Maker</title>
 </svelte:head>
 
-<main class="p-8">
+<main>
 
     <h1>Projects - {projects.length}</h1>
     <button on:click={updateProjects}>Update</button>
