@@ -1,5 +1,5 @@
 <script>
-    import iconLookup from '$lib/icons.js'
+    
 
     export let links;
 </script>
