@@ -46,9 +46,9 @@
 </script>
 
 {#if !edit}
-    <button class="{!profileStack ? "hidden": ""}" on:click={handleEdit}>Edit</button>
-    <button class="{!profileStack ? "hidden": ""}" on:click={handleDelete}>Delete</button>
-    <div class="project border border-solid border-gray-200 rounded-2xl">
+<div class="project border border-solid border-gray-200 rounded-2xl">
+        <button class="{!profileStack ? "hidden": ""}" on:click={handleEdit}>Edit</button>
+        <button class="{!profileStack ? "hidden": ""}" on:click={handleDelete}>Delete</button>
          <h2 class="text-xl font-bold">{title}</h2>
         <p>{description}</p>
         {#each stack as tech}
