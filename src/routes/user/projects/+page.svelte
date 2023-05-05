@@ -18,7 +18,6 @@
 
     const handleEdit = (project) => {
         selectedProject = project
-        formStack = project.stack
     }
 
     const stackAdd = (name) => {

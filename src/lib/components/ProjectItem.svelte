@@ -9,7 +9,7 @@
 
     // edit stuff
     let dispatch = createEventDispatcher()
-    export let edit = false;
+    let edit = false;
     export let profileStack = null;
     
     let editStack = null;
@@ -42,7 +42,7 @@
 </script>
 
 {#if !edit}
-    <button class="{edit ? "hidden": ""}" on:click={handleEdit}>Edit</button>
+    <button class="{!profileStack ? "hidden": ""}" on:click={handleEdit}>Edit</button>
     <div class="project border border-solid border-gray-200 rounded-2xl">
          <h2 class="text-xl font-bold">{title}</h2>
         <p>{description}</p>

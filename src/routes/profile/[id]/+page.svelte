@@ -32,8 +32,8 @@
         </div>
         
         <Module header="Projects">
-            {#each mockData.projects as {title, description, stack}}
-                <ProjectItem title={title} description={description} stack={stack}/>
+            {#each mockData.projects as {title, description, stack, url}}
+                <ProjectItem {title} {description} {stack} {url}/>
             {/each}
         </Module>
     </div>
