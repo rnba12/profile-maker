@@ -21,7 +21,7 @@
         <div class="content-top flex flex-row h-72">
             <Module header="Tech Stack">
                 {#each mockData.stack as name}
-                    <img on:error={() => handleError()} class="inline" width="20px" height="20px" src={`https://cdn.simpleicons.org/${name}/black`} alt="">
+                    <img on:error={() => handleError()} class="inline" width="20px" height="20px" src={`https://cdn.simpleicons.org/${name.replace(" ", "")}/black`} alt="">
                     <span>{name}</span>
                     <br>
                 {/each}
