@@ -67,22 +67,31 @@
 
 <main>
     <form on:submit|preventDefault={handleSubmit}>
+        <h1>Edit Profile</h1>
 
         <Module header="Bio">
-            <input type="file" name="profilePicture" id="">
-            <br>
-            <label for="name">Name</label>
-            <input type="text" name="name" maxlength="100" required bind:value={profileData.name}>
-            <br>
-            <label for="tagline">Tagline</label>
-            <input type="text" name="tagline" maxlength="100" bind:value={profileData.tagline}>
-            <br>
-            <label for="about">About</label>
-            <textarea name="about" placeholder="about" maxlength="500" required bind:value={profileData.about}></textarea>
+            <div class="form bio-form">
+                <input type="file" name="profilePicture" id="">
+                
+                <div style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" maxlength="100" required bind:value={profileData.name}>
+                </div>
+                
+                <div style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <label for="tagline">Tagline</label>
+                    <input type="text" name="tagline" maxlength="100" bind:value={profileData.tagline}>
+                </div>
+                
+                <div style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <label for="about">About</label>
+                    <textarea name="about" placeholder="about" maxlength="500" required bind:value={profileData.about}></textarea>
+                </div>
+            </div>
         </Module>
         
         <Module header="Links">
-            <div class="link-form">
+            <div class="form link-form">
                 <select name="link" id=""  bind:value={selectOption}>
                     <option value="github">GitHub</option>
                     <option value="linkedin">LinkedIn</option>
@@ -95,14 +104,18 @@
         </Module>
         
         <Module header="Tech Stack">
-            <div class="stack-form">
+            <div class="form stack-form">
                 <div class="{valid.stack ? "hidden" : "warning"}">Stack Cannot Be Empty</div>
-                {#each profileData.stack as name}
-                <img width="20px" height="20px" src={`https://cdn.simpleicons.org/${name.replace(" ", "")}/black`} alt="">
-                <span>{name}</span> <button type="button" on:click={() => deleteStack(name)}>x</button><br>
-                {/each}
+                <div class="tech-stack">
+                    {#each profileData.stack as name}
+                    <div class="tech">
+                        <img src={`https://cdn.simpleicons.org/${name.replaceAll(" ", "")}`} alt="">
+                        <span>{name}</span> <button class="delete-stack" type="button" on:click={() => deleteStack(name)}>&#x2715;</button>
+                    </div>
+                    {/each}
+                </div>
                 
-                <Typeahead label="Add To Your Stack" hideLabel inputAfterSelect="clear" limit="5" filter={(item) => profileData.stack.includes(item)} placeholder="e.g. Python" data={stackOptions} extract={item => item} on:select={({ detail }) => updateStack(detail.selected)}/>
+                <Typeahead label="Search" hideLabel inputAfterSelect="clear" limit="5" filter={(item) => profileData.stack.includes(item)} placeholder="e.g. Python" data={stackOptions} extract={item => item} on:select={({ detail }) => updateStack(detail.selected)}/>
             </div>
         </Module>
         
@@ -110,11 +123,91 @@
     </form>
 </main>
 
-<style>
+<style lang="scss">
+    @mixin flex($direction) {
+        display: flex;
+        flex-direction: $direction;
+    }
+
     .hidden {
         display: none;
     }
     .warning {
         color: red;
     }
+
+    form {
+        h1 {
+            font-size: 3rem;
+            line-height: 0;
+        }
+
+        @include flex(column); 
+        padding: 2rem;
+        gap: 1.5rem;
+        width: 70%;
+        margin: auto
+    }
+    .bio-form {
+        @include flex(column);
+        gap: 1em;
+    }
+    input[type="text"] {
+        border: 1px solid rgb(204, 204, 204);
+        padding: 0.5em;
+        border-radius: $border-radius;
+    }
+   
+
+    .tech-stack {
+        @include flex(row);
+        gap: 0.3rem;
+        flex-wrap: wrap;
+        width: 80%;
+        margin-bottom: 1.2rem;
+
+        .tech {
+            @include flex(row);
+            gap: 0.3rem;
+            align-items: center;
+            border: 1px solid rgb(204,204,204);
+            padding: 0.5rem;
+            border-radius: 36px;
+        }
+        img {
+            width: 1.1rem;
+            height: 1.1rem;
+        } 
+        
+        .delete-stack {
+            background-color: inherit;
+            border: none;
+            cursor: pointer;
+        }
+    }
+
+    button[type="submit"] {
+        border: none;
+        background-color: white;
+        border: 1px solid rgb(204, 204, 204);
+        width: 20%;
+        font-weight: 500;
+        padding: 0.5em;
+        margin: auto;
+        border-radius: $border-radius;
+        cursor: pointer;
+        &:hover {
+            background-color: rgb(216, 216, 216);
+        }
+    }
+
+    :global([data-svelte-typeahead] input) {
+        border-radius: $border-radius !important;
+        border: 1px solid rgb(204, 204, 204) !important;
+        &:focus {
+            outline: none;
+            border: 2px solid black !important;
+        }
+    }
+
 </style>
