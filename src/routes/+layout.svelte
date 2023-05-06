@@ -1,5 +1,6 @@
 <script>
-    import '../app.css'
+    import '../app.scss'
+    import '../normalize.css'
 </script>
 
 <slot/>
