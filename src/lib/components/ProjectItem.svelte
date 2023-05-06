@@ -10,7 +10,7 @@
     // edit stuff
     let dispatch = createEventDispatcher()
     let edit = false;
-    export let profileStack = null;
+    export let stackOptions = null;
     
     let editStack = null;
 
@@ -47,8 +47,8 @@
 
 {#if !edit}
 <div class="project">
-        <button class="{!profileStack ? "hidden": ""}" on:click={handleEdit}>Edit</button>
-        <button class="{!profileStack ? "hidden": ""}" on:click={handleDelete}>Delete</button>
+        <button class="{!stackOptions ? "hidden": ""}" on:click={handleEdit}>Edit</button>
+        <button class="{!stackOptions ? "hidden": ""}" on:click={handleDelete}>Delete</button>
          <h2>{title}</h2>
         <p>{description}</p>
         {#each stack as tech}
@@ -68,7 +68,7 @@
         {#each editStack as name}
             <button type="button" on:click={stackDelete}>{name}</button>
         {/each}
-        <Typeahead label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" filter={(t) => editStack.includes(t)} placeholder="Add" data={profileStack} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}/>
+        <Typeahead label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" filter={(t) => editStack.includes(t)} placeholder="Add" data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}/>
         <button>✔</button>
         <button type="button" on:click={() => edit = false}>✖</button>
     </form>

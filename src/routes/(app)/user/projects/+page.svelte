@@ -3,6 +3,7 @@
     import ProjectItem from '$lib/components/ProjectItem.svelte';
     import Module from '$lib/components/Module.svelte';
     import Typeahead from "svelte-typeahead"
+    import stackOptions from "$lib/stackOptions.js"
 
     let projects = [...mockData.projects]
     let profileStack = mockData.stack
@@ -75,14 +76,14 @@
         {#each formStack as name}
             <button type="button" on:click={stackDelete}>{name}</button>
         {/each}
-        <Typeahead label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" filter={(t) => formStack.includes(t)} placeholder="Add" data={profileStack} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}/>
+        <Typeahead label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" filter={(t) => formStack.includes(t)} placeholder="Add" data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}/>
         <button>✔</button>
         <button type="button" on:click={() => newProject = null}>✖</button>
     </form>
     {/if}
 
     {#each projects as p}
-        <ProjectItem title={p.title} description={p.description} stack={p.stack} url={p.url} {profileStack} on:update={(e) => handleUpdate(e, p)} on:delete={() => deleteProject(p)}/>
+        <ProjectItem title={p.title} description={p.description} stack={p.stack} url={p.url} {stackOptions} on:update={(e) => handleUpdate(e, p)} on:delete={() => deleteProject(p)}/>
 
     {/each}
 
