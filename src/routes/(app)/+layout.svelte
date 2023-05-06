@@ -1,15 +1,21 @@
 <script>
 import { signOut } from "@auth/sveltekit/client";
 import { page } from '$app/stores';
+
+export let data;
 </script>
 
 <nav>
 <h3>Profile Maker</h3>
 <div class="nav-links">
+    {#if data.isSession}
     <a href="/user/edit" class:active={$page.url.pathname === '/user/edit'}>Edit</a>
     <a href="/user/projects" class:active={$page.url.pathname === '/user/projects'}>Projects</a>
     <a href="/user/settings" class:active={$page.url.pathname === '/user/settings'}>Settings</a>
     <button on:click={() => signOut()}>Sign Out</button>
+    {:else}
+        <a href="/">Sign In</a>
+    {/if} 
 </div>
 </nav>
 
