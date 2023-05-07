@@ -18,11 +18,11 @@
 
     }
     .module-header {
-        font-size: 1.5em;
+        font-size: 2rem;
         font-weight: 700;
-        margin-bottom: 1em;
+        margin-bottom: 1.2rem;
     }
     .module-content {
-        font-size: 1.1em;
+        font-size: 1.3em;
     }
 </style>

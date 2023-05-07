@@ -73,19 +73,19 @@
             <div class="form bio-form">
                 <input type="file" name="profilePicture" id="">
                 
-                <div style="display: inline-flex; align-items: center; gap: 0.5rem;">
-                    <label for="name">Name</label>
+                <div class="field">
+                    <label for="name">Name</label><br>
                     <input type="text" name="name" maxlength="100" required bind:value={profileData.name}>
                 </div>
                 
-                <div style="display: inline-flex; align-items: center; gap: 0.5rem;">
-                    <label for="tagline">Tagline</label>
+                <div class="field">
+                    <label for="tagline">Tagline</label><br>
                     <input type="text" name="tagline" maxlength="100" bind:value={profileData.tagline}>
                 </div>
                 
-                <div style="display: inline-flex; align-items: center; gap: 0.5rem;">
-                    <label for="about">About</label>
-                    <textarea name="about" placeholder="about" maxlength="500" required bind:value={profileData.about}></textarea>
+                <div class="field">
+                    <label for="about">About</label><br>
+                    <textarea name="about" rows="8" maxlength="500" required bind:value={profileData.about}></textarea>
                 </div>
             </div>
         </Module>
@@ -115,7 +115,7 @@
                     {/each}
                 </div>
                 
-                <Typeahead label="Search" hideLabel inputAfterSelect="clear" limit="5" filter={(item) => profileData.stack.includes(item)} placeholder="e.g. Python" data={stackOptions} extract={item => item} on:select={({ detail }) => updateStack(detail.selected)}/>
+                <Typeahead label="Add" inputAfterSelect="clear" limit="5" filter={(item) => profileData.stack.includes(item)} placeholder="e.g. Python" data={stackOptions} extract={item => item} on:select={({ detail }) => updateStack(detail.selected)}/>
             </div>
         </Module>
         
@@ -143,19 +143,53 @@
         }
 
         @include flex(column); 
-        padding: 2rem;
-        gap: 1.5rem;
+        padding: 2em;
+        gap: 1.5em;
         width: 70%;
-        margin: auto
+        margin: auto;
+
+        label {
+            display: inline-block;
+            margin-bottom: 0.2rem;
+            font-weight: 500;
+        }
     }
     .bio-form {
         @include flex(column);
         gap: 1em;
+
+        .field {
+            width: 100%;
+            margin: auto;
+        }
     }
     input[type="text"] {
+        line-height: 1rem;
+        width: 100%;
+        box-sizing: border-box;
         border: 1px solid rgb(204, 204, 204);
-        padding: 0.5em;
+        padding: 0.2rem 0.3rem;
+        margin: auto;
         border-radius: $border-radius;
+    }
+
+    textarea {
+        box-sizing: border-box;
+        resize: none;
+        width: 100%;
+        border: 1px solid rgb(204, 204, 204);
+        padding: 0.3em;
+        border-radius: $border-radius;
+    }
+
+    .link-form {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.5em;
+
+        select {
+            border: none
+        }
     }
    
 
@@ -187,27 +221,27 @@
     }
 
     button[type="submit"] {
-        border: none;
-        background-color: white;
-        border: 1px solid rgb(204, 204, 204);
         width: 20%;
-        font-weight: 500;
         padding: 0.5em;
         margin: auto;
-        border-radius: $border-radius;
-        cursor: pointer;
         &:hover {
             background-color: rgb(216, 216, 216);
         }
     }
 
     :global([data-svelte-typeahead] input) {
+        line-height: 1rem;
+        padding: 0.3rem;
         border-radius: $border-radius !important;
         border: 1px solid rgb(204, 204, 204) !important;
         &:focus {
             outline: none;
             border: 2px solid black !important;
         }
+    }
+    :global([data-svelte-typeahead] label) {
+        font-size: 1.1rem !important;
+        font-weight: 500;
     }
 
 </style>
