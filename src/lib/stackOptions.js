@@ -111,7 +111,6 @@ const stackOptions = [
 "Next.js",
 "NGINX",
 "Node.js",
-"Normalize.css",
 "NumPy",
 "Nuxt.js",
 "OCaml",

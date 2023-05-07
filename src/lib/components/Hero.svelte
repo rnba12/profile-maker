@@ -9,15 +9,26 @@
 </script>
 
 <div class="hero">
-    <div class="hero-profile-image">
         <img class="hero-image" src={profileImage} alt="profile pic">
-    </div>
-    <div class="hero-content">
-        <div class="hero-name">{name}</div>
-        <p class="hero-about">{tagline}</p>
+        <h1 class="hero-name">{name}</h1>
+        <h3 class="hero-about">{tagline}</h3>
         {#if links}
             <Links {links}/>
         {/if}
-
-    </div>
 </div>
+
+<style>
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    h1 {
+        font-size: 4rem;
+        line-height: 0;
+    }
+    img {
+        width: 80px;
+        height: 80px;
+    }
+</style>

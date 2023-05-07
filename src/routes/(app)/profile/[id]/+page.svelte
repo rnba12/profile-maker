@@ -20,21 +20,52 @@
     <div class="content">
         <div class="content-top">
             <Module header="Tech Stack">
-                {#each mockData.stack as name}
-                    <img on:error={() => handleError()} width="20px" height="20px" src={`https://cdn.simpleicons.org/${name.replace(" ", "")}/black`} alt="">
-                    <span>{name}</span>
-                    <br>
-                {/each}
+                <div class="tech-stack">
+                    {#each mockData.stack as name}
+                        <div class="tech">
+                            <img on:error={() => handleError()} width="20px" height="20px" src={`https://cdn.simpleicons.org/${name.replace(" ", "")}`} alt="">
+                            <span>{name}</span>
+                            <br>
+                        </div>
+                    {/each}
+                </div>
             </Module>
-            <Module header="About Me">
+            <!-- <Module header="About Me">
                 {mockData.about}
-            </Module>
+            </Module> -->
         </div>
         
-        <Module header="Projects">
-            {#each mockData.projects as {title, description, stack, url}}
-                <ProjectItem {title} {description} {stack} {url}/>
-            {/each}
-        </Module>
+        <h1>Projects</h1>
+            <div class="projects">
+                {#each mockData.projects as {title, description, stack, url}}
+                    <ProjectItem {title} {description} {stack} {url}/>
+                {/each}
+            </div>
+
     </div>
 </main>
+
+<style>
+
+    .content-top {
+        
+    }
+
+    .projects {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2rem;
+    }
+    .tech-stack {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+    .tech {
+            align-items: center;
+            border: 1px solid rgb(204,204,204);
+            padding: 0.5rem;
+            border-radius: 36px;
+    }
+</style>
