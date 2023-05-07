@@ -65,7 +65,7 @@
 </svelte:head>
 
 
-<main>
+
     <form on:submit|preventDefault={handleSubmit}>
         <h1>Edit Profile</h1>
 
@@ -121,7 +121,7 @@
         
         <button type="submit">Update</button>
     </form>
-</main>
+
 
 <style lang="scss">
     @mixin flex($direction) {
@@ -141,12 +141,9 @@
             font-size: 3rem;
             line-height: 0;
         }
-
         @include flex(column); 
-        padding: 2em;
         gap: 1.5em;
-        width: 70%;
-        margin: auto;
+        width: 100%;
 
         label {
             display: inline-block;

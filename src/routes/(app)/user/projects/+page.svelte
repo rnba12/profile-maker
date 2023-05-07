@@ -62,29 +62,32 @@
     <title>Projects | Profile-Maker</title>
 </svelte:head>
 
-<main>
 
-    <h1>Projects - {projects.length}</h1>
-    <button on:click={updateProjects}>Update</button>
-    <button on:click={handleNew}>+ New Project</button>
-
-    {#if newProject}
-    <form on:submit|preventDefault={addProject}>
-        <input type="text" name="title" value={newProject.title} required maxlength="100">
-        <input type="url" name="url" value={newProject.url}>
-        <textarea name="description" value={newProject.description} maxlength="300"></textarea>
-        {#each formStack as name}
-            <button type="button" on:click={stackDelete}>{name}</button>
+    <div>
+        <h1>Projects - {projects.length}</h1>
+        <button on:click={updateProjects}>Update</button>
+        <button on:click={handleNew}>+ New Project</button>
+        {#if newProject}
+        <form on:submit|preventDefault={addProject}>
+            <input type="text" name="title" value={newProject.title} required maxlength="100">
+            <input type="url" name="url" value={newProject.url}>
+            <textarea name="description" value={newProject.description} maxlength="300"></textarea>
+            {#each formStack as name}
+                <button type="button" on:click={stackDelete}>{name}</button>
+            {/each}
+            <Typeahead label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" filter={(t) => formStack.includes(t)} placeholder="Add" data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}/>
+            <button>✔</button>
+            <button type="button" on:click={() => newProject = null}>✖</button>
+        </form>
+        {/if}
+        {#each projects as p}
+            <ProjectItem title={p.title} description={p.description} stack={p.stack} url={p.url} {stackOptions} on:update={(e) => handleUpdate(e, p)} on:delete={() => deleteProject(p)}/>
         {/each}
-        <Typeahead label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" filter={(t) => formStack.includes(t)} placeholder="Add" data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}/>
-        <button>✔</button>
-        <button type="button" on:click={() => newProject = null}>✖</button>
-    </form>
-    {/if}
+    </div>
 
-    {#each projects as p}
-        <ProjectItem title={p.title} description={p.description} stack={p.stack} url={p.url} {stackOptions} on:update={(e) => handleUpdate(e, p)} on:delete={() => deleteProject(p)}/>
-
-    {/each}
-
-</main>
+<style>
+    h1 {
+        font-size: 3rem;
+        line-height: 0;
+    }
+</style>

@@ -18,9 +18,16 @@ import { page } from '$app/stores';
 </div>
 </nav>
 
-<slot/>
+<main>
+    <slot/>
+</main>
 
 <style lang="scss">
+main {
+        padding: 2rem;
+        width: 75%;
+        margin: auto;
+}
 nav {
     width: 100%;
     display: flex;
