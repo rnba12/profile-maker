@@ -63,10 +63,9 @@
 </svelte:head>
 
 
-    <div>
-        <h1>Projects - {projects.length}</h1>
-        <button on:click={updateProjects}>Update</button>
+        <h1>Projects</h1>
         <button on:click={handleNew}>+ New Project</button>
+        
         {#if newProject}
         <form on:submit|preventDefault={addProject}>
             <input type="text" name="title" value={newProject.title} required maxlength="100">
@@ -80,14 +79,22 @@
             <button type="button" on:click={() => newProject = null}>✖</button>
         </form>
         {/if}
-        {#each projects as p}
-            <ProjectItem title={p.title} description={p.description} stack={p.stack} url={p.url} {stackOptions} on:update={(e) => handleUpdate(e, p)} on:delete={() => deleteProject(p)}/>
-        {/each}
-    </div>
+        <div class="projects">
+            {#each projects as p}
+                <ProjectItem title={p.title} description={p.description} stack={p.stack} url={p.url} {stackOptions} on:update={(e) => handleUpdate(e, p)} on:delete={() => deleteProject(p)}/>
+            {/each}
+        </div>
+        <button on:click={updateProjects}>Update</button>
+        
 
 <style>
     h1 {
         font-size: 3rem;
         line-height: 0;
+    }
+    .projects {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
     }
 </style>

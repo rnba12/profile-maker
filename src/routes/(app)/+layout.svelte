@@ -25,7 +25,7 @@ import { page } from '$app/stores';
 <style lang="scss">
 main {
         padding: 2rem;
-        width: 75%;
+        width: 80%;
         margin: auto;
 }
 nav {

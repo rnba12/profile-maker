@@ -45,37 +45,60 @@
 
 </script>
 
-{#if !edit}
 <div class="project">
-        <button class="{!stackOptions ? "hidden": ""}" on:click={handleEdit}>Edit</button>
-        <button class="{!stackOptions ? "hidden": ""}" on:click={handleDelete}>Delete</button>
+    {#if !edit}
+        {#if url}
+            <a class="link" href={url} target="_blank">
+                link
+            </a>
+        {/if}
+        <button class:hidden={!stackOptions} on:click={handleEdit}>Edit</button>
+        <button class:hidden={!stackOptions} class="delete" on:click={handleDelete}>Delete</button>
          <h2>{title}</h2>
         <p>{description}</p>
-        {#each stack as tech}
-            <span class="tech">
-                {tech}
-            </span>
+        {#each stack as name}
+            <img src={`https://cdn.simpleicons.org/${name.replaceAll(" ", "")}`} alt="">
         {/each}
-        {#if url}
-            <a href={url} target="_blank"><img src="" alt="link"></a>
-        {/if}
-    </div>
-{:else}
-    <form on:submit|preventDefault={handleUpdate}>
-        <input type="text" name="title" value={title} required maxlength="100">
-        <input type="url" name="url" value={url}>
-        <textarea name="description" value={description} maxlength="300"></textarea>
-        {#each editStack as name}
+        <br>
+        {:else}
+        <form on:submit|preventDefault={handleUpdate}>
+            <input type="text" name="title" value={title} required maxlength="100">
+            <input type="url" name="url" value={url}>
+            <textarea name="description" value={description} maxlength="300"></textarea>
+            {#each editStack as name}
             <button type="button" on:click={stackDelete}>{name}</button>
-        {/each}
-        <Typeahead label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" filter={(t) => editStack.includes(t)} placeholder="Add" data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}/>
-        <button>✔</button>
-        <button type="button" on:click={() => edit = false}>✖</button>
-    </form>
-{/if}
+            {/each}
+            <Typeahead label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" filter={(t) => editStack.includes(t)} placeholder="Add" data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}/>
+                <button>✔</button>
+                <button type="button" on:click={() => edit = false}>✖</button>
+            </form>
+            {/if}
+        </div>
 
-<style>
+<style lang="scss">
     .hidden {
         display: none;
     }
+    .project {
+        background-color: white;
+        border: 1px solid $border-light;
+        border-radius: $border-radius;
+        padding: 1rem;
+        min-height: 17rem;
+        img {
+            width: 1.5em;
+            height: 1.5em;
+        }
+    }
+
+    .link {
+        color: black;
+        height: 1em;
+        width: 1em;
+    }
+
+    button {
+        border: none;
+    }
+
 </style>

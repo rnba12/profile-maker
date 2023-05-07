@@ -109,7 +109,7 @@
                 <div class="tech-stack">
                     {#each profileData.stack as name}
                     <div class="tech">
-                        <img src={`https://cdn.simpleicons.org/${name.replaceAll(" ", "")}`} alt="">
+                        <img src={`https://cdn.simpleicons.org/${name.replaceAll(" ", "")}`} alt={name}>
                         <span>{name}</span> <button class="delete-stack" type="button" on:click={() => deleteStack(name)}>&#x2715;</button>
                     </div>
                     {/each}
@@ -163,20 +163,13 @@
     input[type="text"] {
         line-height: 1rem;
         width: 100%;
-        box-sizing: border-box;
-        border: 1px solid rgb(204, 204, 204);
         padding: 0.2rem 0.3rem;
         margin: auto;
-        border-radius: $border-radius;
     }
 
     textarea {
-        box-sizing: border-box;
-        resize: none;
         width: 100%;
-        border: 1px solid rgb(204, 204, 204);
         padding: 0.3em;
-        border-radius: $border-radius;
     }
 
     .link-form {
