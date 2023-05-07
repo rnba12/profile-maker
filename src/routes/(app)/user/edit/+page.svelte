@@ -99,8 +99,8 @@
                     <option value="dribbble">Dribbble</option>
                 </select>
                 <input type="text" bind:value={profileData.links[selectOption]}>
-                <div class="{valid.links ? "hidden" : "warning"}">Links Must Be Valid URLs</div>
             </div>  
+            <div class="{valid.links ? "hidden" : "warning"}">Links Must Be Valid URLs</div>
         </Module>
         
         <Module header="Tech Stack">
@@ -186,7 +186,7 @@
         display: grid;
         grid-template-columns: auto 1fr;
         gap: 0.5em;
-
+        margin-bottom: 1rem;
         select {
             border: none
         }
