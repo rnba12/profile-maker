@@ -30,9 +30,6 @@
                     {/each}
                 </div>
             </Module>
-            <!-- <Module header="About Me">
-                {mockData.about}
-            </Module> -->
         </div>
         
         <h1>Projects</h1>

@@ -83,10 +83,6 @@
                     <input type="text" name="tagline" maxlength="100" bind:value={profileData.tagline}>
                 </div>
                 
-                <div class="field">
-                    <label for="about">About</label><br>
-                    <textarea name="about" rows="8" maxlength="500" required bind:value={profileData.about}></textarea>
-                </div>
             </div>
         </Module>
         
