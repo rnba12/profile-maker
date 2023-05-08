@@ -163,10 +163,6 @@
         margin: auto;
     }
 
-    textarea {
-        width: 100%;
-        padding: 0.3em;
-    }
 
     .link-form {
         display: grid;
