@@ -4,9 +4,11 @@
     import Module from '$lib/components/Module.svelte';
     import Typeahead from "svelte-typeahead"
     import stackOptions from "$lib/stackOptions.js"
+    import { enhance } from '$app/forms';
+    import {page} from '$app/stores';
+    import { invalidateAll } from '$app/navigation';
 
-    let projects = [...mockData.projects]
-    let profileStack = mockData.stack
+    let projects = [...$page.data.projects]
 
     // let selectedProject = null
     let formStack = []
@@ -67,13 +69,14 @@
         <button on:click={handleNew}>+ New Project</button>
         
         {#if newProject}
-        <form on:submit|preventDefault={addProject}>
+        <form method="POST" action="?/add" use:enhance={() => invalidateAll()}>
             <input type="text" name="title" value={newProject.title} required maxlength="100">
             <input type="url" name="url" value={newProject.url}>
             <textarea name="description" value={newProject.description} maxlength="300"></textarea>
             {#each formStack as name}
                 <button type="button" on:click={stackDelete}>{name}</button>
             {/each}
+            <input hidden name="stack" type="text" bind:value={formStack}>
             <Typeahead label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" filter={(t) => formStack.includes(t)} placeholder="Add" data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}/>
             <button>✔</button>
             <button type="button" on:click={() => newProject = null}>✖</button>

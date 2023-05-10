@@ -75,7 +75,7 @@ model Project {
   title String
   description String?
   url String?
-  stack String?
+  stack String[]
 
   profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
