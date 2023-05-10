@@ -3,13 +3,12 @@
     import Module from '$lib/components/Module.svelte'
     import Typeahead from "svelte-typeahead"
     import stackOptions from '$lib/stackOptions';
-    import { page } from '$app/stores';
+    export let data;
 
-    console.log($page)
     const profileData = {
-        ...$page.data.profile,
+         ...data.profile,
     }
-    console.log(profileData)
+    
 
     const valid = {
         name: true,
@@ -17,8 +16,6 @@
         links: true,
         stack: true
     }
-    
-
     let selectOption = "github";
     
 
@@ -38,9 +35,6 @@
 
     const deleteStack = (name) => {
         profileData.stack = profileData.stack.filter(t => t !== name)
-        // profileData.projects.forEach(project => {
-        //     project.stack = project.stack.filter(t => t !== name)
-        // });
     }
 
     const handleSubmit = () => {
@@ -77,6 +71,7 @@
 
         <Module header="Bio">
             <div class="form bio-form">
+                <img src={profileData.image} width="100px" height="100px" alt="profile pic">
                 <input type="file" name="profilePicture" id="">
                 
                 <div class="field">
@@ -98,7 +93,6 @@
                     <option value="github">GitHub</option>
                     <option value="linkedin">LinkedIn</option>
                     <option value="twitter">Twitter</option>
-                    <option value="dribbble">Dribbble</option>
                 </select>
                 <input type="text" bind:value={profileData.links[selectOption]}>
             </div>  

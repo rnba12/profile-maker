@@ -32,7 +32,11 @@ export async function load(event) {
                     stack: []
                 }
             })
-        }  
+            return {
+                profile,
+                newUser: true
+            }  
+        }
         prisma.$disconnect
         return {profile}
     }
