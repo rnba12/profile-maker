@@ -37,7 +37,7 @@
         profileData.stack = profileData.stack.filter(t => t !== name)
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const newData = {...profileData}
         console.log(newData)
         //Validation
@@ -53,7 +53,15 @@
             console.log("error in form")
         } else {
             // send data
-            console.log("sendinf data")
+            const response = await fetch('/api/profile', {
+                method: 'POST',
+                body: JSON.stringify(newData)
+            })
+            response.json().then(
+                data => {
+                    if (data.success) console.log("succesfully posted")
+                }
+            )
         }
         
     }
