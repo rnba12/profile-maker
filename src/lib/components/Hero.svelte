@@ -2,14 +2,14 @@
     import placeholder from '$lib/assets/placeholder.jpg';
     import Links from './Links.svelte';
     export let name;
-    export let profileImage = placeholder;
+    export let image = placeholder;
     export let tagline;
     export let links;
 
 </script>
 
 <div class="hero">
-        <img class="hero-image" src={profileImage} alt="profile pic">
+        <img class="hero-image" src={image} alt="profile pic">
         <h1 class="hero-name">{name}</h1>
         <h3 class="hero-about">{tagline}</h3>
         {#if links}

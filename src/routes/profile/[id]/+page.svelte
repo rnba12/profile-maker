@@ -24,7 +24,7 @@
 {/if}
 
 <main>
-    <Hero name={profileData.name} tagline={profileData.tagline} links={profileData.links}/>
+    <Hero name={profileData.name} tagline={profileData.tagline} links={profileData.links} image={profileData.image}/>
     <div class="content">
         <div class="content-top">
             <Module header="Tech Stack">
