@@ -12,6 +12,9 @@ export async function load(event) {
     const getProfile = await prisma.profile.findUnique({
         where: {
             id: event.params.id
+        },
+        include: {
+            projects: true
         }
     })
 

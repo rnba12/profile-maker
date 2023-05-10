@@ -1,7 +1,6 @@
 <script>
     import Hero from '$lib/components/Hero.svelte';
     import Module from '$lib/components/Module.svelte';
-    import mockData from '$lib/assets/mockData.json'
     import ProjectItem from '$lib/components/ProjectItem.svelte';
     import code from '$lib/assets/icons/code.svg'
     export let data;
@@ -42,7 +41,7 @@
         
         <h1>Projects</h1>
             <div class="projects">
-                {#each mockData.projects as {title, description, stack, url}}
+                {#each profileData.projects as {title, description, stack, url}}
                     <ProjectItem {title} {description} {stack} {url}/>
                 {/each}
             </div>
