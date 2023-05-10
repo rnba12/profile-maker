@@ -21,7 +21,7 @@ export async function POST(requestEvent) {
             stack: data.stack
         }
     })
-
+    prisma.$disconnect
 
     return json({success: true})
 }

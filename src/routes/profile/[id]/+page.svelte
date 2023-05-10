@@ -4,6 +4,10 @@
     import mockData from '$lib/assets/mockData.json'
     import ProjectItem from '$lib/components/ProjectItem.svelte';
     import code from '$lib/assets/icons/code.svg'
+    export let data;
+    
+    console.log(data);
+    const profileData = data.getProfile
 
     const handleError = e => {
         e.target.src = code
@@ -12,16 +16,20 @@
 </script>
 
 <svelte:head>
-    <title>{mockData.name} | Profile-Maker</title>
+    <title>{profileData.name} | Profile-Maker</title>
 </svelte:head>
 
+{#if data.isSession}
+    <a href="/user/edit">Edit Your Profile</a>
+{/if}
+
 <main>
-    <Hero name={mockData.name} tagline={mockData.tagline} links={mockData.links}/>
+    <Hero name={profileData.name} tagline={profileData.tagline} links={profileData.links}/>
     <div class="content">
         <div class="content-top">
             <Module header="Tech Stack">
                 <div class="tech-stack">
-                    {#each mockData.stack as name}
+                    {#each profileData.stack as name}
                         <div class="tech">
                             <img on:error={() => handleError()} width="20px" height="20px" src={`https://cdn.simpleicons.org/${name.replace(" ", "")}`} alt="">
                             <span>{name}</span>
