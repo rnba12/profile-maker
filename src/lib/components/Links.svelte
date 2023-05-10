@@ -7,7 +7,9 @@
 <div class="links"
 >
     {#each Object.entries(links) as [icon, url]}
-        <a href={url}><img width="30px" height="30px" src={`https://cdn.simpleicons.org/${icon}/black`} alt={icon}></a>
+        {#if url}
+            <a href={url}><img width="30px" height="30px" src={`https://cdn.simpleicons.org/${icon}/black`} alt={icon}></a>
+        {/if}
     {/each}
 </div>
 
