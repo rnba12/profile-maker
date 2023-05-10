@@ -3,8 +3,14 @@
     import Module from '$lib/components/Module.svelte'
     import Typeahead from "svelte-typeahead"
     import stackOptions from '$lib/stackOptions';
-    const profileData = {...mockData}
-    
+    import { page } from '$app/stores';
+
+    console.log($page)
+    const profileData = {
+        ...$page.data.profile,
+    }
+    console.log(profileData)
+
     const valid = {
         name: true,
         about: true,
@@ -32,9 +38,9 @@
 
     const deleteStack = (name) => {
         profileData.stack = profileData.stack.filter(t => t !== name)
-        profileData.projects.forEach(project => {
-            project.stack = project.stack.filter(t => t !== name)
-        });
+        // profileData.projects.forEach(project => {
+        //     project.stack = project.stack.filter(t => t !== name)
+        // });
     }
 
     const handleSubmit = () => {
