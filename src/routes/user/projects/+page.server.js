@@ -59,11 +59,11 @@ export const actions = {
         return { success: true}
     },
 
-    delete: async (event) => {
-        const data = await event.request.formData()
+    delete: async ({ url }) => {
+        const data = await url.searchParams.get("id")
 
         const deleteProject = await prisma.project.delete({
-            where: {id: data.get("id")}
+            where: {id: data}
         })
         return {success: true}
     }

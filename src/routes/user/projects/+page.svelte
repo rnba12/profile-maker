@@ -8,8 +8,7 @@
     import { invalidateAll } from '$app/navigation';
 
 
-    console.log($page)
-    let projects = [...$page.data.projects]
+    $: projects = [...$page.data.projects]
 
     // let selectedProject = null
     let formStack = []
@@ -76,7 +75,15 @@
         <button on:click={handleNew}>+ New Project</button>
         
         {#if newProject}
-        <form method="POST" action="?/add">
+        <form method="POST" action="?/add" use:enhance={() => {
+            // Before submission
+            return async ({result, update }) => {
+                if( result.type === "success") {
+                    newProject = null
+                }
+                update()
+            }
+        }}>
             
             <label for="title">Title</label>
             <input type="text" name="title" value={newProject.title} required maxlength="100">

@@ -9,6 +9,8 @@
     export let description;
     export let stack;
 
+    if (stack[0] === "") stack = []
+
     // edit stuff
     let dispatch = createEventDispatcher()
     let edit = false;
@@ -19,27 +21,25 @@
     const handleEdit = () => {
         edit = true
         editStack = [...stack]
-        
     }
 
     const stackAdd = (name) => {
         editStack = [...editStack, name]
     }
 
-    const stackDelete = (e) => {
-        editStack = editStack.filter(t => t !== e.target.innerHTML)
+    const stackDelete = (name) => {
+        editStack = editStack.filter(t => t !== name)
     }
 
-    const handleUpdate = (e) => {
-        const updated = {
-            title: e.target.title.value,
-            url: e.target.url.value,
-            description: e.target.description.value,
-            stack: [...editStack]
+    const handleUpdate = () => {
+            // Before submission
+            return async ({result, update }) => {
+                if( result.type === "success") {
+                    edit = false
+                }
+                update()
+            }
         }
-        dispatch("update", {prevTitle: title, updated})
-        edit = false
-    }
 
     const handleDelete = () => {
         dispatch('delete')
@@ -49,12 +49,15 @@
 
 <div class="project">
     {#if !edit}
-        {#if url}
-            <a class="link" href={url} target="_blank">
-                link
-            </a>
-        {/if}
-        <button class:hidden={!stackOptions} on:click={handleEdit}>Edit</button>
+    {#if url}
+    <a class="link" href={url} target="_blank">
+        link
+    </a>
+    {/if}
+        <form class:hidden={!stackOptions} action="?/delete&id={id}" method="POST" use:enhance>
+            <button>Delete</button>
+            <button type="button" class:hidden={!stackOptions} on:click={handleEdit}>Edit</button>
+        </form>
          <h2>{title}</h2>
         <p>{description}</p>
         {#each stack as name}
@@ -62,8 +65,7 @@
         {/each}
         <br>
         {:else}
-        <form method="POST" action="?/update">
-        <button formaction="?/delete">Delete</button>
+        <form method="POST" action="?/update" use:enhance={handleUpdate}>
 
             <input type="text" name="id" hidden value={id}>
             <input type="text" name="title" value={title} required maxlength="100">
@@ -73,7 +75,7 @@
             <textarea name="description" value={description} maxlength="300"></textarea>
 
             {#each editStack as name}
-            <button type="button" on:click={stackDelete}>{name}</button>
+            <button type="button" on:click={() => stackDelete(name)}>{name} &#x2715;</button>
             {/each}
 
             <Typeahead 
