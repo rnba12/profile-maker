@@ -39,12 +39,14 @@
             </Module>
         </div>
         
-        <h1>Projects</h1>
-            <div class="projects">
-                {#each profileData.projects as {title, description, stack, url}}
-                    <ProjectItem {title} {description} {stack} {url}/>
-                {/each}
-            </div>
+        <div class="content-bottom">
+            <h1>Projects</h1>
+                <div class="projects">
+                    {#each profileData.projects as {title, description, stack, url}}
+                        <ProjectItem {title} {description} {stack} {url}/>
+                    {/each}
+                </div>
+        </div>
 
     </div>
 </main>
@@ -52,7 +54,12 @@
 <style>
 
     .content-top {
-        
+        width: 80%;
+        margin: auto;
+    }
+    .content-bottom {
+        width: 80%;
+        margin: auto;
     }
 
     .projects {
