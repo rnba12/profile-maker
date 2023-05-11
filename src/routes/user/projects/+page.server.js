@@ -2,7 +2,6 @@ import { redirect } from '@sveltejs/kit';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient()
-let profileId;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
@@ -42,7 +41,6 @@ export async function load(event) {
         //     }  
         // }
         prisma.$disconnect
-        profileId = profile.id
         return {projects: profile.projects}
     }
     
@@ -55,7 +53,6 @@ export const actions = {
 
         const newProject = await prisma.project.create({
             data: {
-                profileId: profileId,
                 title: data.get("title"),
                 url: data.get("url"),
                 description: data.get("description"),
@@ -68,8 +65,25 @@ export const actions = {
 
     update: async (event) => {
         const data = await event.request.formData()
-        console.log(data)
+        
+        const updateProject = await prisma.project.update({
+            where: {id: data.get("id")},
+            data: {
+                title: data.get("title"),
+                url: data.get("url"),
+                description: data.get("description"),
+                stack: data.get("stack").split(","),
+            }
+        })
     
         return { success: true}
+    },
+
+    delete: async (event) => {
+        const data = await event.request.formData()
+
+        const deleteProject = await prisma.project.delete({
+            where: {id: data.get("id")}
+        })
     }
 }

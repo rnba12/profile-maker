@@ -4,7 +4,7 @@
     import Module from '$lib/components/Module.svelte';
     import Typeahead from "svelte-typeahead"
     import stackOptions from "$lib/stackOptions.js"
-    import { enhance } from '$app/forms';
+    import { enhance, deserialize } from '$app/forms';
     import {page} from '$app/stores';
     import { invalidateAll } from '$app/navigation';
 
@@ -38,15 +38,21 @@
         formStack = []
     }
 
-    const addProject = (e) => {
-            const updated = {
-                title: e.target.title.value,
-                description: e.target.description.value,
-                url: e.target.url.value,
-                stack: [...formStack]
-            }
-            projects = [...projects, updated]
-            newProject = null;
+    async function handleAdd(event) {
+        const data = new FormData(this)
+
+        const response = await fetch(this.action, {
+            method: 'POST',
+            body: data
+        })
+
+        /** @type {import('@sveltejs/kit').ActionResult} */
+        const result = deserialize(await response.text());
+
+        if (result.type === 'success') {
+            // re-run all `load` functions, following the successful update
+            await invalidateAll();
+        }
     }
 
     const deleteProject = (project) => {
@@ -69,25 +75,35 @@
         <button on:click={handleNew}>+ New Project</button>
         
         {#if newProject}
-        <form method="POST" action="?/add" use:enhance={() => invalidateAll()}>
+        <form method="POST" action="?/add" use:enhance>
+
             <input type="text" name="title" value={newProject.title} required maxlength="100">
+
             <input type="url" name="url" value={newProject.url}>
+
             <textarea name="description" value={newProject.description} maxlength="300"></textarea>
+
             {#each formStack as name}
                 <button type="button" on:click={stackDelete}>{name}</button>
             {/each}
+
             <input hidden name="stack" type="text" bind:value={formStack}>
-            <Typeahead label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" filter={(t) => formStack.includes(t)} placeholder="Add" data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}/>
-            <button>✔</button>
-            <button type="button" on:click={() => newProject = null}>✖</button>
+
+            <Typeahead 
+                label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" 
+                filter={(t) => formStack.includes(t)} placeholder="Add" data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}
+            
+            />
+            <button>Add</button>
+            <button type="button" on:click={() => newProject = null}>Discard</button>
         </form>
         {/if}
+
         <div class="projects">
             {#each projects as p}
-                <ProjectItem title={p.title} description={p.description} stack={p.stack} url={p.url} {stackOptions} on:update={(e) => handleUpdate(e, p)} on:delete={() => deleteProject(p)}/>
+                <ProjectItem id={p.id} title={p.title} description={p.description} stack={p.stack} url={p.url} {stackOptions} on:update={(e) => handleUpdate(e, p)} on:delete={() => deleteProject(p)}/>
             {/each}
         </div>
-        <button on:click={updateProjects}>Update</button>
         
 
 <style>

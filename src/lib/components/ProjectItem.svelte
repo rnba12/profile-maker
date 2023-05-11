@@ -1,7 +1,9 @@
 <script>
     import Typeahead from "svelte-typeahead"
     import { createEventDispatcher } from "svelte";
+    import { enhance } from "$app/forms";
 
+    export let id = null;
     export let title;
     export let url = "";
     export let description;
@@ -53,7 +55,6 @@
             </a>
         {/if}
         <button class:hidden={!stackOptions} on:click={handleEdit}>Edit</button>
-        <button class:hidden={!stackOptions} class="delete" on:click={handleDelete}>Delete</button>
          <h2>{title}</h2>
         <p>{description}</p>
         {#each stack as name}
@@ -61,16 +62,26 @@
         {/each}
         <br>
         {:else}
-        <form on:submit|preventDefault={handleUpdate}>
+        <form method="POST" action="?/update">
+        <button formaction="?/delete">Delete</button>
+
+            <input type="text" name="id" hidden value={id}>
             <input type="text" name="title" value={title} required maxlength="100">
+
             <input type="url" name="url" value={url}>
+            <input type="text" name="stack" hidden bind:value={editStack}>
             <textarea name="description" value={description} maxlength="300"></textarea>
+
             {#each editStack as name}
             <button type="button" on:click={stackDelete}>{name}</button>
             {/each}
-            <Typeahead label="Add Tech" hideLabel inputAfterSelect="clear" limit="5" filter={(t) => editStack.includes(t)} placeholder="Add" data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}/>
-                <button>✔</button>
-                <button type="button" on:click={() => edit = false}>✖</button>
+
+            <Typeahead 
+                label="Add" inputAfterSelect="clear" limit="5" 
+                filter={(t) => editStack.includes(t)} data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}
+            />
+                <button>Update</button>
+                <button type="button" on:click={() => edit = false}>Cancel</button>
             </form>
             {/if}
         </div>
