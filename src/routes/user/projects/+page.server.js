@@ -1,7 +1,6 @@
 import { redirect } from '@sveltejs/kit';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '$lib/server/prisma';
 
-const prisma = new PrismaClient()
 let profileId;
 
 /** @type {import('./$types').PageServerLoad} */
@@ -22,7 +21,6 @@ export async function load(event) {
                 
             }
         )
-        prisma.$disconnect
         profileId = profile.id
         return {projects: profile.projects}
     }
@@ -43,8 +41,7 @@ export const actions = {
                 stack: data.get("stack").split(","),
             }
         })
-        prisma.$disconnect
-        return { success: true}
+        return { success: true }
     },
 
     update: async (event) => {
@@ -59,7 +56,6 @@ export const actions = {
                 stack: data.get("stack").split(","),
             }
         })
-        prisma.$disconnect
         return { success: true}
     },
 
@@ -69,7 +65,6 @@ export const actions = {
         const deleteProject = await prisma.project.delete({
             where: {id: data.get("id")}
         })
-        prisma.$disconnect
         return {success: true}
     }
 }

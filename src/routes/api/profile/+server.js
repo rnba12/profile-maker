@@ -1,7 +1,6 @@
 import { json } from '@sveltejs/kit'
-import {PrismaClient} from '@prisma/client'
+import { prisma } from '$lib/server/prisma'
 
-const prisma = new PrismaClient()
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST(requestEvent) {
