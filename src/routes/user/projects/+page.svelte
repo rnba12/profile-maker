@@ -1,13 +1,14 @@
 <script>
-    import mockData from '$lib/assets/mockData.json'
     import ProjectItem from '$lib/components/ProjectItem.svelte';
     import Module from '$lib/components/Module.svelte';
     import Typeahead from "svelte-typeahead"
     import stackOptions from "$lib/stackOptions.js"
     import { enhance, deserialize } from '$app/forms';
-    import {page} from '$app/stores';
+    import { page } from '$app/stores';
     import { invalidateAll } from '$app/navigation';
 
+
+    console.log($page)
     let projects = [...$page.data.projects]
 
     // let selectedProject = null
@@ -75,12 +76,15 @@
         <button on:click={handleNew}>+ New Project</button>
         
         {#if newProject}
-        <form method="POST" action="?/add" use:enhance>
-
+        <form method="POST" action="?/add">
+            
+            <label for="title">Title</label>
             <input type="text" name="title" value={newProject.title} required maxlength="100">
 
+            <label for="url">URL</label>
             <input type="url" name="url" value={newProject.url}>
 
+            <label for="description">Description</label>
             <textarea name="description" value={newProject.description} maxlength="300"></textarea>
 
             {#each formStack as name}
@@ -102,6 +106,8 @@
         <div class="projects">
             {#each projects as p}
                 <ProjectItem id={p.id} title={p.title} description={p.description} stack={p.stack} url={p.url} {stackOptions} on:update={(e) => handleUpdate(e, p)} on:delete={() => deleteProject(p)}/>
+                    {:else}
+                    <p>No Projects to display</p>
             {/each}
         </div>
         
