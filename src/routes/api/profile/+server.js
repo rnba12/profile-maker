@@ -1,16 +1,20 @@
 import { json } from '@sveltejs/kit'
 import { prisma } from '$lib/server/prisma'
+import { getIdFromSession } from '$lib/server/helpers';
 
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST(requestEvent) {
     // save profile
-    const { request } = requestEvent;
+    const { request, cookies } = requestEvent;
+    const token = await cookies.get("next-auth.session-token")
     const data = await request.json()
+
+    const userId = await getIdFromSession(token) 
     
     const updateProfile = await prisma.profile.update({
         where: {
-            id: data.id
+            userId: userId
         },
         data: {
             name: data.name,
