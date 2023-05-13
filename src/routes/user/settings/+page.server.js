@@ -1,17 +1,20 @@
 import { fail } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
+import { getIdFromSession } from '$lib/server/helpers';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
     const session = await event.locals.getSession()
+    const token = await event.cookies.get("next-auth.session-token")
     if (!session) {
         throw redirect(304, '/')
     } else {
-        const user = await prisma.user.findUnique({where: {email: session.user.email}})
+        const userId = await getIdFromSession(token)
         const profile = await prisma.profile.findUnique({
-            where: {userId: user.id},
+            where: {userId: userId},
             select: {
                 id: true,
+                userId: true,
                 linkName: true
             }
         }) 
@@ -47,12 +50,15 @@ export const actions = {
                 }
             })
 
-            return { success: true }
+            return { success: true, message: "Link Updated Successfully" }
         }
     },
 
     deleteAccount: async (event) => {
-
+        const id = await event.url.searchParams.get("id")
+        const session = await event.cookies.get("next-auth.session-token")
+        console.log(id)
+        console.log(session)
     }
 
 }

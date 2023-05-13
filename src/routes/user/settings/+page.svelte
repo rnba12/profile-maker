@@ -9,7 +9,8 @@
         return async({ result, update}) => {
             if (result.type === "success") {
                 invalidateAll()
-                
+                await applyAction(result)
+                console.log($page)
             } if (result.type === "failure") {
                 await applyAction(result)
             }
@@ -26,7 +27,7 @@
 <h1>Settings</h1>
 
 <form method="post" action="?/editLink&id={$page.data.profile.id}" use:enhance={handleUpdate}>
-    {#if $page.form?.error}
+    {#if $page.form}
         {$page.form.message}
     {/if}
     <label for="linkName">Link Name</label>
@@ -35,5 +36,5 @@
 </form>
 
 <form method="post" action="?/deleteAccount">
-    <button type="button" on:click={handleDelete}>Delete Account</button>
+    <button type="submit" on:click={handleDelete}>Delete Account</button>
 </form>

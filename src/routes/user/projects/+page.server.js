@@ -1,20 +1,23 @@
 import { redirect } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 import { fail } from '@sveltejs/kit';
+import { getIdFromSession } from '$lib/server/helpers';
 
 let profileId;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
     const session = await event.locals.getSession()
+    const token = await event.cookies.get("next-auth.session-token")
+
     if (!session) {
         throw redirect(304, '/')
     } else {
-        const user = await prisma.user.findUnique({where: {email: session.user.email}})
+        const userId = await getIdFromSession(token)
         let profile = await prisma.profile.findUnique(
             {
                 where: {
-                    userId: user.id
+                    userId: userId
                 },
                 include: {
                     projects: true

@@ -1,19 +1,22 @@
 import { redirect, fail } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
+import { getIdFromSession } from '$lib/server/helpers';
 
-let user;
+let userId;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
     const session = await event.locals.getSession()
+    const token = await event.cookies.get("next-auth.session-token")
+
     if (!session) {
         throw redirect(304, '/')
     } else {
-        user = await prisma.user.findUnique({where: {email: session.user.email}})
+        userId = await getIdFromSession(token)
         let profile = await prisma.profile.findUnique(
             {
                 where: {
-                    userId: user.id
+                    userId: userId
                 }
                 
             }
@@ -24,7 +27,6 @@ export async function load(event) {
                 newUser: true
             }  
         }
-        prisma.$disconnect
         return {profile}
     }
     
@@ -37,7 +39,7 @@ export const actions = {
 
         const nameExists = await prisma.profile.findUnique({
             where:{ linkName: data.get("linkName")},
-            select: { linkName: true}
+            select: { linkName: true }
         })
 
 
@@ -51,7 +53,7 @@ export const actions = {
         else {
             const newProfile = await prisma.profile.create({
                 data: {
-                    userId: user.id,
+                    userId: user,
                     linkName: data.get("linkName"),
                     email: user.email,
                     name: user.name,
