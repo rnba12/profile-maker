@@ -1,7 +1,7 @@
-import { redirect } from '@sveltejs/kit';
-import { PrismaClient } from '@prisma/client';
+import { redirect, fail } from '@sveltejs/kit';
+import { prisma } from '$lib/server/prisma.js';
 
-const prisma = new PrismaClient()
+let user;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
@@ -9,7 +9,7 @@ export async function load(event) {
     if (!session) {
         throw redirect(304, '/')
     } else {
-        const user = await prisma.user.findUnique({where: {email: session.user.email}})
+        user = await prisma.user.findUnique({where: {email: session.user.email}})
         let profile = await prisma.profile.findUnique(
             {
                 where: {
@@ -19,9 +19,41 @@ export async function load(event) {
             }
         )
         if (!profile) {
-            profile = await prisma.profile.create({
+            return {
+                // profile,
+                newUser: true
+            }  
+        }
+        prisma.$disconnect
+        return {profile}
+    }
+    
+};
+
+/**@type {import('./$types').Actions} */
+export const actions = {
+    new: async (event) => {
+        const data = await event.request.formData()
+
+        const nameExists = await prisma.profile.findUnique({
+            where:{ linkName: data.get("linkName")},
+            select: { linkName: true}
+        })
+
+
+        if (nameExists) {
+            // return name not available
+            return fail(400,{
+                error: true,
+                message: "Link name is not available."
+            })
+        }
+        else {
+            const newProfile = await prisma.profile.create({
                 data: {
                     userId: user.id,
+                    linkName: data.get("linkName"),
+                    email: user.email,
                     name: user.name,
                     image: user.image,
                     links: {
@@ -32,13 +64,10 @@ export async function load(event) {
                     stack: []
                 }
             })
-            return {
-                profile,
-                newUser: true
-            }  
+            return {success: true}
         }
-        prisma.$disconnect
-        return {profile}
-    }
+        
     
-};
+
+    }
+}

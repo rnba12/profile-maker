@@ -8,6 +8,8 @@
     console.log(data);
     const profileData = data.getProfile
 
+    const projects = data.getProjects
+
     const handleError = e => {
         e.target.src = code
     }
@@ -42,7 +44,7 @@
         <div class="content-bottom">
             <h1>Projects</h1>
                 <div class="projects">
-                    {#each profileData.projects as {title, description, stack, url}}
+                    {#each projects as {title, description, stack, url}}
                         <ProjectItem {title} {description} {stack} {url}/>
                     {/each}
                 </div>

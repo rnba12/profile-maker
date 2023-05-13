@@ -57,13 +57,15 @@ model VerificationToken {
 }
 
 model Profile {
-  id      String @id @default(cuid())
-  userId  String @unique
-  name    String 
-  tagline String?
-  image   String
-  links   Json?
-  stack   String[]
+  id       String @id @default(cuid())
+  userId   String @unique
+  linkName String @unique
+  name     String
+  email    String @unique 
+  tagline  String?
+  image    String
+  links    Json?
+  stack    String[]
   projects Project[]
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)

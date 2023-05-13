@@ -1,12 +1,12 @@
 <script>
-    import mockData from '$lib/assets/mockData.json'
     import Module from '$lib/components/Module.svelte'
     import Typeahead from "svelte-typeahead"
     import stackOptions from '$lib/stackOptions';
-    export let data;
+    import { page } from '$app/stores';
+    import NewUser from '$lib/components/NewUser.svelte';
 
-    const profileData = {
-         ...data.profile,
+    $: profileData = {
+         ...$page.data.profile,
     }
     
 
@@ -72,8 +72,9 @@
     <title>Edit | Profile-Maker</title>
 </svelte:head>
 
-
-
+    {#if $page.data.newUser}
+        <NewUser/>
+    {:else if $page.data.profile}
     <form on:submit|preventDefault={handleSubmit}>
         <h1>Edit Profile</h1>
 
@@ -125,6 +126,7 @@
         
         <button type="submit">Update</button>
     </form>
+    {/if}
 
 
 <style lang="scss">

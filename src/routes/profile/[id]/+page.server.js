@@ -8,20 +8,43 @@ export async function load(event) {
     const session = await event.locals.getSession()
     let isSession;
     session ? isSession = true : isSession = false
-    console.log(event.params.id)
+    
     const getProfile = await prisma.profile.findUnique({
         where: {
-            id: event.params.id
+            linkName: event.params.id
         },
-        include: {
-            projects: true
-        }
+        select: {
+            id: true,
+            linkName: true,
+            name: true,
+            email: true,
+            tagline: true,
+            image: true,
+            links: true,
+            stack: true,
+        },
+        
     })
 
     if (!getProfile) {
+        
         throw error(404, 'Not Found')
-    } else return {
+    } else {
+        const getProjects = await prisma.project.findMany({
+            where: {profileId: getProfile.id },
+            select: {
+                title: true,
+                description: true,
+                url: true,
+                stack: true,
+            }
+        })
+        delete getProfile["id"]
+
+        return {
         getProfile,
+        getProjects,
         isSession
+    } 
     }
 }
