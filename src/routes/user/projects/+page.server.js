@@ -1,5 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
+import { fail } from '@sveltejs/kit';
 
 let profileId;
 
@@ -48,6 +49,12 @@ export const actions = {
 
     update: async (event) => {
         const data = await event.request.formData()
+        if (data.get("profileId") === profileId) {
+            return fail(401, {
+                error: true,
+                message: "Profile does not contain this project"
+            })
+        }
         let stack = data.get("stack").split(",")
         if (stack[0] === '') stack = []
         
