@@ -1,9 +1,9 @@
 <script>
     import Typeahead from "svelte-typeahead"
-    import { createEventDispatcher } from "svelte";
     import { enhance } from "$app/forms";
 
     export let id = null;
+    export let profileId = null;
     export let title;
     export let url = "";
     export let description;
@@ -11,7 +11,6 @@
 
 
     // edit stuff
-    let dispatch = createEventDispatcher()
     let edit = false;
     export let stackOptions = null;
     
@@ -40,10 +39,6 @@
             }
         }
 
-    const handleDelete = () => {
-        dispatch('delete')
-    }
-
 </script>
 
 <div class="project">
@@ -67,6 +62,7 @@
         <form method="POST" action="?/update" use:enhance={handleUpdate}>
 
             <input type="text" name="id" hidden value={id}>
+            <input type="text" name="id" hidden value={profileId}>
             <input type="text" name="title" value={title} required maxlength="100">
 
             <input type="url" name="url" value={url}>

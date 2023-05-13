@@ -1,16 +1,12 @@
 <script>
     import ProjectItem from '$lib/components/ProjectItem.svelte';
-    import Module from '$lib/components/Module.svelte';
     import Typeahead from "svelte-typeahead"
     import stackOptions from "$lib/stackOptions.js"
     import { enhance, deserialize } from '$app/forms';
     import { page } from '$app/stores';
-    import { invalidateAll } from '$app/navigation';
-
 
     $: projects = [...$page.data.projects]
 
-    // let selectedProject = null
     let formStack = []
     let newProject = null
 
@@ -19,9 +15,6 @@
         formStack = []
     }
 
-    // const handleEdit = (project) => {
-    //     selectedProject = true
-    // }
 
     const stackAdd = (name) => {
         formStack = [...formStack, name]
@@ -38,30 +31,9 @@
         formStack = []
     }
 
-    async function handleAdd(event) {
-        const data = new FormData(this)
-
-        const response = await fetch(this.action, {
-            method: 'POST',
-            body: data
-        })
-
-        /** @type {import('@sveltejs/kit').ActionResult} */
-        const result = deserialize(await response.text());
-
-        if (result.type === 'success') {
-            // re-run all `load` functions, following the successful update
-            await invalidateAll();
-        }
-    }
-
     const deleteProject = (project) => {
         projects = projects.filter(p => p !== project)
        
-    }
-
-    const updateProjects = () => {
-        //send data
     }
 
 </script>
@@ -112,7 +84,7 @@
 
         <div class="projects">
             {#each projects as p}
-                <ProjectItem id={p.id} title={p.title} description={p.description} stack={p.stack} url={p.url} {stackOptions} on:update={(e) => handleUpdate(e, p)} on:delete={() => deleteProject(p)}/>
+                <ProjectItem {...p} {stackOptions}/>
                     {:else}
                     <p>No Projects to display</p>
             {/each}
