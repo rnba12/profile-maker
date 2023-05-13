@@ -5,7 +5,6 @@
     import code from '$lib/assets/icons/code.svg'
     export let data;
     
-    console.log(data);
     const profileData = data.getProfile
 
     const projects = data.getProjects

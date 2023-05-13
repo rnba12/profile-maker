@@ -17,6 +17,13 @@ export async function load(event) {
             {
                 where: {
                     userId: userId
+                },
+                select: {
+                    name: true,
+                    tagline: true,
+                    links: true,
+                    stack: true,
+                    image: true
                 }
                 
             }
@@ -36,6 +43,7 @@ export async function load(event) {
 export const actions = {
     new: async (event) => {
         const data = await event.request.formData()
+        const session = await event.locals.getSession()
 
         const nameExists = await prisma.profile.findUnique({
             where:{ linkName: data.get("linkName")},
@@ -53,11 +61,12 @@ export const actions = {
         else {
             const newProfile = await prisma.profile.create({
                 data: {
-                    userId: user,
+                    userId: userId,
                     linkName: data.get("linkName"),
-                    email: user.email,
-                    name: user.name,
-                    image: user.image,
+                    email: session.user.email,
+                    name: session.user.name,
+                    image: session.user.image,
+                    tagline: "",
                     links: {
                         "github": "",
                         "linkedin": "",

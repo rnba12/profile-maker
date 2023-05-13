@@ -10,7 +10,6 @@
             if (result.type === "success") {
                 invalidateAll()
                 await applyAction(result)
-                console.log($page)
             } if (result.type === "failure") {
                 await applyAction(result)
             }
@@ -26,7 +25,7 @@
 
 <h1>Settings</h1>
 
-<form method="post" action="?/editLink&id={$page.data.profile.id}" use:enhance={handleUpdate}>
+<form method="post" action="?/editLink" use:enhance={handleUpdate}>
     {#if $page.form}
         {$page.form.message}
     {/if}

@@ -25,6 +25,7 @@ export async function load(event) {
                 
             }
         )
+        profile.projects.forEach(p => delete p.profileId)
         profileId = profile.id
         return {projects: profile.projects}
     }
@@ -52,12 +53,18 @@ export const actions = {
 
     update: async (event) => {
         const data = await event.request.formData()
-        if (data.get("profileId") === profileId) {
+        
+        const getProfileId = await prisma.project.findUnique({
+            where: {id: data.get("id")},
+            select: {profileId: true}
+        })
+        
+        if (getProfileId.profileId !== profileId) {
             return fail(401, {
-                error: true,
-                message: "Profile does not contain this project"
+                error: true, message: "Unauthorised delete"
             })
-        }
+        } 
+
         let stack = data.get("stack").split(",")
         if (stack[0] === '') stack = []
         
@@ -75,6 +82,17 @@ export const actions = {
 
     delete: async ({ url }) => {
         const data = await url.searchParams.get("id")
+
+        const getProfileId = await prisma.project.findUnique({
+            where: {id: data},
+            select: {profileId: true}
+        })
+        
+        if (getProfileId.profileId !== profileId) {
+            return fail(401, {
+                error: true, message: "Unauthorised delete"
+            })
+        } 
 
         const deleteProject = await prisma.project.delete({
             where: {id: data}

@@ -14,8 +14,6 @@ export async function load(event) {
         const profile = await prisma.profile.findUnique({
             where: {userId: userId},
             select: {
-                id: true,
-                userId: true,
                 linkName: true
             }
         }) 
@@ -27,8 +25,12 @@ export async function load(event) {
 /**@type {import('./$types').Actions} */
 export const actions = {
     editLink: async (event) => {
+        const userId = await getIdFromSession(event.cookies.get("next-auth.session-token"))
         const data = await event.request.formData()
-        const profileId = await event.url.searchParams.get("id")
+
+        const {id} = await prisma.profile.findUnique({
+            where: {userId: userId}, select: {id: true}
+        }) 
 
         const nameExists = await prisma.profile.findUnique({
             where:{ linkName: data.get("linkName")},
@@ -45,7 +47,7 @@ export const actions = {
         }
         else {
             const updateLink = await prisma.profile.update({
-                where: {id: profileId},
+                where: {id: id},
                 data: {
                     linkName: data.get("linkName")
                 }
