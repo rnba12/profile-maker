@@ -3,19 +3,15 @@
     import { invalidateAll} from '$app/navigation';
     import { page } from "$app/stores";
 
-    console.log($page)
 
 	async function handleNew() {
         return async({ result, update}) => {
-            console.log(result)
             if (result.type === "success") {
                 invalidateAll()
                 
             } if (result.type === "failure") {
-                console.log("error")
                 await applyAction(result)
             }
-            console.log($page)
             update()
         }
     }
