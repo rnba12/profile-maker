@@ -1,6 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
 import { getIdFromSession } from '$lib/server/helpers';
+import { redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
@@ -55,10 +56,23 @@ export const actions = {
     },
 
     deleteAccount: async (event) => {
-        const id = await event.url.searchParams.get("id")
-        const session = await event.cookies.get("next-auth.session-token")
-        console.log(id)
-        console.log(session)
+        const token = await event.cookies.get("next-auth.session-token")
+        const id = await getIdFromSession(token)
+
+        if (!id) {
+            return fail(400, {
+                error: true,
+                message: "Request Failed"
+            })
+        }
+        
+        const deleteUser = await prisma.user.delete({
+            where: {
+                id: id
+            }
+        })
+
+        throw redirect(303, '/')
     }
 
 }
