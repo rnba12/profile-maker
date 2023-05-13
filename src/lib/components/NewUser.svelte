@@ -25,7 +25,7 @@
     {$page.form.message}
 {/if}
 
-<form action="?/new" method="post" use:enhance={handleNew}>
+<form action="?/new" method="post">
 	<input type="text" name="linkName" required maxlength="50">
 	<button>Create my profile</button>
 </form>

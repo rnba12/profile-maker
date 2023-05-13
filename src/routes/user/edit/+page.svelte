@@ -5,8 +5,8 @@
     import { page } from '$app/stores';
     import NewUser from '$lib/components/NewUser.svelte';
 
-    $: profileData = {
-         ...$page.data.profile,
+    let profileData = {
+         ...$page.data.profile
     }
     
 
@@ -81,7 +81,7 @@
         <Module header="Bio">
             <div class="form bio-form">
                 <img src={profileData.image} width="100px" height="100px" alt="profile pic">
-                <input type="file" name="profilePicture" id="">
+                <!-- TODO <input type="file" name="profilePicture" id=""> -->
                 
                 <div class="field">
                     <label for="name">Name</label><br>
