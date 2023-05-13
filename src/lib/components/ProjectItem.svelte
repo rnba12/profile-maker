@@ -9,7 +9,6 @@
     export let description;
     export let stack;
 
-    if (stack[0] === "") stack = []
 
     // edit stuff
     let dispatch = createEventDispatcher()

@@ -31,6 +31,8 @@ export async function load(event) {
 export const actions = {
     add: async (event) => {
         const data = await event.request.formData()
+        let stack = data.get("stack").split(",")
+        if (stack[0] === '') stack = [] 
 
         const newProject = await prisma.project.create({
             data: {
@@ -38,7 +40,7 @@ export const actions = {
                 title: data.get("title"),
                 url: data.get("url"),
                 description: data.get("description"),
-                stack: data.get("stack").split(","),
+                stack: stack
             }
         })
         return { success: true }
@@ -46,6 +48,8 @@ export const actions = {
 
     update: async (event) => {
         const data = await event.request.formData()
+        let stack = data.get("stack").split(",")
+        if (stack[0] === '') stack = []
         
         const updateProject = await prisma.project.update({
             where: {id: data.get("id")},
@@ -53,7 +57,7 @@ export const actions = {
                 title: data.get("title"),
                 url: data.get("url"),
                 description: data.get("description"),
-                stack: data.get("stack").split(","),
+                stack: stack
             }
         })
         return { success: true}
