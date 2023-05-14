@@ -1,7 +1,6 @@
-import {PrismaClient} from '@prisma/client'
+import { prisma } from '$lib/server/prisma.js';
 import { error } from '@sveltejs/kit';
 
-const prisma = new PrismaClient()
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {

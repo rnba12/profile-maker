@@ -5,7 +5,6 @@ import { getIdFromSession } from '$lib/server/helpers';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST(requestEvent) {
-    // save profile
     const { request, cookies } = requestEvent;
     const token = await cookies.get("next-auth.session-token")
     const data = await request.json()
@@ -24,7 +23,6 @@ export async function POST(requestEvent) {
             stack: data.stack
         }
     })
-    prisma.$disconnect
 
     return json({success: true})
 }

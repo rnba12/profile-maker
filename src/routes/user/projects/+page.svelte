@@ -11,7 +11,7 @@
     let newProject = null
 
     const handleNew = () => {
-        newProject = {title: "", url: "", description: "", stack: [...formStack]}
+        newProject = { title: "", url: "", description: "", stack: [...formStack] }
         formStack = []
     }
 
@@ -33,7 +33,6 @@
 
     const deleteProject = (project) => {
         projects = projects.filter(p => p !== project)
-       
     }
 
 </script>

@@ -16,20 +16,14 @@ export async function load(event) {
         const userId = await getIdFromSession(token)
         let profile = await prisma.profile.findUnique(
             {
-                where: {
-                    userId: userId
-                },
-                include: {
-                    projects: true
-                }
-                
+                where: { userId: userId },
+                include: { projects: true }
             }
         )
         profile.projects.forEach(p => delete p.profileId)
         profileId = profile.id
-        return {projects: profile.projects}
+        return { projects: profile.projects }
     }
-    
 };
 
 /**@type {import('./$types').Actions} */
@@ -55,7 +49,7 @@ export const actions = {
         const data = await event.request.formData()
         
         const getProfileId = await prisma.project.findUnique({
-            where: {id: data.get("id")},
+            where: { id: data.get("id") },
             select: {profileId: true}
         })
         
@@ -69,7 +63,7 @@ export const actions = {
         if (stack[0] === '') stack = []
         
         const updateProject = await prisma.project.update({
-            where: {id: data.get("id")},
+            where: { id: data.get("id") },
             data: {
                 title: data.get("title"),
                 url: data.get("url"),
@@ -77,14 +71,14 @@ export const actions = {
                 stack: stack
             }
         })
-        return { success: true}
+        return { success: true }
     },
 
     delete: async ({ url }) => {
         const data = await url.searchParams.get("id")
 
         const getProfileId = await prisma.project.findUnique({
-            where: {id: data},
+            where: { id: data },
             select: {profileId: true}
         })
         
@@ -95,8 +89,8 @@ export const actions = {
         } 
 
         const deleteProject = await prisma.project.delete({
-            where: {id: data}
+            where: { id: data }
         })
-        return {success: true}
+        return { success: true }
     }
 }

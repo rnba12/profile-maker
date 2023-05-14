@@ -5,17 +5,16 @@
     import { page } from '$app/stores';
     import NewUser from '$lib/components/NewUser.svelte';
 
+
     let profileData = {
          ...$page.data.profile
     }
-    
 
     const valid = {
-        name: true,
-        about: true,
         links: true,
         stack: true
     }
+
     let selectOption = "github";
     
 
@@ -39,8 +38,7 @@
 
     const handleSubmit = async () => {
         const newData = {...profileData}
-        console.log(newData)
-        //Validation
+        
         for (const link in newData.links) {
             if (newData.links[link] !== "") {
                 valid.links = isValidURL(newData.links[link])

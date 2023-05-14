@@ -11,11 +11,10 @@ export async function load(event) {
         throw redirect(304, '/')
     } else {
         const userId = await getIdFromSession(token)
+
         const profile = await prisma.profile.findUnique({
-            where: {userId: userId},
-            select: {
-                linkName: true
-            }
+            where: { userId: userId },
+            select: { linkName: true }
         }) 
 
         return {profile}
@@ -29,7 +28,8 @@ export const actions = {
         const data = await event.request.formData()
 
         const {id} = await prisma.profile.findUnique({
-            where: {userId: userId}, select: {id: true}
+            where: {userId: userId},
+            select: {id: true}
         }) 
 
         const nameExists = await prisma.profile.findUnique({
@@ -48,9 +48,7 @@ export const actions = {
         else {
             const updateLink = await prisma.profile.update({
                 where: {id: id},
-                data: {
-                    linkName: data.get("linkName")
-                }
+                data: { linkName: data.get("linkName") }
             })
 
             return { success: true, message: "Link Updated Successfully" }
@@ -69,9 +67,7 @@ export const actions = {
         }
         
         const deleteUser = await prisma.user.delete({
-            where: {
-                id: id
-            }
+            where: { id: id }
         })
 
         throw redirect(303, '/')

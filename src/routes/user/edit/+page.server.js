@@ -15,28 +15,22 @@ export async function load(event) {
         userId = await getIdFromSession(token)
         let profile = await prisma.profile.findUnique(
             {
-                where: {
-                    userId: userId
-                },
+                where: { userId: userId },
                 select: {
                     name: true,
                     tagline: true,
                     links: true,
                     stack: true,
                     image: true
-                }
-                
+                }           
             }
         )
+        
         if (!profile) {
-            return {
-                // profile,
-                newUser: true
-            }  
+            return { newUser: true }  
         }
-        return {profile}
-    }
-    
+        return { profile }
+    }   
 };
 
 /**@type {import('./$types').Actions} */
@@ -49,7 +43,6 @@ export const actions = {
             where:{ linkName: data.get("linkName")},
             select: { linkName: true }
         })
-
 
         if (nameExists) {
             // return name not available
@@ -77,8 +70,5 @@ export const actions = {
             })
             return {success: true}
         }
-        
-    
-
     }
 }

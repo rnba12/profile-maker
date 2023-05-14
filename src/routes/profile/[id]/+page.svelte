@@ -6,7 +6,6 @@
     export let data;
     
     const profileData = data.getProfile
-
     const projects = data.getProjects
 
     const handleError = e => {
