@@ -20,6 +20,10 @@
 
 </script>
 
+<svelte:head>
+    <title>Settings | Profile Maker</title>
+</svelte:head>
+
 <div class="settings-page">
     <h1>Settings</h1>
     

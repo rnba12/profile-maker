@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-    <title>{profileData.name} | Profile-Maker</title>
+    <title>{profileData.name} | Profile Maker</title>
 </svelte:head>
 
 {#if data.isSession}
@@ -65,9 +65,9 @@
         text-decoration: none;
         background-color: white;
         border: 1px solid rgb(204,204,204);
-        border-radius: 36px;
+        border-radius: 56px;
         color: black;
-        padding: 1rem;
+        padding: 0.8rem;
         font-weight: 500;
         &:hover {
             color: rgb(0, 136, 255);

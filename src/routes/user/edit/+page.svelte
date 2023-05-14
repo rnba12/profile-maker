@@ -67,7 +67,7 @@
 </script>
 
 <svelte:head>
-    <title>Edit | Profile-Maker</title>
+    <title>Edit | Profile Maker</title>
 </svelte:head>
 
     {#if $page.data.newUser}

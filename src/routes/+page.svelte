@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-    <title>Login | Profile-Maker</title>
+    <title>Login | Profile Maker</title>
 </svelte:head>
 
 <main>

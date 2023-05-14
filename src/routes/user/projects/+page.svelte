@@ -27,7 +27,7 @@
 </script>
 
 <svelte:head>
-    <title>Projects | Profile-Maker</title>
+    <title>Projects | Profile Maker</title>
 </svelte:head>
 
 
