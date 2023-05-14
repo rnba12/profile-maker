@@ -44,7 +44,7 @@
 <div class="project">
     {#if !edit}
     {#if url}
-    <a class="link" href={url} target="_blank">
+    <a class="link" class:hidden={stackOptions} href={url} target="_blank">
         link
     </a>
     {/if}
@@ -61,22 +61,25 @@
         {:else}
         <form method="POST" action="?/update" use:enhance={handleUpdate}>
 
-            <input type="text" name="id" hidden value={id}>
-            <input type="text" name="id" hidden value={profileId}>
-            <input type="text" name="title" value={title} required maxlength="100">
-
-            <input type="url" name="url" value={url}>
-            <input type="text" name="stack" hidden bind:value={editStack}>
-            <textarea name="description" value={description} maxlength="300"></textarea>
-
-            {#each editStack as name}
-            <button type="button" on:click={() => stackDelete(name)}>{name} &#x2715;</button>
-            {/each}
-
-            <Typeahead 
-                label="Add" inputAfterSelect="clear" limit="5" 
+            <div class="inputs">
+                <input type="text" name="id" hidden value={id}>
+                <input type="text" name="id" hidden value={profileId}>
+                <label for="title">Title</label>
+                <input type="text" name="title" value={title} required maxlength="100">
+                <label for="url">Link</label>
+                <input type="url" name="url" value={url}>
+                <input type="text" name="stack" hidden bind:value={editStack}>
+                <label for="description">Description</label>
+                <textarea name="description" value={description} maxlength="150"></textarea>
+                
+                <Typeahead
+                label="Tech Stack" inputAfterSelect="clear" limit="5"
                 filter={(t) => editStack.includes(t)} data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}
-            />
+                />
+                {#each editStack as name}
+                <button class="stack-item" type="button" on:click={() => stackDelete(name)}>{name} &#x2715;</button>
+                {/each}
+            </div>
                 <button>Update</button>
                 <button type="button" on:click={() => edit = false}>Cancel</button>
             </form>
@@ -99,14 +102,32 @@
         }
     }
 
+    .inputs {
+        margin-bottom: 0.2rem;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 0.2rem;
+    }
+
+    label {
+        font-weight: 500;
+    }
+
     .link {
         color: black;
         height: 1em;
         width: 1em;
     }
-
+    .stack-item {
+        border: 1px solid rgb(204,204,204);
+        border-radius: 36px;
+        margin: 2px;
+    }
     button {
         border: none;
     }
+
 
 </style>

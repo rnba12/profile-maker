@@ -24,7 +24,7 @@ body {
 
 }
 
-input[type="text"] {
+input[type="text"], input[type="url"] {
   border: 1px solid $border-light;
   border-radius: $border-radius;
   box-sizing: border-box;
