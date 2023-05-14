@@ -17,9 +17,6 @@
         }
     }
 
-    async function handleDelete() {
-        console.log("Delete Account")
-    }
 
 </script>
 
@@ -35,5 +32,6 @@
 </form>
 
 <form method="post" action="?/deleteAccount">
-    <button type="submit" on:click={handleDelete}>Delete Account</button>
+    <button type="submit">Delete Account</button>
+    <p>Warning: This action is irreversible. Only proceed if you are confident you want to delete your account</p>
 </form>
