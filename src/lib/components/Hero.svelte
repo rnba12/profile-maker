@@ -10,25 +10,44 @@
 
 <div class="hero">
         <img class="hero-image" src={image} alt="profile pic">
-        <h1 class="hero-name">{name}</h1>
-        <h3 class="hero-about">{tagline}</h3>
+        <div class="header">
+            <div class="name">{name}</div>
+            {#if tagline}
+            <div class="tagline">{tagline}</div>
+            {/if}
+        </div>
         {#if links}
-            <Links {links}/>
+            <Links {...links}/>
         {/if}
 </div>
 
-<style>
+<style lang="scss">
     .hero {
         display: flex;
         flex-direction: column;
         align-items: center;
+        img {
+            border-radius: 56px;
+            width: 100px;
+            height: 100px
+        }
     }
-    h1 {
-        font-size: 4rem;
-        line-height: 0;
+    .header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
     }
-    img {
-        width: 80px;
-        height: 80px;
+    .name {
+        font-size: 1.3rem;
+        font-weight: 500;
+        text-align: center;
+        // line-height: 0;
+    }
+    .tagline {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 400;
+        margin-bottom: 2rem;
     }
 </style>

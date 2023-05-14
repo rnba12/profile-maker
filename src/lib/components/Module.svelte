@@ -1,9 +1,11 @@
 <script>
-    export let header;
+    export let header=null;
 </script>
 
 <div class="module">
+    {#if header}
     <div class="module-header">{header}</div>
+    {/if}
     <div class="module-content">
         <slot/>
     </div>
@@ -15,7 +17,6 @@
         border: 1px solid rgb(204, 204, 204);
         border-radius: $border-radius;
         padding: 2rem;
-
     }
     .module-header {
         font-size: 2rem;

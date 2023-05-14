@@ -19,19 +19,19 @@
 </svelte:head>
 
 {#if data.isSession}
-    <a href="/user/edit">Edit Your Profile</a>
+    <a class="edit-link" href="/user/edit">Edit Your Profile</a>
 {/if}
 
 <main>
-    <Hero name={profileData.name} tagline={profileData.tagline} links={profileData.links} image={profileData.image}/>
+    <Hero name={profileData.name} tagline={profileData.tagline} links={{links: profileData.links, email: profileData.email}} image={profileData.image}/>
     <div class="content">
         <div class="content-top">
-            <Module header="Tech Stack">
+            <Module>
                 <div class="tech-stack">
                     {#each profileData.stack as name}
-                        <div class="tech">
-                            <img on:error={() => handleError()} width="20px" height="20px" src={`https://cdn.simpleicons.org/${name.replace(" ", "")}`} alt="">
-                            <span>{name}</span>
+                        <div class="stack-item">
+                            <img on:error={handleError} width="20px" height="20px" src={`https://cdn.simpleicons.org/${name.replace(" ", "")}`} alt="">
+                            <span class="item-name">{name}</span>
                             <br>
                         </div>
                     {/each}
@@ -40,7 +40,7 @@
         </div>
         
         <div class="content-bottom">
-            <h1>Projects</h1>
+            <h2>Projects</h2>
                 <div class="projects">
                     {#each projects as {title, description, stack, url}}
                         <ProjectItem {title} {description} {stack} {url}/>
@@ -51,32 +51,74 @@
     </div>
 </main>
 
-<style>
+<style lang="scss">
+    main {
+        width: 60%;
+        margin: auto;
+        padding-top: 1.5rem;
+        padding-bottom: 2rem;
+    }
+    .edit-link {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        text-decoration: none;
+        background-color: white;
+        border: 1px solid rgb(204,204,204);
+        border-radius: 36px;
+        color: black;
+        padding: 1rem;
+        font-weight: 500;
+    }
+
+    h2 {
+        font-weight: 500;
+    }
 
     .content-top {
-        width: 80%;
-        margin: auto;
     }
     .content-bottom {
-        width: 80%;
-        margin: auto;
+    }
+    h2 {
+        text-align: center;
     }
 
     .projects {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr;
         gap: 2rem;
     }
     .tech-stack {
         display: flex;
         flex-direction: row;
+        justify-content: center;
         flex-wrap: wrap;
         gap: 0.6rem;
+
+        @media(Max-width: 600px) {
+            gap: 0px;
+        }
+    
+
     }
-    .tech {
+    .stack-item {
+            display: flex;
+            flex-direction: row;
             align-items: center;
+            gap: 4px;
             border: 1px solid rgb(204,204,204);
             padding: 0.5rem;
             border-radius: 36px;
+
+            @media(Max-width: 600px) {
+            border: none;
+            padding: 0.1rem;
+            
+            .item-name {
+                display: none;
+            }
+        }
+
+        
     }
 </style>

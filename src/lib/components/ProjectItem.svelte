@@ -1,6 +1,7 @@
 <script>
-    import Typeahead from "svelte-typeahead"
+    import Typeahead from "svelte-typeahead";
     import { enhance } from "$app/forms";
+    import link from '$lib/assets/icons/link.svg';
 
     export let id = null;
     export let profileId = null;
@@ -41,21 +42,23 @@
 
 </script>
 
-<div class="project">
+<div class="project" class:left={stackOptions}>
     {#if !edit}
-    {#if url}
-    <a class="link" class:hidden={stackOptions} href={url} target="_blank">
-        link
-    </a>
-    {/if}
-        <form class:hidden={!stackOptions} action="?/delete&id={id}" method="POST" use:enhance>
-            <button>Delete</button>
-            <button type="button" class:hidden={!stackOptions} on:click={handleEdit}>Edit</button>
-        </form>
-         <h2>{title}</h2>
+    <form class="buttons" class:hidden={!stackOptions} action="?/delete&id={id}" method="POST" use:enhance>
+        <button type="button" on:click={handleEdit}>Edit</button>
+        <button>Delete</button>
+    </form>
+    <div class="header" class:header-left={stackOptions}>
+        <div class="title">{title}</div>
+        {#if url}
+        <a class="link" class:hidden={stackOptions} href={url} target="_blank">
+            <img src={link} alt="">
+        </a>
+        {/if}
+    </div>
         <p>{description}</p>
         {#each stack as name}
-            <img src={`https://cdn.simpleicons.org/${name.replaceAll(" ", "")}`} alt="">
+            <img class="icon" src={`https://cdn.simpleicons.org/${name.replaceAll(" ", "")}`} alt="">
         {/each}
         <br>
         {:else}
@@ -90,16 +93,37 @@
     .hidden {
         display: none;
     }
+    .left{
+        text-align: left !important;
+    }
+    .header-left {
+        justify-content: start !important; 
+    }
     .project {
+        text-align: center;
         background-color: white;
         border: 1px solid $border-light;
         border-radius: $border-radius;
         padding: 1rem;
-        min-height: 17rem;
-        img {
+        // min-height: 17rem;
+        .icon {
             width: 1.5em;
             height: 1.5em;
+            margin-left: 3px;
         }
+    }
+    .header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+    }
+    
+    .title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        // line-height: 0.2rem;
     }
 
     .inputs {
@@ -119,6 +143,12 @@
         color: black;
         height: 1em;
         width: 1em;
+        display: flex;
+        align-items: center;
+        img {
+            width: 1.5em;
+            height: 1.5em;
+        }
     }
     .stack-item {
         border: 1px solid rgb(204,204,204);
@@ -127,6 +157,9 @@
     }
     button {
         border: none;
+    }
+    .buttons {
+        margin-bottom: 0.7rem;
     }
 
 
