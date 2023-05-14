@@ -14,7 +14,6 @@ export async function load(event) {
             linkName: event.params.id
         },
         select: {
-            id: true,
             linkName: true,
             name: true,
             email: true,
