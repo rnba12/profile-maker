@@ -10,6 +10,9 @@
          ...$page.data.profile
     }
 
+    let updated = false;
+    let failed = false;
+
     const valid = {
         links: true,
         stack: true
@@ -37,6 +40,7 @@
     }
 
     const handleSubmit = async () => {
+        updated = false
         const newData = {...profileData}
         
         for (const link in newData.links) {
@@ -57,8 +61,10 @@
             })
             response.json().then(
                 data => {
-                    if (data.success) console.log("succesfully posted")
+                    if (data.success) updated = true 
                 }
+            ).catch(
+                 failed = true
             )
         }
         
@@ -121,7 +127,11 @@
                 <Typeahead label="Add" inputAfterSelect="clear" limit="5" filter={(item) => profileData.stack.includes(item)} placeholder="e.g. Python" data={stackOptions} extract={item => item} on:select={({ detail }) => updateStack(detail.selected)}/>
             </div>
         </Module>
-        
+        {#if updated}
+            <p style="color: green; font-size: 1.1rem; text-align: center">Info Updated Succesfully</p>
+        {:else if failed}
+            <p style="color: red; font-size: 1.1rem; text-align: center">An Error Occured While Updating</p>
+        {/if}
         <button type="submit">Update</button>
     </form>
     {/if}
