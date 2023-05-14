@@ -69,6 +69,9 @@
         color: black;
         padding: 1rem;
         font-weight: 500;
+        &:hover {
+            color: rgb(0, 136, 255);
+        }
     }
 
     h2 {
