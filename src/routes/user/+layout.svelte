@@ -2,11 +2,17 @@
 import { signOut } from "@auth/sveltekit/client";
 import { page } from '$app/stores';
 
+$: linkName = $page.data.linkName ?? ""
+
+
 </script>
 
 <nav>
-<h3>Profile Maker</h3>
+<h3>Profile Maker <span class="link-name">/{linkName.linkName}</span></h3>
 <div class="nav-links">
+    {#if linkName}
+    <a href="/profile/{linkName.linkName}">Profile</a>
+    {/if}
     <a href="/user/edit" class:active={$page.url.pathname === '/user/edit'}>Edit</a>
     <a href="/user/projects" class:active={$page.url.pathname === '/user/projects'}>Projects</a>
     <a href="/user/settings" class:active={$page.url.pathname === '/user/settings'}>Settings</a>
@@ -31,7 +37,8 @@ nav {
     align-items: center;
     justify-content: space-around;
     height: 3rem;
-    // background-color: white;
+    background-color: white;
+    border-bottom: 1px solid rgb(185, 185, 185);
 
     .nav-links {
         height: 100%;
@@ -55,14 +62,16 @@ a {
     }
     &.active {
         color: rgb(0, 136, 255);
-        border-bottom: 2px solid rgb(0, 136, 255);
     }
 }
-button {
-    background-color: inherit;
-    border: none;
-    color: red;
-    font-weight: 700;
-    cursor: pointer;
-}
+    .link-name {
+        font-weight: 400;
+    }
+    button {
+        background-color: inherit;
+        border: none;
+        color: red;
+        font-weight: 700;
+        cursor: pointer;
+    }
 </style>
