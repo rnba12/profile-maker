@@ -8,7 +8,7 @@ let profileId;
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
     const session = await event.locals.getSession()
-    const token = await event.cookies.get("next-auth.session-token")
+    const token = await event.cookies.get("__Secure-next-auth.session-token")
 
     if (!session) {
         throw redirect(304, '/')

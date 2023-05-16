@@ -6,7 +6,7 @@ import { getIdFromSession } from '$lib/server/helpers';
 /** @type {import('./$types').RequestHandler} */
 export async function POST(requestEvent) {
     const { request, cookies } = requestEvent;
-    const token = await cookies.get("next-auth.session-token")
+    const token = await cookies.get("__Secure-next-auth.session-token")
     const data = await request.json()
 
     const userId = await getIdFromSession(token) 

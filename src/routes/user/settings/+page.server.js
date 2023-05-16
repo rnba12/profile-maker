@@ -6,7 +6,7 @@ import { redirect } from '@sveltejs/kit';
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
     const session = await event.locals.getSession()
-    const token = await event.cookies.get("next-auth.session-token")
+    const token = await event.cookies.get("__Secure-next-auth.session-token")
     if (!session) {
         throw redirect(304, '/')
     } else {
@@ -24,7 +24,7 @@ export async function load(event) {
 /**@type {import('./$types').Actions} */
 export const actions = {
     editLink: async (event) => {
-        const userId = await getIdFromSession(event.cookies.get("next-auth.session-token"))
+        const userId = await getIdFromSession(event.cookies.get("__Secure-next-auth.session-token"))
         const data = await event.request.formData()
 
         const {id} = await prisma.profile.findUnique({
@@ -56,7 +56,7 @@ export const actions = {
     },
 
     deleteAccount: async (event) => {
-        const token = await event.cookies.get("next-auth.session-token")
+        const token = await event.cookies.get("__Secure-next-auth.session-token")
         const id = await getIdFromSession(token)
 
         if (!id) {

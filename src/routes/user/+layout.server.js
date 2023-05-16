@@ -8,7 +8,7 @@ export async function load(event) {
     if (!session) {
         throw redirect(303, '/')
     }
-    const userId = await getIdFromSession(event.cookies.get("next-auth.session-token"))
+    const userId = await getIdFromSession(event.cookies.get("__Secure-next-auth.session-token"))
     const linkName = await prisma.profile.findUnique({
         where: { userId: userId},
         select: { linkName: true}

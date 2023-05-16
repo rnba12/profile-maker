@@ -6,7 +6,7 @@ let userId;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
-    const token = await event.cookies.get("next-auth.session-token")
+    const token = await event.cookies.get("__Secure-next-auth.session-token")
     userId = await getIdFromSession(token)
     const profile = await prisma.profile.findUnique({
         where: {userId: userId}, select: {id: true}
