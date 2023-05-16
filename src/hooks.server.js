@@ -22,6 +22,7 @@ async function authorization({ event, resolve }) {
 
   export const handle = sequence(
     SvelteKitAuth({
+      trustHost: true,
       providers: [Github({ clientId: GITHUB_ID, clientSecret: GITHUB_SECRET })],
       adapter: PrismaAdapter(prisma)
     }),
