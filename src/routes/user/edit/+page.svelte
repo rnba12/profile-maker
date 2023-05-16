@@ -3,7 +3,6 @@
     import Typeahead from "svelte-typeahead"
     import stackOptions from '$lib/stackOptions';
     import { page } from '$app/stores';
-    import NewUser from '$lib/components/NewUser.svelte';
 
 
     let profileData = {
@@ -76,9 +75,6 @@
     <title>Edit | Profile Maker</title>
 </svelte:head>
 
-    {#if $page.data.newUser}
-        <NewUser/>
-    {:else if $page.data.profile}
     <form on:submit|preventDefault={handleSubmit}>
         <h1>Edit Profile</h1>
 
@@ -134,7 +130,6 @@
         {/if}
         <button type="submit">Update</button>
     </form>
-    {/if}
 
 
 <style lang="scss">

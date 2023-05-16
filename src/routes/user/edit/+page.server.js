@@ -27,48 +27,8 @@ export async function load(event) {
         )
         
         if (!profile) {
-            return { newUser: true }  
+            throw redirect(301, '/welcome') 
         }
         return { profile }
     }   
 };
-
-/**@type {import('./$types').Actions} */
-export const actions = {
-    new: async (event) => {
-        const data = await event.request.formData()
-        const session = await event.locals.getSession()
-
-        const nameExists = await prisma.profile.findUnique({
-            where:{ linkName: data.get("linkName")},
-            select: { linkName: true }
-        })
-
-        if (nameExists) {
-            // return name not available
-            return fail(400,{
-                error: true,
-                message: "Link name is not available."
-            })
-        }
-        else {
-            const newProfile = await prisma.profile.create({
-                data: {
-                    userId: userId,
-                    linkName: data.get("linkName"),
-                    email: session.user.email,
-                    name: session.user.name,
-                    image: session.user.image,
-                    tagline: "",
-                    links: {
-                        "github": "",
-                        "linkedin": "",
-                        "twitter": ""
-                    },
-                    stack: []
-                }
-            })
-            return {success: true}
-        }
-    }
-}
