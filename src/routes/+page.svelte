@@ -15,7 +15,7 @@
         <h1>Profile Maker</h1>
         <p>Showcase Your Skills</p>
         <div class="login-box">
-            <h2>Sign In</h2>
+            
             <SignInButton provider="github" displayText="GitHub" icon={githubLogo}/>
         </div>
     </div>
@@ -41,9 +41,9 @@
             h2 {
                 font-size: 1.4rem;
             }
-            padding: 1.5rem;
-            border: 1px solid rgb(196, 196, 196);
-            border-radius: 5px;
+            // padding: 1.5rem;
+            // border: 1px solid rgb(196, 196, 196);
+            border-radius: 10px;
             min-height: 10rem;
         }
     }
