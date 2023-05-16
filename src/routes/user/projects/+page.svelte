@@ -118,6 +118,9 @@
                 input {
                     padding: 0.5rem;
                 }
+                textarea {
+                    font-size: 1rem;
+                }
             }
             button {
                 border: none;
