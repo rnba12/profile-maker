@@ -8,15 +8,13 @@ Linktree-inspired simple portfolio page
 
 ## User Stories
 
-User Should Be Able to:
+Users Should Be Able to:
   - Login With Their Github Account
-  - Add a bio
-  - Upload Image
   - Add their tech stack (languages, frameworks, etc.)
   - Add links (Github, LinkedIn, Twitter, etc.)
   - Add Projects
 
 
-
 ## Todo
 - [ ] Come up with a better name
+- [ ] Styling
