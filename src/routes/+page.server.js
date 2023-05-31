@@ -4,7 +4,7 @@ import { redirect } from '@sveltejs/kit';
 export async function load(event) {
     const session = await event.locals.getSession()
     if (session) {
-        throw redirect(303, '/user/welcome')
+        throw redirect(303, '/welcome')
     }
     return {
         session
