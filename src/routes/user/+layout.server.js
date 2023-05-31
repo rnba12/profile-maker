@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
-import { getIdFromSession } from '$lib/server/helpers.js'
+import { getIdFromSession, getCookies } from '$lib/server/helpers.js'
 
 /** @type {import('./$types').LayoutServerLoad} */
 export async function load(event) {
@@ -8,7 +8,7 @@ export async function load(event) {
     if (!session) {
         throw redirect(303, '/')
     }
-    const userId = await getIdFromSession(event.cookies.get("__Secure-next-auth.session-token"))
+    const userId = await getIdFromSession(event.cookies.get(getCookies()))
     const linkName = await prisma.profile.findUnique({
         where: { userId: userId},
         select: { linkName: true}

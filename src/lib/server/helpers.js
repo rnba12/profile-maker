@@ -5,4 +5,13 @@ const getIdFromSession = async (token) => {
     return user.id
 }
 
-export {getIdFromSession}
+
+const getCookies = () => {
+    if (process.env.NODE_ENV === "development") {
+        return "next-auth.session-token"
+    } else {
+        return "__Secure-next-auth.session-token"
+    }
+}
+
+export {getIdFromSession, getCookies}

@@ -1,12 +1,12 @@
 import { json } from '@sveltejs/kit'
 import { prisma } from '$lib/server/prisma'
-import { getIdFromSession } from '$lib/server/helpers';
+import { getIdFromSession, getCookies } from '$lib/server/helpers';
 
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST(requestEvent) {
     const { request, cookies } = requestEvent;
-    const token = await cookies.get("__Secure-next-auth.session-token")
+    const token = await cookies.get(getCookies())
     const data = await request.json()
 
     const userId = await getIdFromSession(token) 

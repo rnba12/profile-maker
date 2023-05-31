@@ -1,12 +1,12 @@
 import { fail } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
-import { getIdFromSession } from '$lib/server/helpers';
+import { getIdFromSession, getCookies } from '$lib/server/helpers';
 import { redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
     const session = await event.locals.getSession()
-    const token = await event.cookies.get("__Secure-next-auth.session-token")
+    const token = await event.cookies.get(getCookies())
     if (!session) {
         throw redirect(304, '/')
     } else {
@@ -24,7 +24,7 @@ export async function load(event) {
 /**@type {import('./$types').Actions} */
 export const actions = {
     editLink: async (event) => {
-        const userId = await getIdFromSession(event.cookies.get("__Secure-next-auth.session-token"))
+        const userId = await getIdFromSession(event.cookies.get(getCookies()))
         const data = await event.request.formData()
 
         const {id} = await prisma.profile.findUnique({
@@ -56,7 +56,7 @@ export const actions = {
     },
 
     deleteAccount: async (event) => {
-        const token = await event.cookies.get("__Secure-next-auth.session-token")
+        const token = await event.cookies.get(getCookies())
         const id = await getIdFromSession(token)
 
         if (!id) {

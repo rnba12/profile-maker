@@ -1,13 +1,13 @@
 import { redirect, fail } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
-import { getIdFromSession } from '$lib/server/helpers';
+import { getIdFromSession, getCookies } from '$lib/server/helpers';
 
 let userId;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
     const session = await event.locals.getSession()
-    const token = await event.cookies.get("__Secure-next-auth.session-token")
+    const token = await event.cookies.get(getCookies())
 
     if (!session) {
         throw redirect(304, '/')

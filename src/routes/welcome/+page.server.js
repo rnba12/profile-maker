@@ -1,12 +1,12 @@
 import { prisma } from '$lib/server/prisma.js';
-import { getIdFromSession } from '$lib/server/helpers.js';
+import { getIdFromSession, getCookies } from '$lib/server/helpers.js';
 import { redirect } from '@sveltejs/kit';
 
 let userId;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
-    const token = await event.cookies.get("__Secure-next-auth.session-token")
+    const token = await event.cookies.get(getCookies())
     userId = await getIdFromSession(token)
     const profile = await prisma.profile.findUnique({
         where: {userId: userId}, select: {id: true}
