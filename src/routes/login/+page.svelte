@@ -8,8 +8,22 @@
     <title>Login | Profile Maker</title>
 </svelte:head>
 
-<h1>Profile Maker</h1>
+<main>
+    <h1>Profile Maker</h1>
+    
+    <div class="login-box">
+        <SignInButton provider="github" displayText="GitHub" icon={githubLogo}/>
+    </div>
+</main>
 
-<div class="login-box">
-    <SignInButton provider="github" displayText="GitHub" icon={githubLogo}/>
-</div>
+<style lang="scss">
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 5rem;
+    }
+    h1 {
+        font-size: 5em;
+    }
+</style>
