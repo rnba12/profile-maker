@@ -9,11 +9,11 @@ export async function load(event) {
         throw redirect(303, '/')
     }
     const userId = await getIdFromSession(event.cookies.get(getCookies()))
-    const linkName = await prisma.profile.findUnique({
+    const userInfo = await prisma.profile.findUnique({
         where: { userId: userId},
-        select: { linkName: true}
+        select: { linkName: true, image: true}
     })
     return {
-        linkName
+        userInfo
     };
 };

@@ -1,77 +1,131 @@
 <script>
-import { signOut } from "@auth/sveltekit/client";
-import { page } from '$app/stores';
+    import { signOut } from "@auth/sveltekit/client";
+    import { page } from "$app/stores";
 
-$: linkName = $page.data.linkName ?? ""
-
-
+    $: linkName = $page.data.userInfo.linkName ?? "";
+    $: profilePicture = $page.data.userInfo.image ?? "";
 </script>
 
-<nav>
-<h3>Profile Maker <span class="link-name">/{linkName.linkName}</span></h3>
-<div class="nav-links">
-    {#if linkName}
-    <a href="/profile/{linkName.linkName}">Profile</a>
-    {/if}
-    <a href="/user/edit" class:active={$page.url.pathname === '/user/edit'}>Edit</a>
-    <a href="/user/projects" class:active={$page.url.pathname === '/user/projects'}>Projects</a>
-    <a href="/user/settings" class:active={$page.url.pathname === '/user/settings'}>Settings</a>
-    <button on:click={() => signOut()}>Sign Out</button>
-</div>
-</nav>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src={profilePicture} alt={linkName}>
+            <span class="link-name">/{linkName}</span>
+        </div>
+        <nav>
+            {#if linkName}
+                <a href="/profile/{linkName}">Profile</a>
+            {/if}
+            <a
+                href="/user/edit"
+                class:active={$page.url.pathname === "/user/edit"}>Edit</a
+            >
+            <a
+                href="/user/projects"
+                class:active={$page.url.pathname === "/user/projects"}
+                >Projects</a
+            >
+            <a
+                href="/user/settings"
+                class:active={$page.url.pathname === "/user/settings"}
+                >Settings</a
+            >
+        </nav>
+        <button class="sign-out" on:click={() => signOut()}>Sign Out</button>
+    </aside>
 
-<main>
-    <slot/>
-</main>
+    <div class="page">
+        <main>
+            <slot />
+        </main>
+    </div>
+</div>
 
 <style lang="scss">
-main {
-        padding: 2rem;
-        width: 80%;
-        margin: auto;
-}
-nav {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    height: 3rem;
-    background-color: white;
-    border-bottom: 1px solid rgb(185, 185, 185);
+    .layout {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+    }
+    .sidebar {
+        position: relative;
+        z-index: 1;
+        flex-grow: 0;
+        flex-shrink: 0;
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid rgb(185, 185, 185);
 
-    .nav-links {
+        img {
+            width: 45px;
+            height: 45px;
+            border-radius: 36px;
+        }
+    }
+    .sidebar-header {
+        padding: 1rem 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        display: inline-flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.7rem;
+        // border-bottom: 1px solid rgb(185, 185, 185);
+    }
+    .page {
+        width: 100%;
         height: 100%;
-        width: fit-content;
-        vertical-align: middle;
+        overflow-y: scroll;
     }
-}
+    main {
+        padding: 2rem;
+        height: 100%;
+    }
+    nav {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        gap: 0.7rem;
+    }
 
-a {
-    display: inline-flex;
-    margin: auto;
-    align-items: center;
-    margin-left: 0.6rem;
-    margin-right: 0.6rem;
-    text-decoration: none;
-    color: black;
-    font-weight: 500;
-    height: 100%;
-    &:hover {
-        color: rgb(0, 136, 255);
+    a {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: left;
+        text-decoration: none;
+        padding: 0.5rem;
+        border-radius: 5px;
+        color: black;
+        font-weight: 500;
+        font-size: 1.4rem;
+        min-width: 130px;
+
+        &:hover {
+            background-color: rgb(195, 195, 195);
+        }
+        &.active {
+            background-color: rgb(195, 195, 195);
+        }
     }
-    &.active {
-        color: rgb(0, 136, 255);
-    }
-}
+
     .link-name {
-        font-weight: 400;
+        font-weight: 500;
     }
-    button {
+
+    .sign-out {
+        padding: 1rem;
+        font-size: 1.4rem;
+        margin-top: auto;
         background-color: inherit;
         border: none;
-        color: red;
-        font-weight: 700;
-        cursor: pointer;
+
+        &:hover {
+            color: red;
+        }
     }
 </style>
