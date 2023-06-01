@@ -1,9 +1,7 @@
 <script>
-    import SignInButton from '$lib/components/SignInButton.svelte';
     import githubLogo from '$lib/assets/mark-github.svg'
-    import stock from '$lib/assets/stock.jpg';
     import imagePlaceholder from '$lib/assets/imagePlaceholder.jpg';
-
+    export let data;
 </script>
 
 <svelte:head>
@@ -13,7 +11,11 @@
 <header>
     <nav>
         <h1>Profile Maker</h1>
-        <a class="login" href="/login">Login</a>
+        {#if data.session}
+            <a class="login" href="user/edit">Manage Profile</a>
+        {:else}
+            <a class="login" href="/login">Login</a>
+        {/if}
     </nav>
 
 </header>
