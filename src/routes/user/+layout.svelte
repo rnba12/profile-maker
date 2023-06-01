@@ -14,24 +14,13 @@
         </div>
         <nav>
             {#if linkName}
-                <a href="/profile/{linkName}">Profile</a>
+                <a href="/profile/{linkName}"><iconify-icon icon="ph:identification-card-light"></iconify-icon>Profile</a>
             {/if}
-            <a
-                href="/user/edit"
-                class:active={$page.url.pathname === "/user/edit"}>Edit</a
-            >
-            <a
-                href="/user/projects"
-                class:active={$page.url.pathname === "/user/projects"}
-                >Projects</a
-            >
-            <a
-                href="/user/settings"
-                class:active={$page.url.pathname === "/user/settings"}
-                >Settings</a
-            >
+            <a href="/user/edit" class:active={$page.url.pathname === "/user/edit"}><iconify-icon icon="ph:user"></iconify-icon>Edit</a>
+            <a href="/user/projects" class:active={$page.url.pathname === "/user/projects"}><iconify-icon icon="octicon:stack-24"></iconify-icon>Projects</a>
+            <a href="/user/settings" class:active={$page.url.pathname === "/user/settings"}><iconify-icon icon="ph:gear"></iconify-icon>Settings</a>
         </nav>
-        <button class="sign-out" on:click={() => signOut()}>Sign Out</button>
+        <button class="sign-out" on:click={() => signOut()}><iconify-icon icon="ph:sign-out"></iconify-icon> Sign Out</button>
     </aside>
 
     <div class="page">
@@ -99,9 +88,10 @@
         justify-content: left;
         text-decoration: none;
         padding: 0.5rem;
+        gap: 5px;
         border-radius: 5px;
         color: black;
-        font-weight: 500;
+        font-weight: 400;
         font-size: 1.4rem;
         min-width: 130px;
 
@@ -118,8 +108,13 @@
     }
 
     .sign-out {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
         padding: 1rem;
         font-size: 1.4rem;
+        font-weight: 400;
         margin-top: auto;
         background-color: inherit;
         border: none;
