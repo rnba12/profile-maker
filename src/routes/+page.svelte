@@ -2,49 +2,68 @@
     import SignInButton from '$lib/components/SignInButton.svelte';
     import githubLogo from '$lib/assets/mark-github.svg'
     import stock from '$lib/assets/stock.jpg';
+    import imagePlaceholder from '$lib/assets/imagePlaceholder.jpg';
 
 </script>
 
 <svelte:head>
-    <title>Login | Profile Maker</title>
+    <title>Profile Maker</title>
 </svelte:head>
 
-<main>
-    <img class="grid-left" src={stock} alt="code">
-    <div class="grid-right">
+<header>
+    <nav>
         <h1>Profile Maker</h1>
-        <p>Showcase Your Skills</p>
-        <div class="login-box">
-            
-            <SignInButton provider="github" displayText="GitHub" icon={githubLogo}/>
+        <a class="login" href="/login">Login</a>
+    </nav>
+
+</header>
+
+<main>
+    <div class="page-hero">
+        <div>
+            <h2>Showcase Your Skills</h2>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis fugiat consequatur magnam expedita hic, excepturi architecto eos adipisci? Illo amet debitis vel enim? </p>
         </div>
-    </div>
+        <div>
+            <img src={imagePlaceholder} alt="profile">
+        </div>
+    </div>     
 </main>
+<footer>
+    Created By Russell Ampomah
+    <a href="https://www.github.com/rnba12"><img src={githubLogo} alt="github"></a>
+</footer>
 
 <style lang="scss">
-    main {
-        font-size: 1.6rem;
+    header {
+        width: 100%;
+    }
+    nav {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .login {
+        font-size: 1.3rem;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 0.3em 0.9em;
+        border-radius: 10px;
+        color: white;
+        background-color: black;
+    }
+    .page-hero {
+        margin-top: 2rem;
+        padding: 0 2rem;
+        margin: auto;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        height: 100%;
-    }
-    .grid-left {
-        width: 100%;
-        height: 100vh;
-    }
-    .grid-right {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
 
-        .login-box {
-            h2 {
-                font-size: 1.4rem;
-            }
-            // padding: 1.5rem;
-            // border: 1px solid rgb(196, 196, 196);
-            border-radius: 10px;
-            min-height: 10rem;
+        p {
+            font-size: 1.4rem;
+            font-weight: 500;
         }
     }
 </style>
