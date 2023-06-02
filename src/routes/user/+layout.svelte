@@ -70,7 +70,6 @@
     }
     main {
         padding: 2rem;
-        height: 100%;
     }
     nav {
         position: relative;
