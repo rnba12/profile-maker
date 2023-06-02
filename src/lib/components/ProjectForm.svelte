@@ -21,27 +21,23 @@
         project.stack = project.stack.filter(t => t !== name)
     }
 
-    const handleAdd = () => {
-
-    }
-
-    const handleDiscard = () => {
+    const handleClose = () => {
         dispatch("closeForm")
     }
     
 </script>
 
-<Modal bind:showModal bind:close={closeModal} on:exit={handleDiscard}>
+<Modal bind:showModal bind:close={closeModal} on:exit={handleClose}>
 
     
     <form method="POST" action={action} use:enhance={() => {
         // Before submission
         return async ({ result, update }) => {
             if (result.type === "success") {
-                
+                dispatch("success", result.data.message)
             }
             update();
-            handleDiscard()
+            handleClose()
         };
     }}
     >
@@ -71,34 +67,44 @@
                 <input hidden name="stack" type="text" bind:value={project.stack} />
             </div>
         </div>
-        <button>Add</button>
-        <button type="button" on:click={handleDiscard}>Discard</button>
+        <button>{action === "?/add" ? "Add" : "Update"}</button>
+        <button type="button" on:click={handleClose}>Discard</button>
     </form>
 </Modal>
 
 <style lang="scss">
 
-    .inputs {
-        margin-bottom: 0.2rem;
-    }
-
-    input,
-    textarea {
-        width: 100%;
-        padding: 0.2rem;
-    }
-
-    label {
-        font-weight: 500;
-    }
-
-    
-    .stack-item {
-        border: 1px solid rgb(204, 204, 204);
-        border-radius: 36px;
-        margin: 2px;
-    }
-    button {
-        border: none;
-    }
+form {
+            .inputs {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.6em;
+                margin-bottom: 0.7rem;
+            }
+            label {
+                font-size: 1.1rem;
+                font-weight: 500;
+            }
+            .text {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                input {
+                    padding: 0.5rem;
+                }
+                textarea {
+                    font-size: 1rem;
+                }
+            }
+            button {
+                border: none;
+            }
+            .stack-item {
+                font-size: 1rem;
+                border: 1px solid rgb(204,204,204);
+                border-radius: 36px;
+                margin: 2px;
+            }
+            
+        }
 </style>

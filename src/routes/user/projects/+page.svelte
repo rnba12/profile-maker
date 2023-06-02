@@ -9,22 +9,33 @@
     let openForm = false
     let action
     let formProject
+    let showToast = null
     
     const handleNew = () => {
         action = "?/add"
         formProject = {title: "", url: "", description: "", stack: []}
         openForm = true
+        showToast = null
     }
 
     const handleEdit = (project) => {
         action = "?/update"
         formProject = {...project}
         openForm = true
+        showToast = null
+    }
+
+    const handleSuccess = (e) => {
+        showToast = e.detail
     }
 
     const handleCloseForm = () => {
         openForm = false
         formProject = null
+    }
+
+    const handleCloseToast = () => {
+        showToast = null
     }
 
 </script>
@@ -37,19 +48,25 @@
     <h1>Projects</h1>
             
     <button class="new-project" on:click={handleNew}>+ New Project</button>          
-        <div class="projects">
-            {#each projects as p}
-                <div>
-                    <button on:click={() => handleEdit(p)}>Edit</button>
-                    <ProjectItem edit={true} title={p.title} url={p.url} description={p.description} stack={p.stack} {stackOptions}/>
-                </div>
-            {:else}
-                <h2>No Projects to display</h2>
-            {/each}
+    <div class="projects">
+        {#each projects as p}
+            <div>
+                <button on:click={() => handleEdit(p)}>Edit</button>
+                <ProjectItem edit={true} title={p.title} url={p.url} description={p.description} stack={p.stack}/>
+            </div>
+        {:else}
+            <h2>No Projects to display</h2>
+        {/each}
+    </div>
+    {#if openForm && formProject}
+        <ProjectForm {action} project={formProject} on:closeForm={handleCloseForm} on:success={handleSuccess}/>
+    {/if}
+    {#if showToast}
+        <div class="toast">
+            <p>{showToast}</p>
+            <button on:click={handleCloseToast}>&#x2715;</button>
         </div>
-        {#if openForm && formProject}
-            <ProjectForm {action} project={formProject} on:closeForm={handleCloseForm}/>
-        {/if}
+    {/if}
 </div>
         
 
@@ -67,39 +84,7 @@
             width: min-content;
             padding: 0.5em;
         }
-        form {
-            .inputs {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 0.6em;
-                margin-bottom: 0.7rem;
-            }
-            label {
-                font-size: 1.1rem;
-                font-weight: 500;
-            }
-            .text {
-                display: flex;
-                flex-direction: column;
-                gap: 2px;
-                input {
-                    padding: 0.5rem;
-                }
-                textarea {
-                    font-size: 1rem;
-                }
-            }
-            button {
-                border: none;
-            }
-            .stack-item {
-                font-size: 1rem;
-                border: 1px solid rgb(204,204,204);
-                border-radius: 36px;
-                margin: 2px;
-            }
-            
-        }
+        
         .projects {
             display: grid;
             grid-template-columns: 1fr 1fr;

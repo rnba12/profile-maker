@@ -42,7 +42,7 @@ export const actions = {
                 stack: stack
             }
         })
-        return { success: true }
+        return { message: "Added New Project" }
     },
 
     update: async (event) => {
@@ -71,7 +71,7 @@ export const actions = {
                 stack: stack
             }
         })
-        return { success: true }
+        return { message: "Updated Project" }
     },
 
     delete: async ({ url }) => {
@@ -91,6 +91,6 @@ export const actions = {
         const deleteProject = await prisma.project.delete({
             where: { id: data }
         })
-        return { success: true }
+        return { message: "Deleted Project" }
     }
 }
