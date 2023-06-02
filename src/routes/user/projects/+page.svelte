@@ -3,6 +3,7 @@
     import stackOptions from "$lib/stackOptions.js"
     import { page } from '$app/stores';
     import ProjectForm from '$lib/components/ProjectForm.svelte';
+    import Toast from '../../../lib/components/Toast.svelte';
 
     $: projects = [...$page.data.projects]
 
@@ -27,6 +28,7 @@
 
     const handleSuccess = (e) => {
         showToast = e.detail
+        const closeToast = setTimeout(() => handleCloseToast(), 4000)
     }
 
     const handleCloseForm = () => {
@@ -62,10 +64,7 @@
         <ProjectForm {action} project={formProject} on:closeForm={handleCloseForm} on:success={handleSuccess}/>
     {/if}
     {#if showToast}
-        <div class="toast">
-            <p>{showToast}</p>
-            <button on:click={handleCloseToast}>&#x2715;</button>
-        </div>
+       <Toast message={showToast} on:close={handleCloseToast}/>
     {/if}
 </div>
         
