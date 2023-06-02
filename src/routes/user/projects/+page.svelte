@@ -3,17 +3,27 @@
     import Module from '$lib/components/Module.svelte';
     import Typeahead from "svelte-typeahead"
     import stackOptions from "$lib/stackOptions.js"
+    import Modal from "$lib/components/Modal.svelte";
     import { enhance } from '$app/forms';
     import { page } from '$app/stores';
 
     $: projects = [...$page.data.projects]
 
+    let form
     let formStack = []
-    let newProject = null
+
+    let showModal = false;
+    let closeModal;
 
     const handleNew = () => {
-        newProject = { title: "", url: "", description: "", stack: [...formStack] }
+        showModal = true
         formStack = []
+    }
+
+    const handleDiscard = () => {
+        formStack = []
+        form.reset()
+        closeModal()
     }
 
     const stackAdd = (name) => {
@@ -30,58 +40,54 @@
     <title>Projects | Profile Maker</title>
 </svelte:head>
 
-
-        <div class="projects-page">
-            <h1>Projects</h1>
+<div class="projects-page">
+    <h1>Projects</h1>
             
-            
-            {#if newProject}
-            
-                <Module header="Add Project">
-                    <form method="POST" action="?/add" use:enhance={() => {
+    <button class="new-project" on:click={handleNew}>+ New Project</button>          
+        <div class="projects">
+            {#each projects as p}
+                <ProjectItem {...p} {stackOptions}/>
+            {:else}
+                <h2>No Projects to display</h2>
+            {/each}
+                
+                <Modal bind:showModal bind:close={closeModal} on:exit={handleDiscard}>
+                    <h3>Add Project</h3>
+                    <form bind:this={form} method="POST" action="?/add" use:enhance={() => {
                         // Before submission
                         return async ({result, update }) => {
                             if( result.type === "success") {
-                                newProject = null
+                                formStack = []
+                                closeModal()
                             }
                             update()
                         }
                     }}>
-                    
-                        <div class="inputs">
-                            <div class="text">
-                                        <label for="title">Title</label>
-                                        <input type="text" name="title" value={newProject.title} required maxlength="100">
-                                        <label for="url">Link</label>
-                                        <input type="url" name="url" value={newProject.url}>
-                                        <label for="description">Description</label>
-                                        <textarea name="description" value={newProject.description} maxlength="150"></textarea>
-                            </div>
-                            <div class="stack">
-                                <Typeahead
+
+                    <div class="inputs">
+                        <div class="text">
+                            <label for="title">Title</label>
+                            <input type="text" name="title" required maxlength="100">
+                            <label for="url">Link</label>
+                            <input type="url" name="url" >
+                            <label for="description">Description</label>
+                            <textarea name="description" maxlength="150"></textarea>
+                        </div>
+                        <div class="stack">
+                            <Typeahead
                                 label="Tech Stack" inputAfterSelect="clear" limit="5"
                                 filter={(t) => formStack.includes(t)} placeholder="Add" data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}
-                                />
-                                {#each formStack as name}
-                                    <button class="stack-item" type="button" on:click={() => stackDelete(name)}>{name} &#x2715;</button>
-                                {/each}
+                            />
+                            {#each formStack as name}
+                                <button class="stack-item" type="button" on:click={() => stackDelete(name)}>{name} &#x2715;</button>
+                            {/each}
                                 <input hidden name="stack" type="text" bind:value={formStack}>
                             </div>
                         </div>
                         <button>Add</button>
-                        <button type="button" on:click={() => newProject = null}>Discard</button>
+                        <button type="button" on:click={handleDiscard}>Discard</button>
                     </form>
-                </Module>
-            
-            {:else}
-                <button class="new-project" on:click={handleNew}>+ New Project</button>
-            {/if}
-            <div class="projects">
-                {#each projects as p}
-                    <ProjectItem {...p} {stackOptions}/>
-                        {:else}
-                        <h2>No Projects to display</h2>
-                {/each}
+                </Modal>
             </div>
         </div>
         
