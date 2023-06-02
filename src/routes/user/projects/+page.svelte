@@ -1,37 +1,30 @@
 <script>
     import ProjectItem from '$lib/components/ProjectItem.svelte';
-    import Module from '$lib/components/Module.svelte';
-    import Typeahead from "svelte-typeahead"
     import stackOptions from "$lib/stackOptions.js"
-    import Modal from "$lib/components/Modal.svelte";
-    import { enhance } from '$app/forms';
     import { page } from '$app/stores';
+    import ProjectForm from '$lib/components/ProjectForm.svelte';
 
     $: projects = [...$page.data.projects]
 
-    let form
-    let formStack = []
-
-    let showModal = false;
-    let closeModal;
-
+    let openForm = false
+    let action
+    let formProject
+    
     const handleNew = () => {
-        showModal = true
-        formStack = []
+        action = "?/add"
+        formProject = {title: "", url: "", description: "", stack: []}
+        openForm = true
     }
 
-    const handleDiscard = () => {
-        formStack = []
-        form.reset()
-        closeModal()
+    const handleEdit = (project) => {
+        action = "?/update"
+        formProject = {...project}
+        openForm = true
     }
 
-    const stackAdd = (name) => {
-        formStack = [...formStack, name]
-    }
-
-    const stackDelete = (name) => {
-        formStack = formStack.filter(t => t !== name)
+    const handleCloseForm = () => {
+        openForm = false
+        formProject = null
     }
 
 </script>
@@ -46,50 +39,18 @@
     <button class="new-project" on:click={handleNew}>+ New Project</button>          
         <div class="projects">
             {#each projects as p}
-                <ProjectItem {...p} {stackOptions}/>
+                <div>
+                    <button on:click={() => handleEdit(p)}>Edit</button>
+                    <ProjectItem edit={true} title={p.title} url={p.url} description={p.description} stack={p.stack} {stackOptions}/>
+                </div>
             {:else}
                 <h2>No Projects to display</h2>
             {/each}
-                
-                <Modal bind:showModal bind:close={closeModal} on:exit={handleDiscard}>
-                    <h3>Add Project</h3>
-                    <form bind:this={form} method="POST" action="?/add" use:enhance={() => {
-                        // Before submission
-                        return async ({result, update }) => {
-                            if( result.type === "success") {
-                                formStack = []
-                                closeModal()
-                            }
-                            update()
-                        }
-                    }}>
-
-                    <div class="inputs">
-                        <div class="text">
-                            <label for="title">Title</label>
-                            <input type="text" name="title" required maxlength="100">
-                            <label for="url">Link</label>
-                            <input type="url" name="url" >
-                            <label for="description">Description</label>
-                            <textarea name="description" maxlength="150"></textarea>
-                        </div>
-                        <div class="stack">
-                            <Typeahead
-                                label="Tech Stack" inputAfterSelect="clear" limit="5"
-                                filter={(t) => formStack.includes(t)} placeholder="Add" data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}
-                            />
-                            {#each formStack as name}
-                                <button class="stack-item" type="button" on:click={() => stackDelete(name)}>{name} &#x2715;</button>
-                            {/each}
-                                <input hidden name="stack" type="text" bind:value={formStack}>
-                            </div>
-                        </div>
-                        <button>Add</button>
-                        <button type="button" on:click={handleDiscard}>Discard</button>
-                    </form>
-                </Modal>
-            </div>
         </div>
+        {#if openForm && formProject}
+            <ProjectForm {action} project={formProject} on:closeForm={handleCloseForm}/>
+        {/if}
+</div>
         
 
 <style lang="scss">
