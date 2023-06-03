@@ -22,16 +22,21 @@
 >
 	<div on:click|stopPropagation>
 		<!-- svelte-ignore a11y-autofocus -->
-		<button autofocus on:click={() => dialog.close()}>X</button>
+		<button autofocus on:click={() => dialog.close()}>&#x2715</button>
 		<slot />
 	</div>
 </dialog>
 
-<style>
+<style lang="scss">
 	dialog {
 		border-radius: 10px;
 		border: none;
 		padding: 0;
+		width: fit-content;
+		height: fit-content;
+	}
+	dialog:modal {
+		overflow: hidden;
 	}
 	dialog::backdrop {
 		background: rgba(0, 0, 0, 0.3);
@@ -63,5 +68,9 @@
 	}
 	button {
 		display: block;
+		border: none;
+		&:hover {
+			background-color: rgb(225,225,225);
+		}
 	}
 </style>

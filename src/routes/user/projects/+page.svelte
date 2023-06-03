@@ -93,16 +93,32 @@
 
     :global([data-svelte-typeahead] input) {
         line-height: 1rem;
-        padding: 0.3rem;
+        padding: 0.5rem 0.5rem !important;
         border-radius: $border-radius !important;
-        border: 1px solid rgb(204, 204, 204) !important;
+        border: none !important;
+        outline: none;
         &:focus {
             outline: none;
-            border: 2px solid black !important;
         }
     }
     :global([data-svelte-typeahead] label) {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: rgb(100, 100, 100);
         font-size: 1.1rem !important;
         font-weight: 500;
+    }
+    :global([data-svelte-typeahead] form) {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        // border: 1px solid #cccccc;
+        border-radius: 5px;
+        margin: 0.5rem 0;
+        padding: 0.3rem;
+        &:focus-within {
+            border-color: #818181;
+        }
     }
 </style>
