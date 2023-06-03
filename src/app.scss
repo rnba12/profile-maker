@@ -28,6 +28,13 @@ input[type="text"], input[type="url"] {
   border: 1px solid $border-light;
   border-radius: $border-radius;
   box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em 0.5em;
+  width: 100%;
+  &:focus {
+    outline: none;
+  }
 }
 
 textarea {
@@ -35,4 +42,30 @@ textarea {
     resize: none;
   border: 1px solid $border-light;
   border-radius: $border-radius;
+}
+
+label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: rgb(100, 100, 100);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  border: 2px solid #cccccc;
+  border-radius: 10px;
+  margin: 0.5rem 0;
+  padding: 0.3rem;
+  &:focus-within {
+    border-color: #818181;
+    label {
+      color: rgb(47, 47, 47);
+    }
+  }
+  transition: all 0.2s;
 }

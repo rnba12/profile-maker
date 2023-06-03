@@ -1,0 +1,86 @@
+<script>
+    import { enhance, applyAction } from '$app/forms'
+    import { invalidateAll } from '$app/navigation';
+
+
+    export let image;
+    export let name;
+    export let tagline;
+
+    let button;
+    let form;
+
+    const checkChange = () => {
+        const formName = form.name.value 
+        const formTagline = form.tagline.value 
+        if (formName !== name || formTagline !== tagline) {
+            button.disabled = false
+        } else {
+            button.disabled = true
+        }
+    }
+
+    async function handleUpdate() {
+        return async({ result }) => {
+            if (result.type === "success") {
+                invalidateAll()
+                button.disabled = true
+                // await applyAction(result)
+            } if (result.type === "failure") {
+                // await applyAction(result)
+            }            
+        }
+    }
+
+</script>
+
+<form bind:this={form} method="post" action="?/bio" on:input={checkChange} use:enhance={handleUpdate}>
+    <div class="bio-form">
+            <div>
+                <img src={image} width="150px" height="150px" alt="profile pic">
+                <br>
+                <button type="button">Upload</button>
+            </div>
+        
+            <div>
+                <div class="field">
+                    <label for="name">Name<iconify-icon icon="ph:user-bold"></iconify-icon></label>
+                    <input type="text" name="name" maxlength="100" required value={name}>
+                </div>
+        
+                <div class="field">
+                    <label for="tagline">Tagline<iconify-icon icon="mdi:text"></iconify-icon></label>
+                    <input type="text" name="tagline" maxlength="100" value={tagline}>
+                </div>
+            </div>
+        </div>
+        <button bind:this={button} disabled>Update</button>
+    </form>
+
+<style lang="scss">
+    .bio-form {
+        display: grid;
+        grid-template-columns: max-content auto;
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+    }
+    button {
+        font-size: 1em;
+        padding: 0.5rem 0.7rem;
+        background-color: black;
+        color: white;
+        border: none;
+        transition: all 0.2s;
+        &:disabled {
+            cursor: default;
+            background-color:inherit;
+        }
+        &[type="button"] {
+            background-color: white;
+            color: black;
+            border: 2px solid;
+            width: 150px;
+        }
+    }
+    
+</style>

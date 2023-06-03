@@ -2,7 +2,7 @@
     import stackOptions from '$lib/stackOptions'
     import { createEventDispatcher } from 'svelte';
     import { enhance } from '$app/forms'
-    import Modal from "./Modal.svelte";
+    import Modal from "../Modal.svelte";
     import Typeahead from "svelte-typeahead"
 
     const dispatch = createEventDispatcher()

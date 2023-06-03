@@ -1,9 +1,8 @@
 <script>
     import ProjectItem from '$lib/components/ProjectItem.svelte';
-    import stackOptions from "$lib/stackOptions.js"
     import { page } from '$app/stores';
-    import ProjectForm from '$lib/components/ProjectForm.svelte';
-    import Toast from '../../../lib/components/Toast.svelte';
+    import ProjectForm from '$lib/components/forms/ProjectForm.svelte';
+    import Toast from '$lib/components/Toast.svelte';
 
     $: projects = [...$page.data.projects]
 

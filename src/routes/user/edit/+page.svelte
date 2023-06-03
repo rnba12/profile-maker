@@ -3,9 +3,10 @@
     import Typeahead from "svelte-typeahead"
     import stackOptions from '$lib/stackOptions';
     import { page } from '$app/stores';
+    import BioForm from '$lib/components/forms/BioForm.svelte';
 
 
-    let profileData = {
+    $: profileData = {
          ...$page.data.profile
     }
 
@@ -79,25 +80,11 @@
         <h1>Edit Profile</h1>
 
         <Module header="Bio">
-            <div class="form bio-form">
-                <img src={profileData.image} width="100px" height="100px" alt="profile pic">
-                <!-- TODO <input type="file" name="profilePicture" id=""> -->
-                
-                <div class="field">
-                    <label for="name">Name</label><br>
-                    <input type="text" name="name" maxlength="100" required bind:value={profileData.name}>
-                </div>
-                
-                <div class="field">
-                    <label for="tagline">Tagline</label><br>
-                    <input type="text" name="tagline" maxlength="100" bind:value={profileData.tagline}>
-                </div>
-                
-            </div>
+            <BioForm name={profileData.name} tagline={profileData.tagline} image={profileData.image}/>
         </Module>
         
         <Module header="Links">
-            <div class="form link-form">
+            <div class="link-form">
                 <select name="link" id=""  bind:value={selectOption}>
                     <option value="github">GitHub</option>
                     <option value="linkedin">LinkedIn</option>
@@ -109,7 +96,7 @@
         </Module>
         
         <Module header="Tech Stack">
-            <div class="form stack-form">
+            <div class="stack-form">
                 <div class="{valid.stack ? "hidden" : "warning"}">Stack Cannot Be Empty</div>
                 <div class="tech-stack">
                     {#each profileData.stack as name}
@@ -123,6 +110,7 @@
                 <Typeahead label="Add" inputAfterSelect="clear" limit="5" filter={(item) => profileData.stack.includes(item)} placeholder="e.g. Python" data={stackOptions} extract={item => item} on:select={({ detail }) => updateStack(detail.selected)}/>
             </div>
         </Module>
+
         {#if updated}
             <p style="color: green; font-size: 1.1rem; text-align: center">Info Updated Succesfully</p>
         {:else if failed}
@@ -153,27 +141,6 @@
         @include flex(column); 
         gap: 1.5em;
         width: 100%;
-
-        label {
-            display: inline-block;
-            margin-bottom: 0.2rem;
-            font-weight: 500;
-        }
-    }
-    .bio-form {
-        @include flex(column);
-        gap: 1em;
-
-        .field {
-            width: 100%;
-            margin: auto;
-        }
-    }
-    input[type="text"] {
-        line-height: 1rem;
-        width: 100%;
-        padding: 0.2rem 0.3rem;
-        margin: auto;
     }
 
 
