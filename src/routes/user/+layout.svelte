@@ -10,7 +10,7 @@
     <aside class="sidebar">
         <div class="sidebar-header">
             <img src={profilePicture} alt={linkName}>
-            <span class="link-name">/{linkName}</span>
+            <span>/{linkName}</span>
         </div>
         <nav>
             {#if linkName}
@@ -37,6 +37,7 @@
         height: 100vh;
     }
     .sidebar {
+        background-color: white;
         position: relative;
         z-index: 1;
         flex-grow: 0;
@@ -55,7 +56,7 @@
     .sidebar-header {
         padding: 1rem 0;
         font-size: 1.5rem;
-        font-weight: 700;
+        font-weight: 500;
         display: inline-flex;
         width: 100%;
         align-items: center;
@@ -90,7 +91,7 @@
         gap: 5px;
         border-radius: 5px;
         color: black;
-        font-weight: 400;
+        font-weight: 500;
         font-size: 1.4rem;
         min-width: 130px;
 
@@ -102,10 +103,6 @@
         }
     }
 
-    .link-name {
-        font-weight: 500;
-    }
-
     .sign-out {
         display: inline-flex;
         justify-content: center;
@@ -113,7 +110,7 @@
         gap: 5px;
         padding: 1rem;
         font-size: 1.4rem;
-        font-weight: 400;
+        font-weight: 500;
         margin-top: auto;
         background-color: inherit;
         border: none;
