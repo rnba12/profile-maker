@@ -32,3 +32,19 @@ export async function load(event) {
         return { profile }
     }   
 };
+
+/**@type {import('./$types').Actions} */
+export const actions = {
+    bio: async (event) => {
+        const data = await event.request.formData()
+
+        const updateBio = await prisma.profile.update({
+            where: {userId: userId},
+            data: {
+                name: data.get("name"),
+                tagline: data.get("tagline")
+            }
+        })
+        return {message: "Bio Updated"}
+    }
+}
