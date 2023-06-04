@@ -47,9 +47,9 @@ export const actions = {
                     image: session.user.image,
                     tagline: "",
                     links: {
-                        "github": "",
-                        "linkedin": "",
-                        "twitter": ""
+                        "GitHub": "",
+                        "LinkedIn": "",
+                        "Twitter": ""
                     },
                     stack: []
                 }

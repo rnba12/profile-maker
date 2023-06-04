@@ -51,15 +51,30 @@ export const actions = {
     updateStack: async (event) => {
         const data = await event.request.formData()
 
-        let stack = data.get("stack").split(",")
-        if (stack[0] === '') stack = []
+        let newStack = data.get("stack").split(",")
+        if (newStack[0] === '') newStack = []
 
         const update = await prisma.profile.update({
             where: {userId: userId},
             data: {
-                stack: stack
+                stack: newStack
             }
         })
         return {message: "Stack Updated"}
+    },
+
+    updateLinks: async (event) => {
+        const data = await event.request.formData()
+
+        const newLinks = JSON.parse(data.get("links"))
+
+        const update = await prisma.profile.update({
+            where: {userId: userId},
+            data: {
+                links: newLinks
+            }
+        })
+
+        return {message: "Links Updated"}
     }
 }
