@@ -58,40 +58,4 @@
         // line-height: 0.2rem;
     }
 
-    .inputs {
-        margin-bottom: 0.2rem;
-    }
-
-    input,
-    textarea {
-        width: 100%;
-        padding: 0.2rem;
-    }
-
-    label {
-        font-weight: 500;
-    }
-
-    .link {
-        color: black;
-        height: 1em;
-        width: 1em;
-        display: flex;
-        align-items: center;
-        img {
-            width: 1.5em;
-            height: 1.5em;
-        }
-    }
-    .stack-item {
-        border: 1px solid rgb(204, 204, 204);
-        border-radius: 36px;
-        margin: 2px;
-    }
-    button {
-        border: none;
-    }
-    .buttons {
-        margin-bottom: 0.7rem;
-    }
 </style>

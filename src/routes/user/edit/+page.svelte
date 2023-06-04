@@ -57,15 +57,4 @@
         width: 100%;
     }
 
-
-    .link-form {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 0.5em;
-        margin-bottom: 1rem;
-        select {
-            border: none
-        }
-    }
-
 </style>
