@@ -1,5 +1,5 @@
 <script>
-    import { enhance, applyAction } from '$app/forms'
+    import { enhance } from '$app/forms'
     import { invalidateAll } from '$app/navigation';
 
 
@@ -34,7 +34,7 @@
 
 </script>
 
-<form bind:this={form} method="post" action="?/bio" on:input={checkChange} use:enhance={handleUpdate}>
+<form bind:this={form} method="post" action="?/updateBio" on:input={checkChange} use:enhance={handleUpdate}>
     <div class="bio-form">
             <div>
                 <img src={image} width="150px" height="150px" alt="profile pic">

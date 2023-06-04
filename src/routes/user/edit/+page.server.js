@@ -35,7 +35,7 @@ export async function load(event) {
 
 /**@type {import('./$types').Actions} */
 export const actions = {
-    bio: async (event) => {
+    updateBio: async (event) => {
         const data = await event.request.formData()
 
         const updateBio = await prisma.profile.update({
