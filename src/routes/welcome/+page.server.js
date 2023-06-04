@@ -1,3 +1,4 @@
+import { fail } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
 import { getIdFromSession, getCookies } from '$lib/server/helpers.js';
 import { redirect } from '@sveltejs/kit';
@@ -25,8 +26,24 @@ export const actions = {
         const data = await event.request.formData()
         const session = await event.locals.getSession()
 
+        const newLinkName = data.get("linkName").trim()
+
+        if (newLinkName.length < 3) {
+            return fail(400,{
+                error: true,
+                message: "Link name must be longer than 3 characters"
+            }) 
+        }
+
+        if ((/\s/).test(newLinkName)) {
+            return fail(400,{
+                error: true,
+                message: "Link name cannot contain spaces"
+            })
+        }
+
         const nameExists = await prisma.profile.findUnique({
-            where:{ linkName: data.get("linkName")},
+            where:{ linkName: newLinkName},
             select: { linkName: true }
         })
 

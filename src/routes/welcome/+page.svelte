@@ -3,9 +3,6 @@
     import { invalidateAll} from '$app/navigation';
     import { page } from "$app/stores";
 
-
-	
-	
 </script>
 
 <svelte:head>
@@ -17,12 +14,12 @@
     
         <p>Choose a link name to create your profile:</p>
         
-        <form method="POST">
-            <input type="text" name="linkName" required maxlength="50">
+        <form method="POST" use:enhance>
+            <div class="field"><input type="text" name="linkName" required maxlength="50"></div>
             <button>Create My Profile</button>
         </form>
         {#if $page.form?.error}
-            <p class="warning">Name is not available</p>
+            <p class="warning">{$page.form?.message}</p>
         {/if}
 </main>
 
@@ -40,6 +37,7 @@
         font-size: 1.8rem;
     }
     input {
+        background-color: inherit;
         padding: 0.8rem;
         font-size: 1.3rem;
     }
