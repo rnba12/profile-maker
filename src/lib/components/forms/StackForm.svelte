@@ -5,7 +5,7 @@
     import stackOptions from '$lib/stackOptions.js'
 
     export let stack;
-    const initalStack = [...stack];
+    let initalStack = [...stack];
     let button;
 
     const updateStack = (name) => {
@@ -28,6 +28,7 @@
     const checkChange = (e) => { 
         if (!arrayEquals(stack, initalStack)) {
             button.disabled = false
+            initalStack = [...stack]
         } else {
             button.disabled = true
         }
@@ -37,6 +38,7 @@
         return async({ result }) => {
             if (result.type === "success") {
                 invalidateAll()
+
                 button.disabled = true
                 // await applyAction(result)
             } if (result.type === "failure") {
