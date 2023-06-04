@@ -151,13 +151,13 @@
                 width: 100%;
                 border: none;
                 border-radius: 5px;
-                padding: 0.5em 0.5em;
+                padding: 0.5em 0;
                 &:focus {
                     outline: none;
                 }
             }
             textarea {
-                padding: 0.5em 0.5em;
+                padding: 0.5em 0;
                 border: none;
                 font-size: 1rem;
                 width: 100%;
