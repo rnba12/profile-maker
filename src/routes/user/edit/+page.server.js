@@ -41,8 +41,8 @@ export const actions = {
         const update = await prisma.profile.update({
             where: {userId: userId},
             data: {
-                name: data.get("name"),
-                tagline: data.get("tagline")
+                name: data.get("name").trim(),
+                tagline: data.get("tagline").trim()
             }
         })
         return {

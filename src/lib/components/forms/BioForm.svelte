@@ -12,7 +12,7 @@
     const checkChange = () => {
         const formName = form.name.value 
         const formTagline = form.tagline.value 
-        if (formName !== name || formTagline !== tagline) {
+        if (formName.trim() !== name || formTagline.trim() !== tagline) {
             submitBtn.disabled = false
         } else {
             submitBtn.disabled = true
