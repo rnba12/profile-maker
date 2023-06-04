@@ -45,7 +45,10 @@ export const actions = {
                 tagline: data.get("tagline")
             }
         })
-        return {message: "Bio Updated"}
+        return {
+            success: true,
+            message: "Bio Updated"
+        }
     },
 
     updateStack: async (event) => {
@@ -60,7 +63,10 @@ export const actions = {
                 stack: newStack
             }
         })
-        return {message: "Stack Updated"}
+        return {
+            success: true,
+            message: "Stack Updated"
+        }
     },
 
     updateLinks: async (event) => {
@@ -75,6 +81,9 @@ export const actions = {
             }
         })
 
-        return {message: "Links Updated"}
+        return {
+            success: true,
+            message: "Links Updated"
+        }
     }
 }

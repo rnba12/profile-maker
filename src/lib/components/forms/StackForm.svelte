@@ -1,8 +1,11 @@
 <script>
-    import { enhance } from '$app/forms';
+    import { enhance, applyAction } from '$app/forms';
     import { invalidateAll } from '$app/navigation';
+    import { createEventDispatcher } from 'svelte';
     import Typeahead from 'svelte-typeahead/';
     import stackOptions from '$lib/stackOptions.js'
+
+    const dispatch = createEventDispatcher()
 
     export let stack;
     let initalStack = [...stack];
@@ -36,13 +39,13 @@
     async function handleUpdate() {
         return async({ result }) => {
             if (result.type === "success") {
-                invalidateAll()
+                await invalidateAll()
                 initalStack = [...stack]
                 button.disabled = true
-                // await applyAction(result)
+                await applyAction(result)
             } if (result.type === "failure") {
-                // await applyAction(result)
-            }            
+                await applyAction(result)
+            }
         }
     }
 

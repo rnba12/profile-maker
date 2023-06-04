@@ -7,14 +7,13 @@
     $: linkName = $page.data.profile.linkName;
 
     async function handleUpdate() {
-        return async({ result, update}) => {
+        return async({ result }) => {
             if (result.type === "success") {
-                invalidateAll()
+                await invalidateAll()
                 await applyAction(result)
             } if (result.type === "failure") {
                 await applyAction(result)
             }
-            update()
         }
     }
 
@@ -32,9 +31,6 @@
             <label for="linkName">Link Name</label>
             <input type="text" name="linkName" value={linkName}>
             <button>Update</button>
-            {#if $page.form}
-                <p class:error={$page.form.error} class:success={$page.form.success}>{$page.form.message}</p>
-            {/if}
         </form>
     </Module>
     

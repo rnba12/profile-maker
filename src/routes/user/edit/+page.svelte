@@ -4,13 +4,8 @@
     import BioForm from '$lib/components/forms/BioForm.svelte';
     import StackForm from '$lib/components/forms/StackForm.svelte';
     import LinkForm from '$lib/components/forms/linkForm.svelte';
-    import Toast from '../../../lib/components/Toast.svelte';
 
-    $: profileData = {
-         ...$page.data.profile
-    }
-
-    let formResult = null;
+    $: profileData = {...$page.data.profile}
 
 </script>
 
@@ -33,9 +28,6 @@
             <StackForm stack={profileData.stack}/>    
         </Module>
 
-        {#if formResult}
-            <Toast message={formResult.message} success={formResult.success}/>
-        {/if}
 
     </div>
 

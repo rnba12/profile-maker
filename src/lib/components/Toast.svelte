@@ -1,19 +1,29 @@
 <script>
-    import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher, onMount } from "svelte";
     import { fade } from "svelte/transition";
 
 	let dispatch = createEventDispatcher()
     export let message;
     export let success = true;
 
+    const handleClose = () => {
+        message = null
+    }
+
+    onMount(() => {
+        const autoClose = setTimeout(() => message = null, 3000)
+    })
+
 </script>
 
+{#if message}    
 <div class="toast-wrapper">
     <div class="toast" class:fail={!success} transition:fade>
         <p>{message}</p>
-        <button on:click={() => dispatch("close")}>&#x2715;</button>
+        <button on:click={handleClose}>&#x2715;</button>
     </div>
 </div>
+{/if}
 
 <style lang="scss">
     .fail {
@@ -33,6 +43,8 @@
     }
 
     .toast {
+        font-weight: 600;
+        font-size: 1.1rem;
         position: relative;
         z-index: 2;
         min-width: 400px;

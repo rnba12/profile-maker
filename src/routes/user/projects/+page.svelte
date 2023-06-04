@@ -2,41 +2,29 @@
     import ProjectItem from '$lib/components/ProjectItem.svelte';
     import { page } from '$app/stores';
     import ProjectForm from '$lib/components/forms/ProjectForm.svelte';
-    import Toast from '$lib/components/Toast.svelte';
 
     $: projects = [...$page.data.projects]
 
     let openForm = false
     let action
     let formProject
-    let showToast = null
     
     const handleNew = () => {
         action = "?/add"
         formProject = {title: "", url: "", description: "", stack: []}
         openForm = true
-        showToast = null
     }
 
     const handleEdit = (project) => {
         action = "?/update"
         formProject = {...project}
         openForm = true
-        showToast = null
     }
 
-    const handleSuccess = (e) => {
-        showToast = e.detail
-        const closeToast = setTimeout(() => handleCloseToast(), 4000)
-    }
 
     const handleCloseForm = () => {
         openForm = false
         formProject = null
-    }
-
-    const handleCloseToast = () => {
-        showToast = null
     }
 
 </script>
@@ -59,12 +47,11 @@
             <h2>No Projects to display</h2>
         {/each}
     </div>
+
     {#if openForm && formProject}
-        <ProjectForm {action} project={formProject} on:closeForm={handleCloseForm} on:success={handleSuccess}/>
+        <ProjectForm {action} project={formProject} on:closeForm={handleCloseForm}/>
     {/if}
-    {#if showToast}
-       <Toast message={showToast} on:close={handleCloseToast}/>
-    {/if}
+
 </div>
         
 

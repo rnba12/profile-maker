@@ -1,6 +1,6 @@
 <script>
-    import { enhance } from '$app/forms';
-    import { invalidateAll } from '$app/navigation'; 
+    import { enhance, applyAction } from '$app/forms';
+    import { invalidateAll } from '$app/navigation';
 
     export let links;
     let initialLinks = {...links};
@@ -31,13 +31,13 @@
     async function handleUpdate() {
         return async({ result }) => {
             if (result.type === "success") {
-                invalidateAll()
+                await invalidateAll()
                 initialLinks = {...links}
                 submitBtn.disabled = true
-                
+                await applyAction(result)
             } if (result.type === "failure") {
-               
-            }         
+                await applyAction(result)
+            }
         }
     }
 

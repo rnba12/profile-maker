@@ -1,33 +1,32 @@
 <script>
-    import { enhance } from '$app/forms'
+    import { enhance, applyAction } from '$app/forms'
     import { invalidateAll } from '$app/navigation';
-
 
     export let image;
     export let name;
     export let tagline;
 
-    let button;
+    let submitBtn;
     let form;
 
     const checkChange = () => {
         const formName = form.name.value 
         const formTagline = form.tagline.value 
         if (formName !== name || formTagline !== tagline) {
-            button.disabled = false
+            submitBtn.disabled = false
         } else {
-            button.disabled = true
+            submitBtn.disabled = true
         }
     }
 
     async function handleUpdate() {
         return async({ result }) => {
             if (result.type === "success") {
-                invalidateAll()
-                button.disabled = true
-                // await applyAction(result)
+                await invalidateAll()
+                submitBtn.disabled = true
+                await applyAction(result)
             } if (result.type === "failure") {
-                // await applyAction(result)
+                await applyAction(result)
             }            
         }
     }
@@ -54,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <button bind:this={button} disabled>Update</button>
+        <button bind:this={submitBtn} disabled>Update</button>
     </form>
 
 <style lang="scss">

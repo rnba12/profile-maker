@@ -1,7 +1,8 @@
 <script>
     import stackOptions from '$lib/stackOptions'
     import { createEventDispatcher } from 'svelte';
-    import { enhance } from '$app/forms'
+    import { enhance, applyAction } from '$app/forms'
+    import { invalidateAll } from "$app/navigation";
     import Modal from "../Modal.svelte";
     import Typeahead from "svelte-typeahead"
 
@@ -26,7 +27,7 @@
     }
 
     const toggleInput = (e) => {
-        e.target.querySelector("input").focus();
+        // e.target.querySelector("input").focus();
     }
     
 </script>
@@ -36,11 +37,14 @@
     
     <form method="POST" action={action} use:enhance={() => {
         // Before submission
-        return async ({ result, update }) => {
+        return async ({ result }) => {
             if (result.type === "success") {
-                dispatch("success", result.data.message)
+                await invalidateAll()
+                await applyAction(result)
             }
-            update();
+            if (result.type === "failure") {
+                await applyAction(result)
+            }
             handleClose()
         };
     }}

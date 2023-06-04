@@ -1,6 +1,7 @@
 <script>
     import { signOut } from "@auth/sveltekit/client";
     import { page } from "$app/stores";
+    import Toast from "$lib/components/Toast.svelte";
 
     $: linkName = $page.data.userInfo.linkName ?? "";
     $: profilePicture = $page.data.userInfo.image ?? "";
@@ -28,6 +29,10 @@
             <slot />
         </main>
     </div>
+
+    {#if $page.form}
+            <Toast message={$page.form.message} success={$page.form.success}/>
+        {/if}
 </div>
 
 <style lang="scss">
