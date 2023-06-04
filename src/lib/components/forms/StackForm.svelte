@@ -28,7 +28,6 @@
     const checkChange = (e) => { 
         if (!arrayEquals(stack, initalStack)) {
             button.disabled = false
-            initalStack = [...stack]
         } else {
             button.disabled = true
         }
@@ -38,7 +37,7 @@
         return async({ result }) => {
             if (result.type === "success") {
                 invalidateAll()
-
+                initalStack = [...stack]
                 button.disabled = true
                 // await applyAction(result)
             } if (result.type === "failure") {
