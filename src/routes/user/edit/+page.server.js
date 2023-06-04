@@ -35,10 +35,10 @@ export async function load(event) {
 
 /**@type {import('./$types').Actions} */
 export const actions = {
-    updateBio: async (event) => {
+    updateBio: async (event) => { 
         const data = await event.request.formData()
 
-        const updateBio = await prisma.profile.update({
+        const update = await prisma.profile.update({
             where: {userId: userId},
             data: {
                 name: data.get("name"),
@@ -46,5 +46,20 @@ export const actions = {
             }
         })
         return {message: "Bio Updated"}
+    },
+
+    updateStack: async (event) => {
+        const data = await event.request.formData()
+
+        let stack = data.get("stack").split(",")
+        if (stack[0] === '') stack = []
+
+        const update = await prisma.profile.update({
+            where: {userId: userId},
+            data: {
+                stack: stack
+            }
+        })
+        return {message: "Stack Updated"}
     }
 }

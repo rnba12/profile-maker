@@ -1,9 +1,8 @@
 <script>
     import Module from '$lib/components/Module.svelte'
-    import Typeahead from "svelte-typeahead"
-    import stackOptions from '$lib/stackOptions';
     import { page } from '$app/stores';
     import BioForm from '$lib/components/forms/BioForm.svelte';
+    import StackForm from '$lib/components/forms/StackForm.svelte';
 
 
     $: profileData = {
@@ -30,14 +29,6 @@
             }  
     }
 
-    const updateStack = (name) => {
-        // TODO validation
-        profileData.stack = [...profileData.stack, name]
-    }
-
-    const deleteStack = (name) => {
-        profileData.stack = profileData.stack.filter(t => t !== name)
-    }
 
     const handleSubmit = async () => {
         updated = false
@@ -96,19 +87,7 @@
         </Module>
         
         <Module header="Tech Stack">
-            <div class="stack-form">
-                <div class="{valid.stack ? "hidden" : "warning"}">Stack Cannot Be Empty</div>
-                <div class="tech-stack">
-                    {#each profileData.stack as name}
-                    <div class="tech">
-                        <img src={`https://cdn.simpleicons.org/${name.replaceAll(" ", "")}`} alt={name}>
-                        <span>{name}</span> <button class="delete-stack" type="button" on:click={() => deleteStack(name)}>&#x2715;</button>
-                    </div>
-                    {/each}
-                </div>
-                
-                <Typeahead label="Add" inputAfterSelect="clear" limit="5" filter={(item) => profileData.stack.includes(item)} placeholder="e.g. Python" data={stackOptions} extract={item => item} on:select={({ detail }) => updateStack(detail.selected)}/>
-            </div>
+            <StackForm stack={profileData.stack}/>    
         </Module>
 
         {#if updated}
@@ -154,34 +133,6 @@
         }
     }
    
-
-    .tech-stack {
-        @include flex(row);
-        gap: 0.3rem;
-        flex-wrap: wrap;
-        width: 80%;
-        margin-bottom: 1.2rem;
-
-        .tech {
-            @include flex(row);
-            gap: 0.3rem;
-            align-items: center;
-            border: 1px solid rgb(204,204,204);
-            padding: 0.5rem;
-            border-radius: 36px;
-        }
-        img {
-            width: 1.1rem;
-            height: 1.1rem;
-        } 
-        
-        .delete-stack {
-            background-color: inherit;
-            border: none;
-            cursor: pointer;
-        }
-    }
-
     button[type="submit"] {
         width: 20%;
         padding: 0.5em;
@@ -191,19 +142,5 @@
         }
     }
 
-    :global([data-svelte-typeahead] input) {
-        line-height: 1rem;
-        padding: 0.3rem;
-        border-radius: $border-radius !important;
-        border: 1px solid rgb(204, 204, 204) !important;
-        &:focus {
-            outline: none;
-            border: 2px solid black !important;
-        }
-    }
-    :global([data-svelte-typeahead] label) {
-        font-size: 1.1rem !important;
-        font-weight: 500;
-    }
 
 </style>

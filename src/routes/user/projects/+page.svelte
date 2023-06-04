@@ -113,7 +113,7 @@
         flex-direction: column;
         align-items: baseline;
         // border: 1px solid #cccccc;
-        border-radius: 5px;
+        border-radius: 10px;
         margin: 0.5rem 0;
         padding: 0.3rem;
         &:focus-within {
