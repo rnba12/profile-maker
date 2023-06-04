@@ -27,6 +27,15 @@ export const actions = {
         const userId = await getIdFromSession(event.cookies.get(getCookies()))
         const data = await event.request.formData()
 
+        const newLinkName = data.get("linkName").trim()
+
+        if ((/\s/).test(newLinkName)) {
+            return fail(400,{
+                success: false,
+                message: "Link name cannot contain spaces"
+            })
+        }
+
         const {id} = await prisma.profile.findUnique({
             where: {userId: userId},
             select: {id: true}
@@ -41,14 +50,14 @@ export const actions = {
         if (nameExists) {
             // return name not available
             return fail(400,{
-                error: true,
+                success: false,
                 message: "Link name in use."
             })
         }
         else {
             const updateLink = await prisma.profile.update({
                 where: {id: id},
-                data: { linkName: data.get("linkName") }
+                data: { linkName: newLinkName }
             })
 
             return { success: true, message: "Link Updated Successfully" }

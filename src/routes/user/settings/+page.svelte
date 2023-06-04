@@ -3,8 +3,21 @@
     import { enhance, applyAction } from '$app/forms';
     import { invalidateAll } from '$app/navigation';
     import Module from '$lib/components/Module.svelte';
+    import Modal from '../../../lib/components/Modal.svelte';
 
     $: linkName = $page.data.profile.linkName;
+
+    let showModal;
+    let closeModal;
+    let submitBtn;
+
+    const checkChange = (e) => {
+        if (linkName !== e.target.value) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true
+        }
+    }
 
     async function handleUpdate() {
         return async({ result }) => {
@@ -28,19 +41,31 @@
     
     <Module header="Change Profile Link">
         <form method="post" action="?/editLink" use:enhance={handleUpdate}>
-            <label for="linkName">Link Name</label>
-            <input type="text" name="linkName" value={linkName}>
-            <button>Update</button>
+            <div class="field">
+                <label for="linkName">Link Name</label>
+                <input type="text" name="linkName" value={linkName} on:input={checkChange}>
+            </div>
+            <button bind:this={submitBtn} disabled>Update</button>
         </form>
     </Module>
     
     <Module header="Delete Account">
-        <form method="post" action="?/deleteAccount">
-            <button class="delete" type="submit">Delete Account</button>
-            <p>Warning: This action is irreversible. Only proceed if you are confident you want to delete your account</p>
-        </form>
+        <p>Delete Profile Maker Account</p>
+        <button class="delete" on:click={() => showModal = true}>Delete Account</button>
     </Module>
 </div>
+
+{#if showModal}
+    <Modal bind:showModal bind:close={closeModal}>
+        <p>Warning: This action is irreversible. Only proceed if you are confident you want to delete your account</p>
+        <p>Are you sure you want to delete your Account?</p>
+        <form method="post" action="?/deleteAccount">
+            <button class="delete" type="submit">Delete Account</button>
+            <button type="button" on:click={closeModal}>Cancel</button>
+        </form>
+    </Modal>   
+{/if}
+
 
 <style>
     .settings-page {
