@@ -68,7 +68,7 @@
                 {/each}
             </select>
             <div class="field">
-                <label for="new-link">Url</label>
+                <label for="new-link">URL<iconify-icon icon="material-symbols:link"></iconify-icon></label>
                 <input type="url" name="newLink" required>
             </div>
             <button class="update">Add</button>
