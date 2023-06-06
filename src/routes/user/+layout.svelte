@@ -1,26 +1,29 @@
 <script>
     import { page } from "$app/stores";
+    import { signOut } from '@auth/sveltekit/client'
     import Toast from "$lib/components/Toast.svelte";
     import NavBar from "../../lib/components/NavBar.svelte";
 
-    let closeNavMenu;
+    $: linkName = $page.data.userInfo.linkName ?? "";
 
 </script>
 
 
-<div class="user-layout" on:mouseup={closeNavMenu}>
+<div class="user-layout">
 
     <div class="top-nav">
-        <NavBar bind:closePopUp={closeNavMenu}/>
+        <NavBar/>
     </div>
 
 
     <div class="content">
         <aside class="sidebar">
             <nav class="sidebar-nav">
-                <a href="/user/edit" class:active={$page.url.pathname === "/user/edit"}><iconify-icon icon="ph:user"></iconify-icon>Edit</a>
-                <a href="/user/projects" class:active={$page.url.pathname === "/user/projects"}><iconify-icon icon="octicon:stack-24"></iconify-icon>Projects</a>
-                <a href="/user/settings" class:active={$page.url.pathname === "/user/settings"}><iconify-icon icon="ph:gear"></iconify-icon>Settings</a>
+                <a class="sidebar-item" href="/profile/{linkName}"><iconify-icon icon="ph:eye"></iconify-icon>View Profile</a>
+                <a class="sidebar-item" href="/user/edit" class:active={$page.url.pathname === "/user/edit"}><iconify-icon icon="ph:user"></iconify-icon>Edit</a>
+                <a class="sidebar-item" href="/user/projects" class:active={$page.url.pathname === "/user/projects"}><iconify-icon icon="octicon:stack-24"></iconify-icon>Projects</a>
+                <a class="sidebar-item" href="/user/settings" class:active={$page.url.pathname === "/user/settings"}><iconify-icon icon="ph:gear"></iconify-icon>Settings</a>
+                <a class="sidebar-item" href="#" on:click={signOut}><iconify-icon icon="ph:sign-out"></iconify-icon>Log Out</a>
             </nav>
         </aside>
     
@@ -50,20 +53,16 @@
         top: 0;
         left: 0;
         width: auto;
-        height: 50px;
+        height: 60px;
         border-bottom: 1px solid rgb(185, 185, 185);
         display: flex;
         align-items: center;
 
     }
-    
-
-
-
 
     .content {
         display: flex;
-        height: calc(100% - 51px);
+        height: calc(100% - 61px);
     }
     .sidebar {
         background-color: white;
@@ -94,26 +93,26 @@
         align-items: center;
         justify-content: space-around;
         gap: 0.7rem;
-        a {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: left;
-            text-decoration: none;
-            padding: 0.5rem;
-            gap: 5px;
-            border-radius: 5px;
-            color: black;
-            font-weight: 500;
-            font-size: 1.2rem;
-            min-width: 140px;
-    
-            &:hover {
-                background-color: rgb(195, 195, 195);
-            }
-            &.active {
-                background-color: rgb(195, 195, 195);
-            }
+    }
+    .sidebar-item {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: left;
+        text-decoration: none;
+        padding: 0.5rem;
+        gap: 5px;
+        border-radius: 5px;
+        color: black;
+        font-weight: 500;
+        font-size: 1.2rem;
+        min-width: 140px;
+
+        &:hover {
+            background-color: rgb(195, 195, 195);
+        }
+        &.active {
+            background-color: rgb(195, 195, 195);
         }
     }
 

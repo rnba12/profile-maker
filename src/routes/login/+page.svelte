@@ -9,7 +9,7 @@
 </svelte:head>
 
 <main>
-    <h1>Profile Maker</h1>
+    <h2>Log in</h2>
     
     <div class="login-box">
         <SignInButton provider="github" displayText="GitHub" icon={githubLogo}/>
