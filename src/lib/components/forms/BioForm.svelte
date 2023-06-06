@@ -7,6 +7,7 @@
     export let tagline;
 
     let submitBtn;
+    let cancelBtn;
     let form;
 
     const checkChange = () => {
@@ -14,16 +15,24 @@
         const formTagline = form.tagline.value 
         if (formName.trim() !== name || formTagline.trim() !== tagline) {
             submitBtn.disabled = false
+            cancelBtn.disabled = false
         } else {
             submitBtn.disabled = true
+            cancelBtn.disabled = true
         }
+    }
+
+    const discardChange = () => {
+        form.name.value = name
+        form.tagline.value = tagline
+        checkChange()
     }
 
     async function handleUpdate() {
         return async({ result }) => {
             if (result.type === "success") {
                 await invalidateAll()
-                submitBtn.disabled = true
+                checkChange()
                 await applyAction(result)
             } if (result.type === "failure") {
                 await applyAction(result)
@@ -55,6 +64,7 @@
             </div>
         </div>
         <button bind:this={submitBtn} disabled>Update</button>
+        <button bind:this={cancelBtn} type="button" on:click={discardChange} disabled>Cancel</button>
     </form>
 
 <style lang="scss">

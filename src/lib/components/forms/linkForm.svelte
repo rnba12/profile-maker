@@ -6,6 +6,7 @@
     let initialLinks = {...links};
     let addForm;
     let submitBtn;
+    let cancelBtn;
 
     const addLink = (e, name) => {
         links[name] = e.target.newLink.value
@@ -19,12 +20,21 @@
         checkChange()
     }
 
+    const discardChange = () => {
+        addForm.reset()
+        addForm.hidden = true
+        links = {...initialLinks}
+        checkChange()
+    }
+
     // Might be a faster/more efficient way to implement this
     const checkChange = () => {
         if (JSON.stringify(initialLinks) !== JSON.stringify(links)) {
             submitBtn.disabled = false
+            cancelBtn.disabled = false
         } else {
             submitBtn.disabled = true
+            cancelBtn.disabled = true
         }
     }
 
@@ -33,7 +43,7 @@
             if (result.type === "success") {
                 await invalidateAll()
                 initialLinks = {...links}
-                submitBtn.disabled = true
+                checkChange()
                 await applyAction(result)
             } if (result.type === "failure") {
                 await applyAction(result)
@@ -60,7 +70,7 @@
 
     <form bind:this={addForm} hidden on:submit|preventDefault={(e) => addLink(e, addForm.platform.value)}>
         <div class="link">
-            <select name="platform" id="">
+            <select name="platform">
                 {#each Object.entries(links) as [name, url]}
                     {#if !url}
                         <option value={name}>{name}</option>
@@ -72,13 +82,14 @@
                 <input type="url" name="newLink" required>
             </div>
             <button class="update">Add</button>
-            <button class="delete" type="button" on:click={() => addForm.hidden = true}>Discard</button>
+            <button class="delete" type="reset" on:click={() => addForm.hidden = true}>Discard</button>
         </div>
     </form>
 
     <form method="post" action="?/updateLinks" use:enhance={handleUpdate}>
         <input type="text" name="links" value={JSON.stringify(links)} hidden>
         <button bind:this={submitBtn} class="update" disabled>Update</button>
+        <button type="button" on:click={discardChange} bind:this={cancelBtn} disabled>Cancel</button>
     </form>
 
 </div>

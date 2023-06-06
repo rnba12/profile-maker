@@ -1,15 +1,13 @@
 <script>
     import { enhance, applyAction } from '$app/forms';
     import { invalidateAll } from '$app/navigation';
-    import { createEventDispatcher } from 'svelte';
     import Typeahead from 'svelte-typeahead/';
     import stackOptions from '$lib/stackOptions.js'
 
-    const dispatch = createEventDispatcher()
-
     export let stack;
     let initalStack = [...stack];
-    let button;
+    let submitBtn;
+    let cancelBtn;
 
     const updateStack = (name) => {
         stack = [...stack, name]
@@ -28,11 +26,18 @@
             a.every((val, index) => val === b[index]);
     }
 
+    const discardChange = () => {
+        stack = [...initalStack]
+        checkChange()
+    }
+
     const checkChange = (e) => { 
         if (!arrayEquals(stack, initalStack)) {
-            button.disabled = false
+            submitBtn.disabled = false
+            cancelBtn.disabled = false
         } else {
-            button.disabled = true
+            submitBtn.disabled = true
+            cancelBtn.disabled = true
         }
     }
 
@@ -41,7 +46,7 @@
             if (result.type === "success") {
                 await invalidateAll()
                 initalStack = [...stack]
-                button.disabled = true
+                checkChange()
                 await applyAction(result)
             } if (result.type === "failure") {
                 await applyAction(result)
@@ -71,7 +76,8 @@
         <Typeahead label="Add" inputAfterSelect="clear" limit="5" filter={(item) => stack.includes(item)} placeholder="e.g. Python" data={stackOptions} extract={item => item} on:select={({ detail }) => updateStack(detail.selected)}/>
 
     </div>
-    <button bind:this={button} class="update" disabled>Update</button>
+    <button bind:this={submitBtn} class="update" disabled>Update</button>
+    <button bind:this={cancelBtn} on:click={discardChange} class="update" disabled>Cancel</button>
 </form>
 
 <style lang="scss">
