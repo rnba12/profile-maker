@@ -33,7 +33,7 @@
 </main>
 <footer>
     Created By Russell Ampomah
-    <a href="https://www.github.com/rnba12"><img src={githubLogo} alt="github"></a>
+    <a href="https://www.github.com/rnba12"><iconify-icon icon="mdi:github"></iconify-icon></a>
 </footer>
 
 <style lang="scss">

@@ -38,7 +38,8 @@
             <div>
                 <img src={image} width="150px" height="150px" alt="profile pic">
                 <br>
-                <button type="button">Upload</button>
+                <!-- <button type="button">Upload</button> -->
+               
             </div>
         
             <div>
@@ -73,12 +74,6 @@
         &:disabled {
             cursor: default;
             background-color:inherit;
-        }
-        &[type="button"] {
-            background-color: white;
-            color: black;
-            border: 2px solid;
-            width: 150px;
         }
     }
     
