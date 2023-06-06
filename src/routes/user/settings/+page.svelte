@@ -42,7 +42,7 @@
     <Module header="Change Profile Link">
         <form method="post" action="?/editLink" use:enhance={handleUpdate}>
             <div class="field">
-                <label for="linkName">Link Name</label>
+                <label for="linkName">Link Name <iconify-icon icon="material-symbols:link"></iconify-icon></label>
                 <input type="text" name="linkName" value={linkName} on:input={checkChange}>
             </div>
             <button bind:this={submitBtn} disabled>Update</button>

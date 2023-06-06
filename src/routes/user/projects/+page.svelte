@@ -2,6 +2,7 @@
     import ProjectItem from '$lib/components/ProjectItem.svelte';
     import { page } from '$app/stores';
     import ProjectForm from '$lib/components/forms/ProjectForm.svelte';
+    import { fade } from 'svelte/transition';
 
     $: projects = [...$page.data.projects]
 
@@ -39,8 +40,8 @@
     <button class="new-project" on:click={handleNew}>+ New Project</button>          
     <div class="projects">
         {#each projects as p}
-            <div>
-                <button on:click={() => handleEdit(p)}>Edit</button>
+            <div class="project-container">
+                <button class="edit-btn" on:click={() => handleEdit(p)}><iconify-icon icon="ph:note-pencil"></iconify-icon>Edit</button>
                 <ProjectItem edit={true} title={p.title} url={p.url} description={p.description} stack={p.stack}/>
             </div>
         {:else}
@@ -68,6 +69,21 @@
         .new-project {
             width: min-content;
             padding: 0.5em;
+        }
+
+        .project-container {
+            position: relative;
+            &:hover {
+                .edit-btn {
+                    display: block;
+                }
+            }
+        }
+        .edit-btn {
+            display: none;
+            position: absolute;
+            right: 0;
+            transition: all 0.5s;
         }
         
         .projects {
