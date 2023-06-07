@@ -78,40 +78,6 @@ body {
     }
 }
 
-
-
-
-input[type="text"],
-input[type="url"] {
-    border: 1px solid $border-light;
-    border-radius: $border-radius;
-    box-sizing: border-box;
-    border: none;
-    border-radius: 5px;
-    padding: 0.5em 0;
-    width: 100%;
-
-    &:focus {
-        outline: none;
-    }
-}
-
-textarea {
-    box-sizing: border-box;
-    resize: none;
-    border: 1px solid $border-light;
-    border-radius: $border-radius;
-}
-
-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    color: rgb(100, 100, 100);
-    font-size: 1.1rem;
-    font-weight: 500;
-}
-
 .field {
     display: flex;
     flex-direction: column;
@@ -120,6 +86,40 @@ label {
     border-radius: 10px;
     margin: 0.5rem 0;
     padding: 0.3rem;
+
+    input[type="text"],
+    input[type="url"] {
+        border-radius: $border-radius;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 5px;
+        padding: 0.5em 0;
+        width: 100%;
+
+        &:focus {
+            outline: none;
+        }
+    } 
+
+    textarea {
+        border: none;
+        box-sizing: border-box;
+        resize: none;
+        border-radius: $border-radius;
+        padding: 0.5em 0;
+        &:focus {
+            outline: none;
+        }
+    }
+
+    label {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: rgb(100, 100, 100);
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
 
     &:focus-within {
         border-color: #818181;

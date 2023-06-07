@@ -108,7 +108,6 @@
 <style lang="scss">
 
     form {
-        font-size: 1.1rem;
         display: flex;
         flex-direction: column;
         width: 650px;
@@ -127,52 +126,17 @@
             margin-bottom: 0.7rem;
             overflow-y: auto;
         }
-        .field {
-            display: flex;
-            flex-direction: column;
-            align-items: baseline;
-            border: 2px solid #cccccc;
-            border-radius: 10px;
-            margin: 0.5rem 0;
-            padding: 0.3rem;
-            &:focus-within {
-                border-color: #818181;
-                label {
-                    color: rgb(47, 47, 47);
-                }
-            }
-            transition: all 0.2s;
-        }
-        label {
-            z-index: -1;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            color: rgb(100, 100, 100);
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
+        
         .text {
             display: flex;
             flex-direction: column;
             gap: 2px;
             input {
                 width: 100%;
-                border: none;
-                border-radius: 5px;
-                padding: 0.5em 0;
-                &:focus {
-                    outline: none;
-                }
             }
             textarea {
-                padding: 0.5em 0;
-                border: none;
                 font-size: 1rem;
                 width: 100%;
-                &:focus {
-                    outline: none;
-                }
             }
         }
         
@@ -195,7 +159,7 @@
             }
         }
 
-            .delete {
+        .delete {
                 border: none;
                 display: inline-flex;
                 align-items: center;
@@ -205,7 +169,6 @@
                     color: red;
                 }
             }
-        }
-            
+        }  
     
 </style>
