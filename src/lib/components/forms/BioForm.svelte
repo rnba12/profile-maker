@@ -43,7 +43,9 @@
 </script>
 
 <form bind:this={form} method="post" action="?/updateBio" on:input={checkChange} use:enhance={handleUpdate}>
+    <p>Set the name and tagline displayed at the top of your profile.</p>
     <div class="bio-form">
+
             <div>
                 <img src={image} width="150px" height="150px" alt="profile pic">
                 <br>

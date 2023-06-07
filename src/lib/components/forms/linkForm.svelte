@@ -54,7 +54,8 @@
 </script>
 
 <div class="links-form">
-    <button class="btn" on:click={() => addForm.hidden = false}>Add</button>
+    <p>Add Links to display in your bio.</p>
+    <button class="btn add-link-btn" on:click={() => addForm.hidden = false}>Add</button>
     {#each Object.entries(links) as [name, url]}
         {#if url}
             <div class="link">
@@ -70,13 +71,16 @@
 
     <form bind:this={addForm} hidden on:submit|preventDefault={(e) => addLink(e, addForm.platform.value)}>
         <div class="link">
-            <select name="platform">
-                {#each Object.entries(links) as [name, url]}
-                    {#if !url}
-                        <option value={name}>{name}</option>
-                    {/if}
-                {/each}
-            </select>
+            <div class="field select">
+                <label for="platform">Platform</label>
+                <select name="platform">
+                    {#each Object.entries(links) as [name, url]}
+                        {#if !url}
+                            <option value={name}>{name}</option>
+                        {/if}
+                    {/each}
+                </select>
+            </div>
             <div class="field">
                 <label for="new-link">URL<iconify-icon icon="material-symbols:link"></iconify-icon></label>
                 <input type="url" name="newLink" required>
@@ -86,7 +90,7 @@
         </div>
     </form>
 
-    <form method="post" action="?/updateLinks" use:enhance={handleUpdate}>
+    <form class="buttons" method="post" action="?/updateLinks" use:enhance={handleUpdate}>
         <input type="text" name="links" value={JSON.stringify(links)} hidden>
         <button class="submit-btn" bind:this={submitBtn} disabled>Update</button>
         <button type="button" class="cancel-btn" on:click={discardChange} bind:this={cancelBtn} disabled>Cancel</button>
@@ -98,7 +102,6 @@
     .link {
         display: flex;
         align-items: center;
-        padding: 0.3rem;
         width: 100%;
         gap: 0.4rem;
         img {
@@ -112,5 +115,23 @@
                 padding: 0.2em 0;
             }
         }
+        .x-btn {
+            font-size: 2em;
+        }
+    }
+    .add-link-btn {
+        margin-bottom: 1em;
+    }
+    .field {
+        &.select {
+            width: min-content;
+        }
+    } 
+    select {
+        border: none;
+        padding: 0.1em;
+    }
+    .buttons {
+        margin-top: 1em;
     }
 </style>

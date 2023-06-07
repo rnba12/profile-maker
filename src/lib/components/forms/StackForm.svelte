@@ -57,6 +57,7 @@
 </script>
 
 <form method="post" action="?/updateStack" use:enhance={handleUpdate}>
+    <p>Add any languages/tools that you use.</p>
     <div class="stack-form">
 
         <input type="text" name="stack" value={stack} hidden>
@@ -131,7 +132,7 @@
     }
 
     :global([data-svelte-typeahead] input) {
-        line-height: 1rem;
+        // line-height: 1rem;
         padding: 0.5rem !important;
         border-radius: $border-radius !important;
         border: none !important;
@@ -146,7 +147,7 @@
         align-items: center;
         gap: 5px;
         color: hsl(0, 0%, 39%);
-        font-size: 1.1rem !important;
+        font-size: 1em !important;
         font-weight: 500;
     }
 </style>

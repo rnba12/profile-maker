@@ -14,7 +14,7 @@
 </svelte:head>
 
     <div class="edit-page">
-        <h1>Edit Profile</h1>
+        <div class="page-header">Edit Profile</div>
 
         <Module header="Bio">
             <BioForm name={profileData.name} tagline={profileData.tagline} image={profileData.image}/>
@@ -38,12 +38,7 @@
         flex-direction: $direction;
     }
 
-
     .edit-page {
-        h1 {
-            font-size: 3rem;
-            line-height: 0;
-        }
         @include flex(column); 
         gap: 1.5em;
         width: 100%;

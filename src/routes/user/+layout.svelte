@@ -62,7 +62,7 @@
         background-color: #f8f9fa;
     }
     main {
-        padding: 2rem;
+        padding: 2rem 4rem;
     }
 
 </style>
