@@ -66,7 +66,7 @@
                 <div class="stack-item">
                     <img src={`https://cdn.simpleicons.org/${name.replaceAll(" ", "")}`} alt={name}>
                     <span>{name}</span>
-                    <button class="delete-stack" type="button" on:click={() => deleteStack(name)}>&#x2715;</button>
+                    <button class="x-btn" type="button" on:click={() => deleteStack(name)}><iconify-icon icon="ph:x"></iconify-icon></button>
                 </div>
             {:else}
                 <p>No Items</p>
@@ -76,8 +76,8 @@
         <Typeahead label="Add" inputAfterSelect="clear" limit="5" filter={(item) => stack.includes(item)} placeholder="e.g. Python" data={stackOptions} extract={item => item} on:select={({ detail }) => updateStack(detail.selected)}/>
 
     </div>
-    <button bind:this={submitBtn} class="update" disabled>Update</button>
-    <button bind:this={cancelBtn} on:click={discardChange} class="update" disabled>Cancel</button>
+    <button bind:this={submitBtn} class="submit-btn" disabled>Update</button>
+    <button bind:this={cancelBtn} on:click={discardChange} class="cancel-btn" disabled>Cancel</button>
 </form>
 
 <style lang="scss">
@@ -110,25 +110,8 @@
             height: 1.1rem;
         } 
         
-        .delete-stack {
-            background-color: inherit;
-            border: none;
-            cursor: pointer;
-        }
     }
 
-    button.update {
-        font-size: 1em;
-        padding: 0.5rem 0.7rem;
-        background-color: black;
-        color: white;
-        border: none;
-        transition: all 0.2s;
-        &:disabled {
-            cursor: default;
-            background-color:inherit;
-        }
-    }
 
     :global([data-svelte-typeahead] form) {
         display: flex;

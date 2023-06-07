@@ -45,13 +45,13 @@
                 <label for="linkName">Link Name <iconify-icon icon="material-symbols:link"></iconify-icon></label>
                 <input type="text" name="linkName" value={linkName} on:input={checkChange}>
             </div>
-            <button bind:this={submitBtn} disabled>Update</button>
+            <button class="submit-btn" bind:this={submitBtn} disabled>Update</button>
         </form>
     </Module>
     
     <Module header="Delete Account">
         <p>Delete Profile Maker Account</p>
-        <button class="delete" on:click={() => showModal = true}>Delete Account</button>
+        <button class="btn delete-account-btn" on:click={() => showModal = true}>Delete</button>
     </Module>
 </div>
 
@@ -60,14 +60,14 @@
         <p>Warning: This action is irreversible. Only proceed if you are confident you want to delete your account</p>
         <p>Are you sure you want to delete your Account?</p>
         <form method="post" action="?/deleteAccount">
-            <button class="delete" type="submit">Delete Account</button>
-            <button type="button" on:click={closeModal}>Cancel</button>
+            <button class="btn delete-account-btn" type="submit">Delete Account</button>
+            <button class="cancel-btn" type="button" on:click={closeModal}>Cancel</button>
         </form>
     </Modal>   
 {/if}
 
 
-<style>
+<style lang="scss">
     .settings-page {
         display: flex;
         flex-direction: column;
@@ -77,13 +77,12 @@
         font-size: 3rem;
         line-height: 0;
     }
-    .error {
-        color: red;
+    .delete-account-btn {
+        border: none;
+    background-color: red;
+    color: white;
+    &:hover {
+        background-color: rgb(211, 0, 0);
     }
-    .success {
-        color: green;
-    }
-    .delete {
-        color: red;
-    }
+}
 </style>

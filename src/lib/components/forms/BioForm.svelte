@@ -63,8 +63,8 @@
                 </div>
             </div>
         </div>
-        <button bind:this={submitBtn} disabled>Update</button>
-        <button bind:this={cancelBtn} type="button" on:click={discardChange} disabled>Cancel</button>
+        <button class="submit-btn" bind:this={submitBtn} disabled>Update</button>
+        <button class="cancel-btn" bind:this={cancelBtn} type="button" on:click={discardChange} disabled>Cancel</button>
     </form>
 
 <style lang="scss">
@@ -73,18 +73,6 @@
         grid-template-columns: max-content auto;
         gap: 0.6rem;
         margin-bottom: 1rem;
-    }
-    button {
-        font-size: 1em;
-        padding: 0.5rem 0.7rem;
-        background-color: black;
-        color: white;
-        border: none;
-        transition: all 0.2s;
-        &:disabled {
-            cursor: default;
-            background-color:inherit;
-        }
     }
     
 </style>

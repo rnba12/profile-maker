@@ -22,7 +22,7 @@
 >
 	<div on:click|stopPropagation>
 		<!-- svelte-ignore a11y-autofocus -->
-		<button autofocus on:click={() => dialog.close()}>&#x2715</button>
+		<button class="x-btn close-btn" autofocus on:click={() => dialog.close()}><iconify-icon icon="ph:x"></iconify-icon></button>
 		<slot />
 	</div>
 </dialog>
@@ -66,11 +66,7 @@
 			opacity: 1;
 		}
 	}
-	button {
-		display: block;
-		border: none;
-		&:hover {
-			background-color: rgb(225,225,225);
-		}
+	.close-btn {
+		font-size: 2rem;
 	}
 </style>

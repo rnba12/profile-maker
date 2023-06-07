@@ -20,7 +20,7 @@
 <div class="toast-wrapper">
     <div class="toast" class:fail={!success} transition:fade>
         <p>{message}</p>
-        <button on:click={handleClose}>&#x2715;</button>
+        <button class="x-btn" on:click={handleClose}><iconify-icon icon="ph:x"></iconify-icon></button>
     </div>
 </div>
 {/if}
@@ -50,17 +50,17 @@
         min-width: 400px;
         background-color: greenyellow;
         // border: 1px solid green;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border-radius: 10px;
         display: grid;
         grid-template-columns: 80% 20%;
         text-align: center;
         button {
             background-color: inherit;
-            border: none;
-            border-radius: inherit;
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-            // border-left: 1px solid green;
+            font-size: 1.3rem;
+            width: min-content;
         }
     }
 </style>

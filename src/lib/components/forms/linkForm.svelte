@@ -54,7 +54,7 @@
 </script>
 
 <div class="links-form">
-    <button on:click={() => addForm.hidden = false}>Add</button>
+    <button class="btn" on:click={() => addForm.hidden = false}>Add</button>
     {#each Object.entries(links) as [name, url]}
         {#if url}
             <div class="link">
@@ -63,7 +63,7 @@
                     <label for={`${name}-url`}>{name}</label>
                     <input type="url" name={`${name}-url`} bind:value={links[name]} on:input={checkChange}>
                 </div>
-                <button class="delete" on:click={() => deleteLink(name)}>&#x2715;</button>
+                <button class="x-btn" on:click={() => deleteLink(name)}><iconify-icon icon="ph:x"></iconify-icon></button>
             </div>
         {/if}
     {/each}
@@ -81,15 +81,15 @@
                 <label for="new-link">URL<iconify-icon icon="material-symbols:link"></iconify-icon></label>
                 <input type="url" name="newLink" required>
             </div>
-            <button class="update">Add</button>
-            <button class="delete" type="reset" on:click={() => addForm.hidden = true}>Discard</button>
+            <button class="submit-btn">Add</button>
+            <button class="cancel-btn" type="reset" on:click={() => addForm.hidden = true}>Discard</button>
         </div>
     </form>
 
     <form method="post" action="?/updateLinks" use:enhance={handleUpdate}>
         <input type="text" name="links" value={JSON.stringify(links)} hidden>
-        <button bind:this={submitBtn} class="update" disabled>Update</button>
-        <button type="button" on:click={discardChange} bind:this={cancelBtn} disabled>Cancel</button>
+        <button class="submit-btn" bind:this={submitBtn} disabled>Update</button>
+        <button type="button" class="cancel-btn" on:click={discardChange} bind:this={cancelBtn} disabled>Cancel</button>
     </form>
 
 </div>
@@ -111,31 +111,6 @@
             input {
                 padding: 0.2em 0;
             }
-        }
-    }
-    .update {
-        font-size: 1em;
-        padding: 0.5rem 0.7rem;
-        background-color: black;
-        color: white;
-        border: none;
-        transition: all 0.2s;
-        &:disabled {
-            cursor: default;
-            background-color:inherit;
-        }
-    }
-    .delete {
-        font-size: 1.2em;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 2px;
-        transition: all 0.1s;
-        border: none;
-        // height: fit-content;
-        &:hover {
-            color: red;
         }
     }
 </style>

@@ -37,11 +37,11 @@
 <div class="projects-page">
     <h1>Projects</h1>
             
-    <button class="new-project" on:click={handleNew}>+ New Project</button>          
+    <button class=" btn new-project" on:click={handleNew}>+ New Project</button>          
     <div class="projects">
         {#each projects as p}
             <div class="project-container">
-                <button class="edit-btn" on:click={() => handleEdit(p)}><iconify-icon icon="ph:note-pencil"></iconify-icon>Edit</button>
+                <button class="btn edit-btn" on:click={() => handleEdit(p)}><iconify-icon icon="ph:note-pencil"></iconify-icon>Edit</button>
                 <ProjectItem edit={true} title={p.title} url={p.url} description={p.description} stack={p.stack}/>
             </div>
         {:else}
@@ -68,14 +68,15 @@
         }
         .new-project {
             width: min-content;
-            padding: 0.5em;
+            font-size: 1.2rem;
         }
 
         .project-container {
             position: relative;
             &:hover {
                 .edit-btn {
-                    display: block;
+                    display: inline-flex;
+                    align-items: center;
                 }
             }
         }
@@ -83,7 +84,7 @@
             display: none;
             position: absolute;
             right: 0;
-            transition: all 0.5s;
+            top: -1rem;
         }
         
         .projects {

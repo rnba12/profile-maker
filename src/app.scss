@@ -1,71 +1,133 @@
 @import '_variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 0;
     background-color: white;
-  }
+}
 
-  @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
     body {
-      background-color: #212529;
-      color: white;
+        background-color: #212529;
+        color: white;
     }
-  }
+}
 
-  button {
-    border: none;
+%btn-core {
     background-color: white;
-    border: 1px solid $border-light;
+    padding: 0.5rem 0.7rem;
     font-weight: 500;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
     min-width: fit-content;
+    transition: all 0.1s;
+
+    &:disabled {
+       
+        cursor: default;
+    }
 
 }
 
-input[type="text"], input[type="url"] {
-  border: 1px solid $border-light;
-  border-radius: $border-radius;
-  box-sizing: border-box;
-  border: none;
-  border-radius: 5px;
-  padding: 0.5em 0;
-  width: 100%;
-  &:focus {
-    outline: none;
-  }
+.btn {
+    @extend %btn-core;
+    border: 1px solid $border-light;
+    &:hover {
+        border-color: black;
+    }
+}
+
+.submit-btn {
+    @extend %btn-core;
+    background-color: black;
+    color: white;
+    &:disabled {
+        background-color: #e1e1e1;
+        color: #939393;
+    }
+    &:enabled {
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.8);  
+        }
+    }
+}
+
+.cancel-btn {
+    @extend %btn-core;
+    &:enabled {
+        &:hover {
+            background-color: #e1e1e1;
+            
+        }
+    }
+
+}
+
+.x-btn {
+    @extend %btn-core;
+    background-color: inherit;
+    color: #818181;
+    padding: 0.1rem;
+    display: inline-flex;
+    border-radius: 36px;
+    &:hover {
+        background-color: #e1e1e1;
+        color: black;
+    }
+}
+
+
+
+
+input[type="text"],
+input[type="url"] {
+    border: 1px solid $border-light;
+    border-radius: $border-radius;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5em 0;
+    width: 100%;
+
+    &:focus {
+        outline: none;
+    }
 }
 
 textarea {
-  box-sizing: border-box;
+    box-sizing: border-box;
     resize: none;
-  border: 1px solid $border-light;
-  border-radius: $border-radius;
+    border: 1px solid $border-light;
+    border-radius: $border-radius;
 }
 
 label {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  color: rgb(100, 100, 100);
-  font-size: 1.1rem;
-  font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: rgb(100, 100, 100);
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 
 .field {
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-  border: 2px solid #cccccc;
-  border-radius: 10px;
-  margin: 0.5rem 0;
-  padding: 0.3rem;
-  &:focus-within {
-    border-color: #818181;
-    label {
-      color: rgb(47, 47, 47);
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    border: 2px solid #cccccc;
+    border-radius: 10px;
+    margin: 0.5rem 0;
+    padding: 0.3rem;
+
+    &:focus-within {
+        border-color: #818181;
+
+        label {
+            color: rgb(47, 47, 47);
+        }
     }
-  }
-  transition: all 0.2s;
+
+    transition: all 0.2s;
 }

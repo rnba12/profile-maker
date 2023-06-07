@@ -52,7 +52,7 @@
     <div class="form-header">
         <h2>{action === "?/add" ? "Add" : "Edit"} Project</h2>
         {#if action === "?/update"}
-            <button class="delete" formaction="?/delete&id={project.id}"><iconify-icon icon="ph:trash"></iconify-icon>Delete</button>
+            <button class="btn delete" formaction="?/delete&id={project.id}"><iconify-icon icon="ph:trash"></iconify-icon>Delete</button>
         {/if}
     </div>
     {#if action === "?/update"}
@@ -87,15 +87,20 @@
                 />
                 <div class="stack-items">
                     {#each project.stack as name}
-                        <button class="stack-item" type="button" on:click={() => stackDelete(name)}>{name} &#x2715;</button>
+                        <div class="stack-item">
+                            {name}
+                            <button class="x-btn" type="button" on:click={() => stackDelete(name)}>
+                                <iconify-icon icon="ph:x"></iconify-icon>
+                            </button>
+                        </div>
                     {/each}
                 </div>
                 <input hidden name="stack" type="text" bind:value={project.stack} />
             </div>
         </div>
         <div>
-            <button class="submit">{action === "?/add" ? "Add" : "Update"}</button>
-            <button class="cancel" type="button" on:click={handleClose}>Discard</button>
+            <button class="submit-btn">{action === "?/add" ? "Add" : "Update"}</button>
+            <button class="cancel-btn" type="button" on:click={handleClose}>Discard</button>
         </div>
     </form>
 </Modal>
@@ -170,43 +175,37 @@
                 }
             }
         }
-        button {
-            transition: all 0.1s;
-            border: none;
-        }
+        
         .stack-items {
             margin-top: 5px;
         }
         .stack-item {
-            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            gap: 2px;
+            padding: 0.5rem;
+            font-size: 1.1rem;
             background-color: rgb(225, 225, 225);
             border-radius: 36px;
             margin: 2px;
+            button {
+                padding: 0;
+            }
         }
 
-        button {
-            font-size: 1em;
-            padding: 0.5rem 0.7rem;
-            &.submit {
-                background-color: black;
-                color: white;
-            }
-            &.cancel {
-               &:hover {
-                 background-color: rgb(225, 225, 225);
-               }
-            }
-            &.delete {
+            .delete {
+                border: none;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
                 gap: 2px;
-                // height: fit-content;
                 &:hover {
                     color: red;
                 }
             }
         }
             
-    }
+    
 </style>
