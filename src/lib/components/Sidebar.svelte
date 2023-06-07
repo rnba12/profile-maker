@@ -8,12 +8,12 @@
 
 <aside class="sidebar">
     <nav class="sidebar-nav">
-        <a class="sidebar-item" href="/profile/{linkName}"><iconify-icon icon="ph:eye"></iconify-icon>View Profile</a>
-        <a class="sidebar-item" href="/user/edit" class:active={$page.url.pathname === "/user/edit"}><iconify-icon icon="ph:user"></iconify-icon>Edit</a>
-        <a class="sidebar-item" href="/user/projects" class:active={$page.url.pathname === "/user/projects"}><iconify-icon icon="octicon:stack-24"></iconify-icon>Projects</a>
-        <a class="sidebar-item" href="/user/settings" class:active={$page.url.pathname === "/user/settings"}><iconify-icon icon="ph:gear"></iconify-icon>Settings</a>
-        <a class="sidebar-item" href="#" on:click={signOut}><iconify-icon icon="ph:sign-out"></iconify-icon>Log Out</a>
+        <a class="sidebar-item" href="/profile/{linkName}"><iconify-icon icon="ph:eye"></iconify-icon><span>View Profile</span></a>
+        <a class="sidebar-item" href="/user/edit" class:active={$page.url.pathname === "/user/edit"}><iconify-icon icon="ph:user"></iconify-icon><span>Edit</span></a>
+        <a class="sidebar-item" href="/user/projects" class:active={$page.url.pathname === "/user/projects"}><iconify-icon icon="octicon:stack-24"></iconify-icon><span>Projects</span></a>
+        <a class="sidebar-item" href="/user/settings" class:active={$page.url.pathname === "/user/settings"}><iconify-icon icon="ph:gear"></iconify-icon><span>Settings</span></a>
     </nav>
+        <a class="sidebar-item log-out-btn" href="#" on:click={signOut}><iconify-icon icon="ph:sign-out"></iconify-icon><span>Log Out</span></a>
 </aside>
 
 <style lang="scss">
@@ -27,10 +27,12 @@
         height: 100%;
         display: flex;
         flex-direction: column;
-        border-right: 1px solid rgb(185, 185, 185);
+        align-items: center;
+        border-right: 1px solid rgb(218, 218, 218);
+        transition: all 0.2s;
     }
     .sidebar-nav {
-        padding-top: 1.2rem;
+        padding-top: 1rem;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -50,13 +52,22 @@
         color: black;
         font-weight: 500;
         font-size: 1.2rem;
-        min-width: 140px;
+        min-width: 150px;
 
         &:hover {
-            background-color: rgb(195, 195, 195);
+            background-color: rgb(200, 200, 200);
         }
         &.active {
-            background-color: rgb(195, 195, 195);
+            background-color: rgb(200, 200, 200);
         }
+        &:active {
+            background-color: rgb(161, 161, 161);
+        }
+        transition: all 0.1s;
     }
+    .log-out-btn {
+        margin-top: auto;
+        margin-bottom: 0.6rem;
+    }
+    
 </style>

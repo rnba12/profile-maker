@@ -28,14 +28,16 @@ body {
        
         cursor: default;
     }
-
 }
 
 .btn {
     @extend %btn-core;
     border: 1px solid $border-light;
     &:hover {
-        border-color: black;
+        background-color: darken($color: white, $amount: 5)
+    }
+    &:active {
+        background-color: darken($color: white, $amount: 10)
     }
 }
 
@@ -49,7 +51,10 @@ body {
     }
     &:enabled {
         &:hover {
-            background-color: rgba(0, 0, 0, 0.8);  
+            background-color: lighten($color: black, $amount: 20);  
+        }
+        &:active {
+            background-color: lighten($color: black, $amount: 30)
         }
     }
 }
@@ -60,6 +65,9 @@ body {
         &:hover {
             background-color: #e1e1e1;
             
+        }
+        &:active {
+            background-color: darken($color: #e1e1e1, $amount: 5)
         }
     }
 
@@ -73,8 +81,10 @@ body {
     display: inline-flex;
     border-radius: 36px;
     &:hover {
-        background-color: #e1e1e1;
         color: black;
+    }
+    &:active {
+        background-color: #e1e1e1;
     }
 }
 

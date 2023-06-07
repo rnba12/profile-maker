@@ -79,10 +79,14 @@
     }
     .delete-account-btn {
         border: none;
-    background-color: red;
-    color: white;
-    &:hover {
-        background-color: rgb(211, 0, 0);
-    }
+        background-color: red;
+        color: white;
+        &:hover {
+            background-color: lighten($color: red, $amount: 10);
+        }
+        &:active {
+            background-color: lighten($color: red, $amount: 15);
+
+        }
 }
 </style>

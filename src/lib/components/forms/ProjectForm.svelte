@@ -165,8 +165,13 @@
                 align-items: center;
                 justify-content: center;
                 gap: 2px;
+                background-color: white;
+
                 &:hover {
                     color: red;
+                    &:active {
+                        color: darken($color: red, $amount: 10);
+                    }
                 }
             }
         }  
