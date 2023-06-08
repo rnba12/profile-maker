@@ -3,7 +3,7 @@
     import { enhance, applyAction } from '$app/forms';
     import { invalidateAll } from '$app/navigation';
     import Module from '$lib/components/Module.svelte';
-    import Modal from '../../../lib/components/Modal.svelte';
+    import Modal from '$lib/components/Modal.svelte';
 
     $: linkName = $page.data.profile.linkName;
 
@@ -44,7 +44,7 @@
         <form method="post" action="?/editLink" use:enhance={handleUpdate}>
             <div class="field">
                 <label for="linkName">Link Name <iconify-icon icon="material-symbols:link"></iconify-icon></label>
-                <input type="text" name="linkName" minlength="20" value={linkName} on:input={checkChange}>
+                <input type="text" name="linkName" minlength="3" maxlength="20" value={linkName} on:input={checkChange}>
             </div>
             <button class="submit-btn" bind:this={submitBtn} disabled>Update</button>
         </form>
