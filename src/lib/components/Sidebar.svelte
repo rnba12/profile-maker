@@ -13,7 +13,7 @@
         <a class="sidebar-item" href="/user/projects" class:active={$page.url.pathname === "/user/projects"}><iconify-icon icon="octicon:stack-24"></iconify-icon><span>Projects</span></a>
         <a class="sidebar-item" href="/user/settings" class:active={$page.url.pathname === "/user/settings"}><iconify-icon icon="ph:gear"></iconify-icon><span>Settings</span></a>
     </nav>
-        <a class="sidebar-item log-out-btn" href="#" on:click={signOut}><iconify-icon icon="ph:sign-out"></iconify-icon><span>Log Out</span></a>
+        <button class="sidebar-item log-out-btn" on:click={signOut}><iconify-icon icon="ph:sign-out"></iconify-icon><span>Log Out</span></button>
 </aside>
 
 <style lang="scss">
@@ -30,6 +30,12 @@
         align-items: center;
         border-right: 1px solid rgb(218, 218, 218);
         transition: all 0.2s;
+
+        button {
+            border: none;
+            background-color: inherit;
+            cursor: pointer
+        }
     }
     .sidebar-nav {
         padding-top: 1rem;
