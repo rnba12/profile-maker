@@ -60,6 +60,7 @@
     .top-nav-header {
         display: flex;
         align-items: center;
+        height: 100%;
     }
     img {
             height: 30px;
@@ -68,12 +69,12 @@
         }
     .top-nav-menu {
         position: relative;
-        font-size: 1.2rem;
         margin-left: auto;
         display: flex;
         align-items: center;
         gap: 0.5rem;
         a {
+            font-size: 1.4em;
             display: inline-flex;
             align-items: center;
             color: inherit;
@@ -93,8 +94,7 @@
     .account {
         display: flex;
         align-items: center;
-        gap: 0.1rem;
-        font-weight: 600;
+        gap: 0.4em;
     }
     // .popup-menu {
     //     margin: 1rem;

@@ -43,7 +43,7 @@
         top: 0;
         left: 0;
         width: auto;
-        height: 60px;
+        height: 64px;
         border-bottom: 1px solid rgb(185, 185, 185);
         display: flex;
         align-items: center;
@@ -52,7 +52,7 @@
 
     .content {
         display: flex;
-        height: calc(100% - 61px);
+        height: calc(100% - 64px);
     }
     
     .page {
@@ -62,7 +62,7 @@
         background-color: #f8f9fa;
     }
     main {
-        padding: 2rem 4rem;
+        padding: 2rem 3.5rem;
     }
 
 </style>
