@@ -1,6 +1,5 @@
 <script>
-    import { enhance, applyAction } from "$app/forms";
-    import { invalidateAll} from '$app/navigation';
+    import { enhance } from "$app/forms";
     import { page } from "$app/stores";
 
 </script>
@@ -15,7 +14,7 @@
         <p>Choose a link name to create your profile:</p>
         
         <form method="POST" use:enhance>
-            <div class="field"><input type="text" name="linkName" required maxlength="50"></div>
+            <div class="field"><input type="text" name="linkName" required maxlength="20"></div>
             <button>Create My Profile</button>
         </form>
         {#if $page.form?.error}

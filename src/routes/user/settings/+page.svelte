@@ -37,20 +37,21 @@
 </svelte:head>
 
 <div class="settings-page">
-    <h1>Settings</h1>
+    <div class="page-header">Settings</div>
     
-    <Module header="Change Profile Link">
+    <Module header="Profile Link">
+        <p>Change the link name of your profile page.</p>
         <form method="post" action="?/editLink" use:enhance={handleUpdate}>
             <div class="field">
                 <label for="linkName">Link Name <iconify-icon icon="material-symbols:link"></iconify-icon></label>
-                <input type="text" name="linkName" value={linkName} on:input={checkChange}>
+                <input type="text" name="linkName" minlength="20" value={linkName} on:input={checkChange}>
             </div>
             <button class="submit-btn" bind:this={submitBtn} disabled>Update</button>
         </form>
     </Module>
     
     <Module header="Delete Account">
-        <p>Delete Profile Maker Account</p>
+        <p>Delete your Profile Maker Account and your page.</p>
         <button class="btn delete-account-btn" on:click={() => showModal = true}>Delete</button>
     </Module>
 </div>
@@ -71,21 +72,17 @@
     .settings-page {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
-    }
-    h1 {
-        font-size: 3rem;
-        line-height: 0;
+        gap: 1.5rem;
     }
     .delete-account-btn {
         border: none;
-        background-color: red;
+        background-color: #dc0000;
         color: white;
         &:hover {
-            background-color: lighten($color: red, $amount: 10);
+            background-color: darken($color: #dc0000, $amount: 5);
         }
         &:active {
-            background-color: lighten($color: red, $amount: 15);
+            background-color: darken($color: #dc0000, $amount: 10);
 
         }
 }
