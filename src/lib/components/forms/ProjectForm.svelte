@@ -63,7 +63,7 @@
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <div class="field" on:click={(e) => (toggleInput(e))}>
                     <label for="title">Title</label>
-                    <input bind:value={project.title} type="text" name="title" required maxlength="100" />
+                    <input bind:value={project.title} type="text" name="title" required maxlength="50" />
                 </div>
 
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -75,7 +75,7 @@
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <div class="field" on:click={(e) => (toggleInput(e))}>
                     <label for="description">Description<iconify-icon icon="mdi:text"></iconify-icon></label>
-                    <textarea bind:value={project.description} name="description" maxlength="150" rows="5" />
+                    <textarea bind:value={project.description} name="description" maxlength="100" rows="5" />
                 </div>
 
             </div>
