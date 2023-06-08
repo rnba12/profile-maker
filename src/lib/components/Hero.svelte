@@ -1,24 +1,22 @@
 <script>
-    import placeholder from '$lib/assets/placeholder.jpg';
     import Links from './Links.svelte';
     export let name;
     export let image = placeholder;
     export let tagline;
     export let links;
-
 </script>
 
 <div class="hero">
-        <img class="hero-image" src={image} alt="profile pic">
-        <div class="header">
-            <div class="name">{name}</div>
-            {#if tagline}
+    <img class="hero-image" src={image} alt="profile pic">
+    <div class="header">
+        <div class="name">{name}</div>
+        {#if tagline}
             <div class="tagline">{tagline}</div>
-            {/if}
-        </div>
-        {#if links}
-            <Links {...links}/>
         {/if}
+    </div>
+    {#if links}
+        <Links {...links}/>
+    {/if}
 </div>
 
 <style lang="scss">
@@ -47,7 +45,6 @@
     .tagline {
         text-align: center;
         font-size: 1.2rem;
-        font-weight: 400;
-        margin-bottom: 2rem;
+        margin-bottom: 1.4rem;
     }
 </style>

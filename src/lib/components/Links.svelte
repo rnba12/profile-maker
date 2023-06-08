@@ -20,7 +20,7 @@
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
     }
     a {
         font-size: 1.5rem;
