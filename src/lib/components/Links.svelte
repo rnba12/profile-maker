@@ -1,6 +1,4 @@
 <script>
-    import mailIcon from '$lib/assets/icons/email.svg'
-
     export let links;
     export let email;
 </script>
@@ -9,10 +7,10 @@
 >
     {#each Object.entries(links) as [icon, url]}
         {#if url}
-            <a href={url}><img src={`https://cdn.simpleicons.org/${icon}/black`} alt={icon}></a>
+            <a href={url}><iconify-icon icon="simple-icons:{icon.toLowerCase()}"></iconify-icon></a>
         {/if}
     {/each}
-    <a href="mailto:{email}"><img src={mailIcon} alt=""></a>
+    <a href="mailto:{email}"><iconify-icon icon="fa-solid:envelope"></iconify-icon></a>
 </div>
 
 <style>
@@ -24,8 +22,8 @@
         gap: 0.5rem;
         margin-bottom: 1rem;
     }
-    img {
-        width: 1.5rem;
-        height: 1.5rem;
+    a {
+        font-size: 1.5rem;
+        color: black;
     }
 </style>
