@@ -2,7 +2,6 @@
     import ProjectItem from '$lib/components/ProjectItem.svelte';
     import { page } from '$app/stores';
     import ProjectForm from '$lib/components/forms/ProjectForm.svelte';
-    import { fade } from 'svelte/transition';
 
     $: projects = [...$page.data.projects]
 
@@ -35,13 +34,13 @@
 </svelte:head>
 
 <div class="projects-page">
-    <h1>Projects</h1>
+    <div class="page-header">Projects</div>
             
-    <button class=" btn new-project" on:click={handleNew}>+ New Project</button>          
+    <button class=" submit-btn new-project" on:click={handleNew}>+ New Project</button>          
     <div class="projects">
         {#each projects as p}
-            <div class="project-container">
-                <button class="btn edit-btn" on:click={() => handleEdit(p)}><iconify-icon icon="ph:note-pencil"></iconify-icon>Edit</button>
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <div class="project-container" on:click={() => handleEdit(p)}>
                 <ProjectItem edit={true} title={p.title} url={p.url} description={p.description} stack={p.stack}/>
             </div>
         {:else}
@@ -60,37 +59,28 @@
     .projects-page {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 2rem;
     
-        h1 {
-            font-size: 3rem;
-            line-height: 0;
-        }
         .new-project {
             width: min-content;
-            font-size: 1.2rem;
+            font-size: 1em;
         }
 
         .project-container {
+            min-width: fit-content;
+            cursor: pointer;
             position: relative;
-            &:hover {
-                .edit-btn {
-                    display: inline-flex;
-                    align-items: center;
-                }
-            }
-        }
-        .edit-btn {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: -1rem;
         }
         
         .projects {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: 1fr;
             gap: 1rem;
+            @media(Max-width: 640px) {
+                grid-template-columns: repeat(1, 1fr);
+            
+        }
         }
     }
 
