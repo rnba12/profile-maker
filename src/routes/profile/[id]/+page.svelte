@@ -51,6 +51,7 @@
 <style lang="scss">
     main {
         width: 100%;
+        min-height: 100vh;
         background:linear-gradient(45deg, #eeeeee, #FAF8F9, #FFFFFF);
     }
     .profile-page {
@@ -68,6 +69,7 @@
         font-weight: 500;
         color: black;
         padding: 0.8rem;
+        border-radius: 48px;
     }
 
     h2 {
