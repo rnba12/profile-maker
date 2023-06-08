@@ -13,7 +13,9 @@
         <div class="title">{title}</div>
         <div class="header-prompt">
             {#if edit}
-                <iconify-icon icon="ph:note-pencil"></iconify-icon>Edit
+                <button>
+                    <iconify-icon icon="ph:note-pencil"></iconify-icon>Edit
+                </button>
             {:else if url}
                 <a class="link" href={url} target="_blank"><iconify-icon icon="tabler:external-link"></iconify-icon></a>
             {/if}
@@ -49,6 +51,13 @@
                 opacity: 100;
             }
         }
+        &:focus-within {
+            cursor: pointer;
+            border-color: rgb(125, 125, 125);
+            .header-prompt {
+                opacity: 100;
+            }
+        }
         transition: all 0.1s;
     }
     .header {
@@ -74,6 +83,13 @@
         &:hover {
             color: lighten($color: black, $amount: 30);
         }
+    }
+    button {
+        border: none;
+        background-color: inherit;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
     }
 
     .title {
