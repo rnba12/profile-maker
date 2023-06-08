@@ -1,10 +1,7 @@
 <script>
     import { page } from '$app/stores';
-    // import { signOut } from '@auth/sveltekit/client';
 
-    $: linkName = $page.data.userInfo.linkName ?? "";
-    $: profilePicture = $page.data.userInfo.image ?? "";
-
+    $: userInfo = $page.data.userInfo;
     // let menu;
     // let menuButton;
 
@@ -19,10 +16,8 @@
     //         } 
     //     }
     // }
+    // let showPopUpMenu = false;
 
- 
-
-    let showPopUpMenu = false;
 </script>
 
 <div class="top-nav-header">
@@ -39,8 +34,10 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div>
         <div class="account">
-            <span>{linkName}</span>
-            <img src={profilePicture} alt={linkName}>
+            {#if userInfo}
+            <span>{userInfo.linkName}</span>
+                <img src={userInfo.image} alt={userInfo.linkName}>
+            {/if}
         </div>
         
         <!-- keeping this here just in case -->
