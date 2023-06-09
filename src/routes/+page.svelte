@@ -14,7 +14,7 @@
         <div>
             <h2>Showcase Your Skills</h2>
             <p class="lg-p">Profile Maker is an easy place to display your coding projects.</p>
-            <p class="lg-p">Free to use an open source, log in with your github to get started.</p>
+            <p class="lg-p">Free to use and open source, log in with your github to get started.</p>
             <p class="footer">Built By <a href="https://www.github.com/rnba12"> Russell Ampomah</a></p>
         </div>
     </div>     
