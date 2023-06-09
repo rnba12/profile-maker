@@ -1,40 +1,61 @@
 <script>
-    import imagePlaceholder from '$lib/assets/imagePlaceholder.jpg';
+    import image from '$lib/assets/undraw_programming_re_kg9v.svg';
 </script>
 
 <svelte:head>
     <title>Profile Maker</title>
 </svelte:head>
 
-
-
 <main>
     <div class="page-hero">
-        <div>
-            <h2>Showcase Your Skills</h2>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis fugiat consequatur magnam expedita hic, excepturi architecto eos adipisci? Illo amet debitis vel enim? </p>
+        <div class="page-image">
+            <img src={image} alt="profile">
         </div>
         <div>
-            <img src={imagePlaceholder} alt="profile">
+            <h2>Showcase Your Skills</h2>
+            <p class="lg-p">Profile Maker is an easy place to display your coding projects.</p>
+            <p class="lg-p">Free to use an open source, log in with your github to get started.</p>
+            <p class="footer">Built By <a href="https://www.github.com/rnba12"> Russell Ampomah</a></p>
         </div>
     </div>     
 </main>
-<footer>
-    Created By Russell Ampomah
-    <a href="https://www.github.com/rnba12"><iconify-icon icon="mdi:github"></iconify-icon></a>
-</footer>
+    
 
 <style lang="scss">
     .page-hero {
-        margin-top: 2rem;
-        padding: 0 2rem;
-        margin: auto;
+        margin: 4rem;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: auto auto;
+        gap: 1rem;
 
-        p {
-            font-size: 1.4rem;
-            font-weight: 500;
+        .lg-p {
+            font-size: 1.3rem;
         }
+        .footer a {
+            color: #006cdf;
+            text-decoration: none;
+            &:hover {
+                color: rgb(105, 105, 105);
+            }
+            transition: all 0.1s;
+        }
+    }
+    .page-image {
+        max-width: 500px;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    @media (max-width: 600px) {
+        .page-image {
+            max-width: 250px;
+            height: auto;
+        }
+        .page-hero {
+            grid-template-columns: 1fr;
+        }
+        
+
     }
 </style>

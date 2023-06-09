@@ -1,6 +1,4 @@
-<script>
-    /** @type {import('./$types').PageData} */
-    export let data;
-</script>
+<h1>Help</h1>
 
-<h2>Help</h2>
+<p>Help is on the way...🔧</p>
+
