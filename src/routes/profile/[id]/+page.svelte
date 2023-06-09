@@ -51,8 +51,9 @@
 <style lang="scss">
     main {
         width: 100%;
-        min-height: 100vh;
-        background:linear-gradient(45deg, #eeeeee, #FAF8F9, #FFFFFF);
+        // min-height: 100vh;
+        background-color: white;
+        // background:linear-gradient(45deg, #eeeeee, #FAF8F9, #FFFFFF);
     }
     .profile-page {
         width: 60%;
@@ -86,7 +87,7 @@
         flex-direction: row;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 0.6rem;
+        gap: 0.5rem;
         margin-bottom: 2em;
         
         @media(Max-width: 600px) {
@@ -99,7 +100,7 @@
     }
     .stack-item {
         background-color: rgb(255, 255, 255);
-        font-size: 1.2em;
+        font-size: 1.1em;
         display: flex;
         flex-direction: row;
         align-items: center;
