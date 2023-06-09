@@ -44,7 +44,7 @@
                 <ProjectItem edit={true} title={p.title} url={p.url} description={p.description} stack={p.stack}/>
             </div>
         {:else}
-            <h2>No Projects to display</h2>
+            <div class="no-projects">No Projects</div>
         {/each}
     </div>
 
@@ -61,6 +61,14 @@
         flex-direction: column;
         gap: 2rem;
     
+        .no-projects {
+            grid-column: span 2;
+            margin-top: 3rem;
+            text-align: center;
+            width: 100%;
+            font-size: 1.5em;
+        }
+
         .new-project {
             width: min-content;
             font-size: 1em;
