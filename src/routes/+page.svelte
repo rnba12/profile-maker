@@ -31,13 +31,16 @@
         .lg-p {
             font-size: 1.3rem;
         }
-        .footer a {
-            color: #006cdf;
-            text-decoration: none;
-            &:hover {
-                color: rgb(105, 105, 105);
+        .footer {
+            a {
+                font-weight: 500;
+                color: #006cdf;
+                text-decoration: none;
+                &:hover {
+                    color: rgb(105, 105, 105);
+                }
+                transition: all 0.1s;
             }
-            transition: all 0.1s;
         }
     }
     .page-image {
