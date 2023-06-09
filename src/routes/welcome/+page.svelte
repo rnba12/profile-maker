@@ -14,8 +14,10 @@
         <p>Choose a link name to create your profile:</p>
         
         <form method="POST" use:enhance>
-            <div class="field"><input type="text" name="linkName" required maxlength="20"></div>
-            <button>Create My Profile</button>
+            <div class="field">
+                <input aria-label="Link Name" type="text" name="linkName" required minlength="3" maxlength="20">
+            </div>
+            <button class="submit-btn">Create My Profile</button>
         </form>
         {#if $page.form?.error}
             <p class="warning">{$page.form?.message}</p>
@@ -33,16 +35,15 @@
         line-height: 0;
     }
     p {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
     }
-    input {
-        background-color: inherit;
-        padding: 0.8rem;
-        font-size: 1.3rem;
+    .field input {
+        padding-left: 0.5rem;
+        font-size: 1.2rem;
     }
     button {
-        padding: 0.8rem;
-        font-size: 1.3rem;
+        /* padding: 0.8rem; */
+        font-size: 1.2rem;
     }
     .warning {
         color: red;
