@@ -10,13 +10,24 @@
     let showModal;
     let closeModal;
     let submitBtn;
+    let cancelBtn;
+    let linkForm;
 
-    const checkChange = (e) => {
-        if (linkName !== e.target.value) {
+    const checkChange = () => {
+        const formLinkValue = linkForm.linkName.value.trim()
+        if (linkName !== formLinkValue) {
             submitBtn.disabled = false;
+            cancelBtn.disabled = false;
         } else {
             submitBtn.disabled = true
+            cancelBtn.disabled = true
         }
+    }
+
+    
+    const discardChange = () => {
+        linkForm.linkName.value = linkName;
+        checkChange()
     }
 
     async function handleUpdate() {
@@ -24,6 +35,7 @@
             if (result.type === "success") {
                 await invalidateAll()
                 await applyAction(result)
+                checkChange()
             } if (result.type === "failure") {
                 await applyAction(result)
             }
@@ -41,12 +53,13 @@
     
     <Module header="Profile Link">
         <p>Change the link name of your profile page.</p>
-        <form method="post" action="?/editLink" use:enhance={handleUpdate}>
+        <form bind:this={linkForm} method="post" action="?/editLink" use:enhance={handleUpdate}>
             <div class="field">
                 <label for="linkName">Link Name <iconify-icon icon="material-symbols:link"></iconify-icon></label>
                 <input type="text" name="linkName" minlength="3" maxlength="20" value={linkName} on:input={checkChange}>
             </div>
             <button class="submit-btn" bind:this={submitBtn} disabled>Update</button>
+            <button class="cancel-btn" type="button" on:click={discardChange} bind:this={cancelBtn} disabled>Cancel</button>
         </form>
     </Module>
     
