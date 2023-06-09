@@ -35,6 +35,8 @@
         flex-direction: column;
         gap: 0.5rem;
         margin-top: 0.5rem;
+        margin-bottom: 1.4rem;
+
     }
     .name {
         font-size: 1.3rem;
@@ -45,6 +47,5 @@
     .tagline {
         text-align: center;
         font-size: 1.2rem;
-        margin-bottom: 1.4rem;
     }
 </style>
