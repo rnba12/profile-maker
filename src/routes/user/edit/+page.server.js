@@ -1,13 +1,13 @@
 import { redirect, fail } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
-import { getIdFromSession } from '$lib/server/helpers';
+import { getIdFromSession, getCookies } from '$lib/server/helpers';
 
 let userId;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
     const session = await event.locals.getSession()
-    const token = await event.cookies.get("__Secure-next-auth.session-token")
+    const token = await event.cookies.get(getCookies())
 
     if (!session) {
         throw redirect(304, '/')
@@ -32,3 +32,58 @@ export async function load(event) {
         return { profile }
     }   
 };
+
+/**@type {import('./$types').Actions} */
+export const actions = {
+    updateBio: async (event) => { 
+        const data = await event.request.formData()
+
+        const update = await prisma.profile.update({
+            where: {userId: userId},
+            data: {
+                name: data.get("name").trim(),
+                tagline: data.get("tagline").trim()
+            }
+        })
+        return {
+            success: true,
+            message: "Bio Updated"
+        }
+    },
+
+    updateStack: async (event) => {
+        const data = await event.request.formData()
+
+        let newStack = data.get("stack").split(",")
+        if (newStack[0] === '') newStack = []
+
+        const update = await prisma.profile.update({
+            where: {userId: userId},
+            data: {
+                stack: newStack
+            }
+        })
+        return {
+            success: true,
+            message: "Stack Updated"
+        }
+    },
+
+    updateLinks: async (event) => {
+        const data = await event.request.formData()
+
+        const newLinks = JSON.parse(data.get("links"))
+
+        const update = await prisma.profile.update({
+            where: {userId: userId},
+            data: {
+                links: newLinks
+            }
+        })
+
+        return {
+            success: true,
+            message: "Links Updated"
+        }
+    }
+}

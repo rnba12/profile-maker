@@ -1,12 +1,13 @@
+import { fail } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
-import { getIdFromSession } from '$lib/server/helpers.js';
+import { getIdFromSession, getCookies } from '$lib/server/helpers.js';
 import { redirect } from '@sveltejs/kit';
 
 let userId;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
-    const token = await event.cookies.get("__Secure-next-auth.session-token")
+    const token = await event.cookies.get(getCookies())
     userId = await getIdFromSession(token)
     const profile = await prisma.profile.findUnique({
         where: {userId: userId}, select: {id: true}
@@ -25,8 +26,24 @@ export const actions = {
         const data = await event.request.formData()
         const session = await event.locals.getSession()
 
+        const newLinkName = data.get("linkName").trim()
+
+        if (newLinkName.length < 3) {
+            return fail(400,{
+                error: true,
+                message: "Link name must be longer than 3 characters"
+            }) 
+        }
+
+        if ((/\s/).test(newLinkName)) {
+            return fail(400,{
+                error: true,
+                message: "Link name cannot contain spaces"
+            })
+        }
+
         const nameExists = await prisma.profile.findUnique({
-            where:{ linkName: data.get("linkName")},
+            where:{ linkName: newLinkName},
             select: { linkName: true }
         })
 
@@ -47,9 +64,13 @@ export const actions = {
                     image: session.user.image,
                     tagline: "",
                     links: {
-                        "github": "",
-                        "linkedin": "",
-                        "twitter": ""
+                        "GitHub": "",
+                        "LinkedIn": "",
+                        "Twitter": "",
+                        "Dribbble": "",
+                        "Instagram": "",
+                        "Facebook": "",
+                        "Discord": ""
                     },
                     stack: []
                 }

@@ -1,27 +1,30 @@
 <script>
     import ProjectItem from '$lib/components/ProjectItem.svelte';
-    import Module from '$lib/components/Module.svelte';
-    import Typeahead from "svelte-typeahead"
-    import stackOptions from "$lib/stackOptions.js"
-    import { enhance } from '$app/forms';
     import { page } from '$app/stores';
+    import ProjectForm from '$lib/components/forms/ProjectForm.svelte';
 
     $: projects = [...$page.data.projects]
 
-    let formStack = []
-    let newProject = null
-
+    let openForm = false
+    let action
+    let formProject
+    
     const handleNew = () => {
-        newProject = { title: "", url: "", description: "", stack: [...formStack] }
-        formStack = []
+        action = "?/add"
+        formProject = {title: "", url: "", description: "", stack: []}
+        openForm = true
     }
 
-    const stackAdd = (name) => {
-        formStack = [...formStack, name]
+    const handleEdit = (project) => {
+        action = "?/update"
+        formProject = {...project}
+        openForm = true
     }
 
-    const stackDelete = (name) => {
-        formStack = formStack.filter(t => t !== name)
+
+    const handleCloseForm = () => {
+        openForm = false
+        formProject = null
     }
 
 </script>
@@ -30,128 +33,93 @@
     <title>Projects | Profile Maker</title>
 </svelte:head>
 
-
-        <div class="projects-page">
-            <h1>Projects</h1>
+<div class="projects-page">
+    <div class="page-header">Projects</div>
             
-            
-            {#if newProject}
-            
-                <Module header="Add Project">
-                    <form method="POST" action="?/add" use:enhance={() => {
-                        // Before submission
-                        return async ({result, update }) => {
-                            if( result.type === "success") {
-                                newProject = null
-                            }
-                            update()
-                        }
-                    }}>
-                    
-                        <div class="inputs">
-                            <div class="text">
-                                        <label for="title">Title</label>
-                                        <input type="text" name="title" value={newProject.title} required maxlength="100">
-                                        <label for="url">Link</label>
-                                        <input type="url" name="url" value={newProject.url}>
-                                        <label for="description">Description</label>
-                                        <textarea name="description" value={newProject.description} maxlength="150"></textarea>
-                            </div>
-                            <div class="stack">
-                                <Typeahead
-                                label="Tech Stack" inputAfterSelect="clear" limit="5"
-                                filter={(t) => formStack.includes(t)} placeholder="Add" data={stackOptions} extract={item => item} on:select={({ detail }) => stackAdd(detail.selected)}
-                                />
-                                {#each formStack as name}
-                                    <button class="stack-item" type="button" on:click={() => stackDelete(name)}>{name} &#x2715;</button>
-                                {/each}
-                                <input hidden name="stack" type="text" bind:value={formStack}>
-                            </div>
-                        </div>
-                        <button>Add</button>
-                        <button type="button" on:click={() => newProject = null}>Discard</button>
-                    </form>
-                </Module>
-            
-            {:else}
-                <button class="new-project" on:click={handleNew}>+ New Project</button>
-            {/if}
-            <div class="projects">
-                {#each projects as p}
-                    <ProjectItem {...p} {stackOptions}/>
-                        {:else}
-                        <h2>No Projects to display</h2>
-                {/each}
+    <button class=" submit-btn new-project" on:click={handleNew}>+ New Project</button>          
+    <div class="projects">
+        {#each projects as p}
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <div class="project-container" on:click={() => handleEdit(p)}>
+                <ProjectItem edit={true} title={p.title} url={p.url} description={p.description} stack={p.stack}/>
             </div>
-        </div>
+        {:else}
+            <div class="no-projects">No Projects</div>
+        {/each}
+    </div>
+
+    {#if openForm && formProject}
+        <ProjectForm {action} project={formProject} on:closeForm={handleCloseForm}/>
+    {/if}
+
+</div>
         
 
 <style lang="scss">
     .projects-page {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 2rem;
     
-        h1 {
-            font-size: 3rem;
-            line-height: 0;
+        .no-projects {
+            grid-column: span 2;
+            margin-top: 3rem;
+            text-align: center;
+            width: 100%;
+            font-size: 1.5em;
         }
+
         .new-project {
             width: min-content;
-            padding: 0.5em;
+            font-size: 1em;
         }
-        form {
-            .inputs {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 0.6em;
-                margin-bottom: 0.7rem;
-            }
-            label {
-                font-size: 1.1rem;
-                font-weight: 500;
-            }
-            .text {
-                display: flex;
-                flex-direction: column;
-                gap: 2px;
-                input {
-                    padding: 0.5rem;
-                }
-                textarea {
-                    font-size: 1rem;
-                }
-            }
-            button {
-                border: none;
-            }
-            .stack-item {
-                font-size: 1rem;
-                border: 1px solid rgb(204,204,204);
-                border-radius: 36px;
-                margin: 2px;
-            }
-            
+
+        .project-container {
+            min-width: fit-content;
+            cursor: pointer;
+            position: relative;
         }
+        
         .projects {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: 1fr;
             gap: 1rem;
+            @media(Max-width: 640px) {
+                grid-template-columns: repeat(1, 1fr);
+            
+        }
         }
     }
 
     :global([data-svelte-typeahead] input) {
         line-height: 1rem;
-        padding: 0.3rem;
+        padding: 0.5rem 0.5rem !important;
         border-radius: $border-radius !important;
-        border: 1px solid rgb(204, 204, 204) !important;
+        border: none !important;
+        outline: none;
         &:focus {
             outline: none;
-            border: 2px solid black !important;
         }
     }
     :global([data-svelte-typeahead] label) {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: rgb(100, 100, 100);
         font-size: 1.1rem !important;
         font-weight: 500;
+    }
+    :global([data-svelte-typeahead] form) {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        // border: 1px solid #cccccc;
+        border-radius: 10px;
+        margin: 0.5rem 0;
+        padding: 0.3rem;
+        &:focus-within {
+            border-color: #818181;
+        }
     }
 </style>

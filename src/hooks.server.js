@@ -2,9 +2,21 @@ import { SvelteKitAuth } from "@auth/sveltekit";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "$lib/server/prisma";
 import Github from '@auth/core/providers/github';
-import { GITHUB_ID, GITHUB_SECRET } from "$env/static/private"
+import { GITHUB_ID, GITHUB_SECRET, DEV_GITHUB_ID, DEV_GITHUB_SECRET} from "$env/static/private"
 import { sequence } from "@sveltejs/kit/hooks";
 import { redirect } from "@sveltejs/kit";
+
+let clientId;
+let clientSecret;
+
+if (process.env.NODE_ENV === "development") {
+  clientId = DEV_GITHUB_ID
+  clientSecret = DEV_GITHUB_SECRET
+} else {
+  clientId = GITHUB_ID
+  clientSecret = GITHUB_SECRET
+}
+
 
 
 async function authorization({ event, resolve }) {
@@ -23,7 +35,7 @@ async function authorization({ event, resolve }) {
   export const handle = sequence(
     SvelteKitAuth({
       trustHost: true,
-      providers: [Github({ clientId: GITHUB_ID, clientSecret: GITHUB_SECRET })],
+      providers: [Github({ clientId: clientId, clientSecret: clientSecret })],
       adapter: PrismaAdapter(prisma)
     }),
     authorization

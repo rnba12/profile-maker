@@ -14,7 +14,7 @@
 
 <style lang="scss">
     button {
-        font-size: 1rem;
+        font-size: 1.4rem;
         background-color: black;
         color: white;
         border: none;

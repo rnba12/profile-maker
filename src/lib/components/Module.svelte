@@ -15,15 +15,15 @@
     .module {
         background-color: white;
         border: 1px solid rgb(204, 204, 204);
-        border-radius: $border-radius;
+        border-radius: 12px;
         padding: 2rem;
     }
     .module-header {
-        font-size: 2rem;
-        font-weight: 700;
+        font-size: 1.7rem;
+        font-weight: 600;
         margin-bottom: 1.2rem;
     }
     .module-content {
-        font-size: 1.3em;
+        font-size: 1rem;
     }
 </style>

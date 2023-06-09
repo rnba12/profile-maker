@@ -1,77 +1,68 @@
 <script>
-import { signOut } from "@auth/sveltekit/client";
-import { page } from '$app/stores';
-
-$: linkName = $page.data.linkName ?? ""
-
+    import { page } from "$app/stores";
+    import Toast from "$lib/components/Toast.svelte";
+    import NavBar from "../../lib/components/NavBar.svelte";
+    import Sidebar from "../../lib/components/Sidebar.svelte";
 
 </script>
 
-<nav>
-<h3>Profile Maker <span class="link-name">/{linkName.linkName}</span></h3>
-<div class="nav-links">
-    {#if linkName}
-    <a href="/profile/{linkName.linkName}">Profile</a>
-    {/if}
-    <a href="/user/edit" class:active={$page.url.pathname === '/user/edit'}>Edit</a>
-    <a href="/user/projects" class:active={$page.url.pathname === '/user/projects'}>Projects</a>
-    <a href="/user/settings" class:active={$page.url.pathname === '/user/settings'}>Settings</a>
-    <button on:click={() => signOut()}>Sign Out</button>
-</div>
-</nav>
 
-<main>
-    <slot/>
-</main>
+<div class="user-layout">
+
+    <div class="top-nav">
+        <NavBar/>
+    </div>
+
+
+    <div class="content">
+        <Sidebar />
+    
+        <div class="page">
+            <main>
+                <slot />
+            </main>
+        </div>
+    
+        {#if $page.form}
+                <Toast message={$page.form.message} success={$page.form.success}/>
+            {/if}
+    </div>
+</div>
 
 <style lang="scss">
-main {
-        padding: 2rem;
-        width: 80%;
-        margin: auto;
-}
-nav {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    height: 3rem;
-    background-color: white;
-    border-bottom: 1px solid rgb(185, 185, 185);
+    .user-layout {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100%;
+    }
+    .top-nav {
+        padding: 0 1rem;
+        z-index: 50;
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: auto;
+        height: 64px;
+        border-bottom: 1px solid rgb(200, 200, 200);
+        display: flex;
+        align-items: center;
 
-    .nav-links {
+    }
+
+    .content {
+        display: flex;
+        height: calc(100% - 64px);
+    }
+    
+    .page {
+        width: 100%;
         height: 100%;
-        width: fit-content;
-        vertical-align: middle;
+        overflow-y: auto;
+        background-color: #f8f9fa;
     }
-}
+    main {
+        padding: 2rem 3.5rem;
+    }
 
-a {
-    display: inline-flex;
-    margin: auto;
-    align-items: center;
-    margin-left: 0.6rem;
-    margin-right: 0.6rem;
-    text-decoration: none;
-    color: black;
-    font-weight: 500;
-    height: 100%;
-    &:hover {
-        color: rgb(0, 136, 255);
-    }
-    &.active {
-        color: rgb(0, 136, 255);
-    }
-}
-    .link-name {
-        font-weight: 400;
-    }
-    button {
-        background-color: inherit;
-        border: none;
-        color: red;
-        font-weight: 700;
-        cursor: pointer;
-    }
 </style>
