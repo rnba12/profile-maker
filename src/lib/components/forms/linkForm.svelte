@@ -73,7 +73,7 @@
         <div class="link">
             <div class="field select">
                 <label for="platform">Platform</label>
-                <select name="platform">
+                <select name="platform" required>
                     {#each Object.entries(links) as [name, url]}
                         {#if !url}
                             <option value={name}>{name}</option>
