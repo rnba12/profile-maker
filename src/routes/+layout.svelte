@@ -7,6 +7,7 @@
     $: showNav = () => {
         let currentPage = $page.url.pathname
         if (currentPage.startsWith("/user")) return false
+        if (currentPage.startsWith("/welcome")) return false
         if (currentPage.startsWith("/profile")) return false
         return true
     }
