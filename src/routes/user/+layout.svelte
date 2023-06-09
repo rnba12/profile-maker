@@ -44,7 +44,7 @@
         left: 0;
         width: auto;
         height: 64px;
-        border-bottom: 1px solid rgb(185, 185, 185);
+        border-bottom: 1px solid rgb(200, 200, 200);
         display: flex;
         align-items: center;
 

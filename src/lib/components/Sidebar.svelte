@@ -28,7 +28,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        border-right: 1px solid rgb(218, 218, 218);
+        border-right: 1px solid rgb(200, 200, 200);
         transition: all 0.2s;
 
         button {

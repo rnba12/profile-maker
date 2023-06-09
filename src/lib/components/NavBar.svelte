@@ -21,17 +21,18 @@
 </script>
 
 <div class="top-nav-header">
-    <div class="logo">Profile Maker&nbsp;</div>
-    <div class="current-view"> / {$page.url.pathname.split("/")[2]}</div>
+    <div class="logo">Profile Maker</div>
+    <div class="break"></div>
+    <div class="current-view">  {$page.url.pathname.split("/")[2]}</div>
 </div>
+
 <div class="top-nav-menu"> 
-    <a href="/help">
+    <!-- <a href="/help">
         <iconify-icon icon="material-symbols:help-outline"></iconify-icon>
     </a>
     <a href="https://www.github.com/rnba12/profile-maker" target="_blank">
         <iconify-icon icon="mdi:github"></iconify-icon>
-    </a>  
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    </a>   -->
     <div>
         <div class="account">
             {#if userInfo}
@@ -57,10 +58,16 @@
     .top-nav-header {
         display: flex;
         align-items: center;
+        gap: 0.5rem;
         height: 100%;
     }
+    .break::before {
+        content: ("\0002f");
+        font-size: 1.2em;
+        color: rgb(100, 100, 100);
+    }
     img {
-            height: 30px;
+            height: 40px;
             width: auto;
             border-radius: 48px;
         }
@@ -92,6 +99,7 @@
         display: flex;
         align-items: center;
         gap: 0.4em;
+        font-weight: 500;
     }
     // .popup-menu {
     //     margin: 1rem;
