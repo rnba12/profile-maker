@@ -66,7 +66,11 @@ export const actions = {
                     links: {
                         "GitHub": "",
                         "LinkedIn": "",
-                        "Twitter": ""
+                        "Twitter": "",
+                        "Dribbble": "",
+                        "Instagram": "",
+                        "Facebook": "",
+                        "Discord": ""
                     },
                     stack: []
                 }
